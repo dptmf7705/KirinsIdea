@@ -15,6 +15,7 @@ import androidx.room.PrimaryKey;
  * @member title            포스팅 제목
  * @member author           포스팅 저자
  * @member writeTime        포스팅 시간
+ * @member path             로컬 저장 경로
  * @member storageTime      서버 저장 시간
  * @member folderId         저장 폴더 ID
  */
@@ -36,6 +37,8 @@ public class Bookmark {
     @NonNull
     private final String writeTime;
     @NonNull
+    private final String path;
+    @NonNull
     private final String storageTime;
     private final int folderId;
 
@@ -46,6 +49,7 @@ public class Bookmark {
                     @NonNull final String title,
                     @NonNull final String author,
                     @NonNull final String writeTime,
+                    @NonNull final String path,
                     @NonNull final String storageTime,
                     @NonNull final int folderId) {
         this.id = id;
@@ -55,6 +59,7 @@ public class Bookmark {
         this.title = title;
         this.author = author;
         this.writeTime = writeTime;
+        this.path = path;
         this.storageTime = storageTime;
         this.folderId = folderId;
     }
@@ -91,6 +96,11 @@ public class Bookmark {
     @NonNull
     public String getWriteTime() {
         return writeTime;
+    }
+
+    @NonNull
+    public String getPath() {
+        return path;
     }
 
     @NonNull
