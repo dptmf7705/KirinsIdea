@@ -27,16 +27,6 @@ public abstract class BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract Completable insertAll(final T... entities);
 
-    @RawQuery
-    abstract Single<List<Bookmark>> selectAll(SupportSQLiteQuery query);
-
-    public Single<List<Bookmark>> selectAll() {
-        return selectAll(new SimpleSQLiteQuery("SELECT * FROM " + getTableName()));
-    }
-
-    /* TODO. 코드수정 -> getTableName() 오버라이딩을 강제할 수 없음 */
-    protected abstract String getTableName();
-
     @Update
     public abstract Completable update(final T entity);
 
