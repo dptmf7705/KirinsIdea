@@ -19,6 +19,7 @@ import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.remote.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.google.GoogleLoginApi;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
+import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
 
 public class Injection {
@@ -39,6 +40,16 @@ public class Injection {
                 .of(activity, new BookmarkViewModel.Factory(
                         provideBookmarkRepository(activity)))
                 .get(BookmarkViewModel.class);
+    }
+
+    @NonNull
+    public static BookmarkListViewModel provideBookmarkListViewModel(
+            @NonNull final FragmentActivity activity) {
+
+        return ViewModelProviders
+                .of(activity, new BookmarkListViewModel.Factory(
+                        provideBookmarkRepository(activity)))
+                .get(BookmarkListViewModel.class);
     }
 
     @NonNull
