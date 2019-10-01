@@ -15,6 +15,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".ui.main.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
