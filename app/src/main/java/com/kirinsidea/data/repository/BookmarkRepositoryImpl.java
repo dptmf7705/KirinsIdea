@@ -1,6 +1,7 @@
 package com.kirinsidea.data.repository;
 
 import androidx.annotation.NonNull;
+import androidx.paging.DataSource;
 
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
@@ -34,6 +35,12 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @Override
     public Single<Bookmark> observeBookmarkById(int id) {
         return bookmarkDao.selectById(id).subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    @Override
+    public DataSource.Factory<Integer, Bookmark> observeBookmarkList() {
+        return bookmarkDao.selectAll();
     }
 
     @NonNull
