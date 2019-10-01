@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/colorBlack"
+            app:itemHorizontalTranslationEnabled="false"
+            app:itemIconSize="@dimen/button_large_28dp"
+            app:itemIconTint="@drawable/selector_navigation"
+            app:itemTextAppearanceActive="@style/BottomNavigation.Active"
+            app:itemTextAppearanceInactive="@style/BottomNavigation.InActive"
+            app:itemTextColor="@drawable/selector_navigation"
+            app:menu="@menu/navigation" />
+
+    </LinearLayout>
 </layout>
