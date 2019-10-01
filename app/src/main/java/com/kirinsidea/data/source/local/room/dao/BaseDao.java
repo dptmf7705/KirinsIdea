@@ -15,35 +15,35 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
-public abstract class BaseDao<T> {
+public interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract Completable insert(final T entity);
+    Completable insert(final T entity);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract Completable insertAll(final List<T> entities);
+    Completable insertAll(final List<T> entities);
 
     @SuppressWarnings("unchecked")
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract Completable insertAll(final T... entities);
+    Completable insertAll(final T... entities);
 
     @Update
-    public abstract Completable update(final T entity);
+    Completable update(final T entity);
 
     @Update
-    public abstract Completable updateAll(final List<T> entities);
+    Completable updateAll(final List<T> entities);
 
     @SuppressWarnings("unchecked")
     @Update
-    public abstract Completable updateAll(final T... entities);
+    Completable updateAll(final T... entities);
 
     @Delete
-    public abstract Completable delete(final T entity);
+    Completable delete(final T entity);
 
     @Delete
-    public abstract Completable deleteAll(final List<T> entities);
+    Completable deleteAll(final List<T> entities);
 
     @SuppressWarnings("unchecked")
     @Delete
-    public abstract Completable deleteAll(final T... entities);
+    Completable deleteAll(final T... entities);
 }
