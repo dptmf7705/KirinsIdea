@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 /**
  * 북마크
  *
@@ -110,5 +112,27 @@ public class Bookmark {
 
     public int getFolderId() {
         return folderId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bookmark bookmark = (Bookmark) o;
+        return id == bookmark.id &&
+                folderId == bookmark.folderId &&
+                originalWebUrl.equals(bookmark.originalWebUrl) &&
+                simpleWebUrl.equals(bookmark.simpleWebUrl) &&
+                mainImageUrl.equals(bookmark.mainImageUrl) &&
+                title.equals(bookmark.title) &&
+                author.equals(bookmark.author) &&
+                writeTime.equals(bookmark.writeTime) &&
+                path.equals(bookmark.path) &&
+                storageTime.equals(bookmark.storageTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderId);
     }
 }
