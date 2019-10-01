@@ -11,9 +11,6 @@ import com.kirinsidea.data.source.local.room.entity.Bookmark;
 
 @Database(entities = {Bookmark.class}, version = 1, exportSchema = false)
 abstract public class AppDatabase extends RoomDatabase {
-
-    public abstract BookmarkDao bookmarkDao();
-
     private static volatile AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
@@ -27,4 +24,6 @@ abstract public class AppDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract BookmarkDao bookmarkDao();
 }

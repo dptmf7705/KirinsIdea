@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
 
-import java.util.List;
-
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -34,8 +32,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public Single<List<Bookmark>> observeBookmarkList() {
-        return bookmarkDao.selectAll().subscribeOn(Schedulers.io());
+    public Single<Bookmark> observeBookmarkById(int id) {
+        return bookmarkDao.selectById(id).subscribeOn(Schedulers.io());
     }
 
     @NonNull
