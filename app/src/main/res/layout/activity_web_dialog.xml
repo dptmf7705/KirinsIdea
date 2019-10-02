@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="com.kirinsidea.ui.webdialog.AddNewBookmarkViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".ui.webdialog.WebDialogActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/folderImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/icon_dialog_bookmark"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_folderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="폴더명                    "
+        android:maxLines="1"
+        android:text="@={vm.folderName}"
+        app:layout_constraintLeft_toRightOf="@+id/folderImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_keep"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="#edbc1c"
+        android:text="저-장"
+        android:onClick="@{__->vm.startGetWebUrl()}"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/et_folderName"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
