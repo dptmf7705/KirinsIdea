@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
+import androidx.paging.PagedList;
+import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,19 @@ public class BindingAdapters {
         // List 의 변경을 알리기 위해 새로운 리스트 생성
         if (adapter != null) {
             adapter.submitList(items == null ? null : new ArrayList<>(items));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @BindingAdapter({"items"})
+    public static <T, VH extends RecyclerView.ViewHolder> void setItems(
+            @NonNull final RecyclerView recyclerView,
+            @Nullable final PagedList<T> items) {
+        final PagedListAdapter<T, VH> adapter =
+                (PagedListAdapter<T, VH>) recyclerView.getAdapter();
+
+        if (adapter != null) {
+            adapter.submitList(items);
         }
     }
 

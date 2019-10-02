@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/icon_bookmark"
+        android:title="@string/main_navigation_bookmark" />
+
+    <item
+        android:id="@+id/navigation_recommend"
+        android:icon="@drawable/icon_issue"
+        android:title="@string/main_navigation_recommend" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/icon_profile"
+        android:title="@string/main_navigation_profile" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/icon_history"
+        android:title="@string/main_navigation_history" />
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/icon_setting"
+        android:title="@string/main_navigation_setting" />
+
+</menu>
