@@ -11,6 +11,7 @@ import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.Injection;
 import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.utils.WebUrlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,24 +52,13 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-                Connecturl = findUrlInText(text);
+                Connecturl = WebUrlUtil.findUrlInText(text);
                 Log.d(TAG, "get connect url: " + Connecturl);
             }
         }
         return Connecturl;
     }
-    private String findUrlInText(String text) {
-        List<String> urls = new ArrayList<>();
-        Matcher m = Patterns.WEB_URL.matcher(text);
-        while (m.find()) {
-            String url = m.group();
-            urls.add(url);
-        }
-        if (urls.size() > 0) {
-            return urls.get(0);
-        }
-        return null;
-    }
+
     @Override
     public void finishWebDialog(){
         finish();
