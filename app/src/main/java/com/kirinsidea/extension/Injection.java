@@ -1,8 +1,5 @@
 package com.kirinsidea.extension;
 
-<<<<<<< Updated upstream
-public class Injection {
-=======
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -131,5 +128,4 @@ public class Injection {
 
         return GoogleSignIn.getClient(context.getApplicationContext(), options);
     }
->>>>>>> Stashed changes
 }

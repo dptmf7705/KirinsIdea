@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.remote.RetrofitClient;
 import com.kirinsidea.databinding.ActivityBookmarkBinding;
 import com.kirinsidea.extension.Injection;
 import com.kirinsidea.ui.BaseActivity;
