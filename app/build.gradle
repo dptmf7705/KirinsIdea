@@ -45,6 +45,8 @@ dependencies {
     annotationProcessor 'androidx.annotation:annotation:1.1.0'
     // TedPermission
     implementation 'gun0912.ted:tedpermission-rx2:2.2.2'
+    // TedRxOnActivityForResult
+    implementation 'gun0912.ted:tedonactivityresult-rx2:1.0.6'
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
@@ -66,7 +68,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.2.0'
-    implementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
     // Crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
