@@ -38,7 +38,6 @@
         android:layout_height="0dp"
         android:background="#edbc1c"
         android:text="저-장"
-        android:onClick="@{__->vm.startGetWebUrl()}"
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold"
