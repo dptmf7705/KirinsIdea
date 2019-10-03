@@ -5,6 +5,9 @@ import androidx.paging.DataSource;
 import androidx.paging.PagedList;
 
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
+import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.remote.request.WebClippingRequest;
+import com.kirinsidea.data.source.remote.response.WebClippingResponse;
 
 import java.util.List;
 
@@ -21,4 +24,10 @@ public interface BookmarkRepository {
 
     @NonNull
     Completable observeAddNewBookmark(@NonNull final Bookmark bookmark);
+
+    @NonNull
+    Single<WebClippingResponse> uploadWeb(@NonNull WebClippingRequest webClippingRequest);
+
+    @NonNull
+    Single<Folder> observeFolderById(final int id);
 }

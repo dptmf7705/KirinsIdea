@@ -8,9 +8,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
+import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
+import com.kirinsidea.data.source.local.room.entity.Folder;
 
-@Database(entities = {Bookmark.class}, version = 1, exportSchema = false)
+@Database(entities = {Bookmark.class, Folder.class}, version = 1, exportSchema = false)
 abstract public class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
@@ -27,4 +29,5 @@ abstract public class AppDatabase extends RoomDatabase {
     }
 
     public abstract BookmarkDao bookmarkDao();
+    public abstract FolderDao folderDao();
 }

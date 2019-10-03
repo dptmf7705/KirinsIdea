@@ -11,13 +11,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kirinsidea.R;
-import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.data.source.local.room.entity.Bookmark;
 import com.kirinsidea.databinding.ActivityMainBinding;
-import com.kirinsidea.extension.Injection;
 import com.kirinsidea.ui.BaseActivity;
 import com.kirinsidea.ui.bookmarklist.BookmarkListFragment;
-import com.kirinsidea.ui.profile.ProfileFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements
         ViewPager.OnPageChangeListener,

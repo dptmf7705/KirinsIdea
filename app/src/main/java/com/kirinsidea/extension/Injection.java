@@ -16,11 +16,14 @@ import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
+import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.remote.RetrofitClient;
 import com.kirinsidea.data.source.remote.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.google.GoogleLoginApi;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
+import com.kirinsidea.ui.webdialog.AddNewBookmarkViewModel;
 
 public class Injection {
 
@@ -53,6 +56,16 @@ public class Injection {
     }
 
     @NonNull
+    public static AddNewBookmarkViewModel provideAddNewBookmarkViewModel(
+            @NonNull final FragmentActivity activity) {
+
+        return ViewModelProviders
+                .of(activity, new AddNewBookmarkViewModel.Factory(
+                        provideBookmarkRepository(activity)))
+                .get(AddNewBookmarkViewModel.class);
+    }
+
+    @NonNull
     private static LoginRepository provideLoginRepository(@NonNull final Context context) {
         return LoginRepositoryImpl.getInstance(
                 provideGoogleLoginApi(context),
@@ -74,7 +87,12 @@ public class Injection {
             @NonNull final Context context) {
 
         return BookmarkRepositoryImpl.getInstance(
-                provideBookmarkDao(context));
+                provideBookmarkDao(context), provideRetrofitClient(),provideFolderDao(context));
+    }
+
+    @NonNull
+    private static RetrofitClient provideRetrofitClient() {
+        return RetrofitClient.getInstance();
     }
 
     @NonNull
@@ -82,6 +100,12 @@ public class Injection {
             @NonNull final Context context) {
 
         return provideRoomDatabase(context).bookmarkDao();
+    }
+    @NonNull
+    private static FolderDao provideFolderDao(
+            @NonNull final Context context) {
+
+        return provideRoomDatabase(context).folderDao();
     }
 
     @NonNull
