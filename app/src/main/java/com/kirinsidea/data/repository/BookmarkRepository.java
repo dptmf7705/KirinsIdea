@@ -27,7 +27,4 @@ public interface BookmarkRepository {
 
     @NonNull
     Single<WebClippingResponse> uploadWeb(@NonNull WebClippingRequest webClippingRequest);
-
-    @NonNull
-    Single<Folder> observeFolderById(final int id);
 }

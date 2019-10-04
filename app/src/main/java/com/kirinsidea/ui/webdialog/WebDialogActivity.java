@@ -8,6 +8,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.kirinsidea.R;
+import com.kirinsidea.common.Constant;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.Injection;
 import com.kirinsidea.ui.BaseActivity;
@@ -36,7 +37,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     }
 
     private void initViewModel(){
-        binding.setVm(Injection.provideAddNewBookmarkViewModel(this));
+        binding.setVm(Injection.provideBaseViewModel(this, Constant.InjectionType.AddNewBookmark));
         binding.getVm().setNavigator(this);
     }
     private void initViews() {
