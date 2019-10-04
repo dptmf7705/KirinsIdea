@@ -11,6 +11,9 @@ import io.reactivex.Single;
 @Dao
 public interface FolderDao extends BaseDao<Folder> {
 
-    @Query(Constant.Query.selectFolderById)
-    Single<Folder> selectById(final int id);
+    @Query(Constant.Query.selectFolderByName)
+    Single<Folder> selectByName(final String folderName);
+
+    @Query(Constant.Query.selectFolderAll)
+    Single<Folder> selectAll();
 }

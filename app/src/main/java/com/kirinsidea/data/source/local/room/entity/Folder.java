@@ -5,28 +5,31 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
- * 북마크
+ * 폴더
  *
- * @member id               북마크 ID (PK)
- * @member folerName        북마크 폴더 이름
+ * @member folerName         북마크 폴더 이름 (PK)
+ * @member folderStorageTime 폴더 생성시간
+ * @member folder
  */
 @Entity(tableName = "folder")
 public class Folder {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private final int id;
-    @NonNull
+    @ColumnInfo(name = "folderName")
     private final String folderName;
+    @NonNull
+    private final Date foldeerStorageTime;
+    @NonNull
+    private final boolean folderPin;
 
-    public Folder(int id, @NonNull String folderName) {
-        this.id = id;
+    public Folder(@NonNull String folderName, @NonNull Date foldeerStorageTime, @NonNull boolean folderPin) {
         this.folderName = folderName;
-    }
-    public int getId() {
-        return id;
+        this.foldeerStorageTime = foldeerStorageTime;
+        this.folderPin = folderPin;
+
     }
     @NonNull
     public String getFolderName(){return folderName;}
@@ -36,12 +39,13 @@ public class Folder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Folder folder = (Folder) o;
-        return id == folder.id &&
-                folderName.equals(folder.folderName);
+        return folderPin == folder.folderPin &&
+                Objects.equals(folderName, folder.folderName) &&
+                foldeerStorageTime.equals(folder.foldeerStorageTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, folderName);
+        return Objects.hash(folderName, foldeerStorageTime, folderPin);
     }
 }

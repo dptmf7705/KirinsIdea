@@ -3,7 +3,9 @@ package com.kirinsidea.data.source.remote;
 import androidx.annotation.NonNull;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.kirinsidea.data.source.remote.request.FolderRequest;
 import com.kirinsidea.data.source.remote.request.WebClippingRequest;
+import com.kirinsidea.data.source.remote.response.FolderResponse;
 import com.kirinsidea.data.source.remote.response.WebClippingResponse;
 
 import io.reactivex.Single;
@@ -52,6 +54,12 @@ public class RetrofitClient {
     public Single<WebClippingResponse> getContentFromUrl(WebClippingRequest webClippingRequest) {
         return retrofit.create(BookmarkApi.class)
                 .getContentFromUrl(webClippingRequest)
+                .subscribeOn(Schedulers.io());
+    }
+
+    public Single<FolderResponse> getFolderStorageTime(FolderRequest folderRequest){
+        return retrofit.create(FolderApi.class)
+                .getFolderStorageTime(folderRequest)
                 .subscribeOn(Schedulers.io());
     }
 }
