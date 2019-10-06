@@ -57,7 +57,7 @@ public class FolderRepositoryImpl implements FolderRepository{
 
     @NonNull
     @Override
-    public  Single<NewFolderResponse> uploadFolderName(@NonNull NewFolderRequest newFolderRequest){
-        return client.addNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
+    public  Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest newFolderRequest){
+        return client.observeAddNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
     }
 }

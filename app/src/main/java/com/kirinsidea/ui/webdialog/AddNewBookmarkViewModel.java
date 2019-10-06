@@ -43,7 +43,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         if (fname == null || TextUtils.isEmpty(fname)) {
             return;
         }
-        addDisposable(bookmarkRepository.addNewBookmark(new AddNewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
+        addDisposable(bookmarkRepository.observeAddNewBookmark(new AddNewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
                 url, fname))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> navigator.get().finishWebDialog(),

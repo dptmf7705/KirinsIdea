@@ -51,15 +51,15 @@ public class RetrofitClient {
 
     }
 
-    public Single<AddNewBookmarkResponse> addNewBookmark(AddNewBookmarkRequest addNewBookmarkRequest) {
+    public Single<AddNewBookmarkResponse> observeAddNewBookmark(AddNewBookmarkRequest addNewBookmarkRequest) {
         return retrofit.create(BookmarkApi.class)
-                .addNewBookmark(addNewBookmarkRequest)
+                .observeAddNewBookmark(addNewBookmarkRequest)
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<NewFolderResponse> addNewFolder(NewFolderRequest newFolderRequest){
+    public Single<NewFolderResponse> observeAddNewFolder(NewFolderRequest newFolderRequest){
         return retrofit.create(FolderApi.class)
-                .addNewFolder(newFolderRequest)
+                .observeAddNewFolder(newFolderRequest)
                 .subscribeOn(Schedulers.io());
     }
 }

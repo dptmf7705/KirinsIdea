@@ -20,5 +20,5 @@ public interface FolderRepository extends BaseRepository {
     Completable observeAddNewFolder(@NonNull final Folder folder);
 
     @NonNull
-    Single<NewFolderResponse> uploadFolderName(@NonNull NewFolderRequest newFolderRequest);
+    Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest newFolderRequest);
 }

@@ -9,5 +9,5 @@ import retrofit2.http.POST;
 
 public interface FolderApi {
     @POST("folder")
-    Single<NewFolderResponse> addNewFolder(@Body NewFolderRequest newFolderRequest);
+    Single<NewFolderResponse> observeAddNewFolder(@Body NewFolderRequest newFolderRequest);
 }
