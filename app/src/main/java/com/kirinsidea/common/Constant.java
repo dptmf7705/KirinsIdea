@@ -9,11 +9,5 @@ public class Constant {
         String selectFolderAll = "SELECT * FROM folder";
     }
 
-    public interface InjectionType {
-        String Login = "Login";
-        String Bookmark = "Bookmark";
-        String BookmarkList = "BookmarkList";
-        String AddNewBookmark = "AddNewBookmark";
-        String Folder = "Folder";
-    }
+
 }

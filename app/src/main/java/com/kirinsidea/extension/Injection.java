@@ -26,34 +26,40 @@ import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
 import com.kirinsidea.ui.webdialog.AddNewBookmarkViewModel;
 
-public class Injection {
-
+public class Injection{
+    public interface Type {
+        String Login = "Login";
+        String Bookmark = "Bookmark";
+        String BookmarkList = "BookmarkList";
+        String AddNewBookmark = "AddNewBookmark";
+        String Folder = "Folder";
+    }
     @NonNull
-    public static <T extends BaseViewModel> T provideBaseViewModel(@NonNull final FragmentActivity activity, String type){
+    public static <T extends BaseViewModel> T provideViewModel(@NonNull final FragmentActivity activity, String type){
         switch (type){
-            case Constant.InjectionType.Login:
+            case Type.Login:
                 //noinspection unchecked
                 return (T) ViewModelProviders
                         .of(activity, new LoginViewModel.Factory(
-                                provideBaseRepository(activity, Constant.InjectionType.Login)))
+                                provideBaseRepository(activity, Type.Login)))
                         .get(LoginViewModel.class);
-            case Constant.InjectionType.Bookmark:
+            case Type.Bookmark:
                 //noinspection unchecked
                 return (T) ViewModelProviders
                         .of(activity, new BookmarkViewModel.Factory(
-                                provideBaseRepository(activity,Constant.InjectionType.Bookmark)))
+                                provideBaseRepository(activity, Type.Bookmark)))
                         .get(BookmarkViewModel.class);
-            case Constant.InjectionType.BookmarkList:
+            case Type.BookmarkList:
                 //noinspection unchecked
                 return (T) ViewModelProviders
                         .of(activity, new BookmarkListViewModel.Factory(
-                                provideBaseRepository(activity,Constant.InjectionType.Bookmark)))
+                                provideBaseRepository(activity, Type.Bookmark)))
                         .get(BookmarkListViewModel.class);
-            case Constant.InjectionType.AddNewBookmark:
+            case Type.AddNewBookmark:
                 //noinspection unchecked
                 return (T) ViewModelProviders
                         .of(activity, new AddNewBookmarkViewModel.Factory(
-                                provideBaseRepository(activity,Constant.InjectionType.Bookmark), provideBaseRepository(activity, Constant.InjectionType.Folder)))
+                                provideBaseRepository(activity, Type.Bookmark), provideBaseRepository(activity, Type.Folder)))
                         .get(AddNewBookmarkViewModel.class);
         }
         return null;
@@ -61,19 +67,19 @@ public class Injection {
     @NonNull
     private static <T extends BaseRepository> T provideBaseRepository(@NonNull final Context context, String type) {
         switch (type) {
-            case Constant.InjectionType.Login:
+            case Type.Login:
                 //noinspection unchecked
                 return (T) LoginRepositoryImpl.getInstance(
                         provideGoogleLoginApi(context),
                         provideFirebaseAuthApi());
-            case Constant.InjectionType.Bookmark:
+            case Type.Bookmark:
                 //noinspection unchecked
                 return (T) BookmarkRepositoryImpl.getInstance(
-                        provideBaseDao(context,Constant.InjectionType.Bookmark), provideRetrofitClient());
-            case Constant.InjectionType.Folder:
+                        provideBaseDao(context, Type.Bookmark), provideRetrofitClient());
+            case Type.Folder:
                 //noinspection unchecked
                 return (T) FolderRepositoryImpl.getInstance(
-                        provideRetrofitClient(),provideBaseDao(context,Constant.InjectionType.Folder));
+                        provideRetrofitClient(),provideBaseDao(context, Type.Folder));
         }
         return null;
     }
@@ -81,10 +87,10 @@ public class Injection {
     @NonNull
     private static <T extends BaseDao> T provideBaseDao(@NonNull final Context context, String type){
         switch (type){
-            case Constant.InjectionType.Bookmark:
+            case Type.Bookmark:
                 //noinspection unchecked
                 return (T) provideRoomDatabase(context).bookmarkDao();
-            case Constant.InjectionType.Folder:
+            case Type.Folder:
                 //noinspection unchecked
                 return (T) provideRoomDatabase(context).folderDao();
         }
