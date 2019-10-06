@@ -9,7 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.data.source.remote.request.WebClippingRequest;
+import com.kirinsidea.data.repository.FolderRepository;
+import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
 import com.kirinsidea.ui.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,10 +22,14 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     private MutableLiveData<String> folderName = new MutableLiveData<>();
 
     @NonNull
-    private final BookmarkRepository repository;
+    private final BookmarkRepository bookmarkRepository;
 
-    public AddNewBookmarkViewModel(@NonNull BookmarkRepository repository) {
-        this.repository = repository;
+    @NonNull
+    private final FolderRepository folderRepository;
+
+    public AddNewBookmarkViewModel(@NonNull BookmarkRepository bookmarkRepository, @NonNull FolderRepository folderRepository) {
+        this.bookmarkRepository = bookmarkRepository;
+        this.folderRepository = folderRepository;
     }
 
     @NonNull
@@ -38,7 +43,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         if (fname == null || TextUtils.isEmpty(fname)) {
             return;
         }
-        addDisposable(repository.uploadWeb(new WebClippingRequest(FirebaseAuth.getInstance().getUid(),
+        addDisposable(bookmarkRepository.observeAddNewBookmark(new AddNewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
                 url, fname))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> navigator.get().finishWebDialog(),
@@ -48,10 +53,14 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     public static class Factory implements ViewModelProvider.Factory {
 
         @NonNull
-        private final BookmarkRepository repository;
+        private final BookmarkRepository bookmarkRepository;
 
-        public Factory(@NonNull BookmarkRepository repository) {
-            this.repository = repository;
+        @NonNull
+        private final FolderRepository folderRepository;
+
+        public Factory(@NonNull BookmarkRepository bookmarkRepository, @NonNull FolderRepository folderRepository) {
+            this.bookmarkRepository = bookmarkRepository;
+            this.folderRepository = folderRepository;
         }
 
         @NonNull
@@ -59,7 +68,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass.isAssignableFrom(AddNewBookmarkViewModel.class)) {
                 //noinspection unchecked
-                return (T) new AddNewBookmarkViewModel(repository);
+                return (T) new AddNewBookmarkViewModel(bookmarkRepository, folderRepository);
             }
             throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
         }

@@ -1,21 +1,15 @@
 package com.kirinsidea.ui.webdialog;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 
 import com.kirinsidea.R;
+import com.kirinsidea.common.Constant;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.Injection;
 import com.kirinsidea.ui.BaseActivity;
 import com.kirinsidea.utils.WebUrlUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
 
 public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> implements WebNavigator{
 
@@ -36,7 +30,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     }
 
     private void initViewModel(){
-        binding.setVm(Injection.provideAddNewBookmarkViewModel(this));
+        binding.setVm(Injection.provideViewModel(this, Constant.Type.AddNewBookmark));
         binding.getVm().setNavigator(this);
     }
     private void initViews() {

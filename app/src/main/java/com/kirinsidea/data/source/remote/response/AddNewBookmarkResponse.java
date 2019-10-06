@@ -3,7 +3,7 @@ package com.kirinsidea.data.source.remote.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WebClippingResponse {
+public class AddNewBookmarkResponse {
     @SerializedName("html")
     @Expose
     private final String html;
@@ -36,7 +36,12 @@ public class WebClippingResponse {
     @Expose
     private final String simpleweburl;
 
-    public WebClippingResponse(String html, String mainimage, String author, String writetime, String storagetime, String title, String originalweburl, String simpleweburl) {
+    @SerializedName("folderName")
+    @Expose
+    private final String folderName;
+
+    public AddNewBookmarkResponse(String html, String mainimage, String author, String writetime,
+                                  String storagetime, String title, String originalweburl, String simpleweburl, String folderName) {
         this.html = html;
         this.mainimage = mainimage;
         this.author = author;
@@ -45,6 +50,7 @@ public class WebClippingResponse {
         this.title = title;
         this.originalweburl = originalweburl;
         this.simpleweburl = simpleweburl;
+        this.folderName = folderName;
     }
 
     public String getHtml() {
@@ -79,17 +85,20 @@ public class WebClippingResponse {
         return simpleweburl;
     }
 
+    public String getFolderName() {return folderName;}
+
     @Override
     public String toString() {
-        return "WebClippingResponse{" +
-                "html=" + html + '\'' +
-                ", mainimage=" + mainimage + '\'' +
-                ", author=" + author + '\'' +
-                ", writetime=" + writetime + '\'' +
-                ", storagetime=" + storagetime + '\'' +
-                ", title=" + title + '\'' +
-                ", originalweburl=" + originalweburl + '\'' +
-                ", simpleweburl=" + simpleweburl + '\'' +
+        return "AddNewBookmarkResponse{" +
+                "html='" + html + '\'' +
+                ", mainimage='" + mainimage + '\'' +
+                ", author='" + author + '\'' +
+                ", writetime='" + writetime + '\'' +
+                ", storagetime='" + storagetime + '\'' +
+                ", title='" + title + '\'' +
+                ", originalweburl='" + originalweburl + '\'' +
+                ", simpleweburl='" + simpleweburl + '\'' +
+                ", folderName='" + folderName + '\'' +
                 '}';
     }
 }
