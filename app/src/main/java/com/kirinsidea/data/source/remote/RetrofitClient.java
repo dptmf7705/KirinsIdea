@@ -51,9 +51,9 @@ public class RetrofitClient {
 
     }
 
-    public Single<AddNewBookmarkResponse> getContentFromUrl(AddNewBookmarkRequest addNewBookmarkRequest) {
+    public Single<AddNewBookmarkResponse> addNewBookmark(AddNewBookmarkRequest addNewBookmarkRequest) {
         return retrofit.create(BookmarkApi.class)
-                .getContentFromUrl(addNewBookmarkRequest)
+                .addNewBookmark(addNewBookmarkRequest)
                 .subscribeOn(Schedulers.io());
     }
 

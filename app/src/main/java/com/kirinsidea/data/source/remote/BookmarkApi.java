@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 
 public interface BookmarkApi {
     @POST("webclipp")
-    Single<AddNewBookmarkResponse> getContentFromUrl(@Body AddNewBookmarkRequest webclippingRequest);
+    Single<AddNewBookmarkResponse> addNewBookmark(@Body AddNewBookmarkRequest addNewBookmarkRequest);
 
 }

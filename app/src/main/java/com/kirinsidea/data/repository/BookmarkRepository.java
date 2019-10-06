@@ -22,5 +22,5 @@ public interface BookmarkRepository extends BaseRepository{
     Completable observeAddNewBookmark(@NonNull final Bookmark bookmark);
 
     @NonNull
-    Single<AddNewBookmarkResponse> uploadWeb(@NonNull AddNewBookmarkRequest addNewBookmarkRequest);
+    Single<AddNewBookmarkResponse> addNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest);
 }

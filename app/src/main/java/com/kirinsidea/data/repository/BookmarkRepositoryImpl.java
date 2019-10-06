@@ -61,7 +61,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public  Single<AddNewBookmarkResponse> uploadWeb(@NonNull AddNewBookmarkRequest addNewBookmarkRequest){
-        return client.getContentFromUrl(addNewBookmarkRequest).subscribeOn(Schedulers.io());
+    public  Single<AddNewBookmarkResponse> addNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest){
+        return client.addNewBookmark(addNewBookmarkRequest).subscribeOn(Schedulers.io());
     }
 }
