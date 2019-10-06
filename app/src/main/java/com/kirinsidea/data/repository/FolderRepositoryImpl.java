@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.Folder;
 import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.FolderRequest;
-import com.kirinsidea.data.source.remote.response.FolderResponse;
+import com.kirinsidea.data.source.remote.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.response.NewFolderResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class FolderRepositoryImpl extends BaseRepository implements FolderRepository{
+public class FolderRepositoryImpl implements FolderRepository{
 
     private volatile static FolderRepository INSTANCE = null;
 
@@ -57,7 +57,7 @@ public class FolderRepositoryImpl extends BaseRepository implements FolderReposi
 
     @NonNull
     @Override
-    public  Single<FolderResponse> uploadFolderName(@NonNull FolderRequest folderRequest){
-        return client.getFolderStorageTime(folderRequest).subscribeOn(Schedulers.io());
+    public  Single<NewFolderResponse> uploadFolderName(@NonNull NewFolderRequest newFolderRequest){
+        return client.addNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
     }
 }

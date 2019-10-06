@@ -6,14 +6,14 @@ import androidx.paging.DataSource;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
 import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.WebClippingRequest;
-import com.kirinsidea.data.source.remote.response.WebClippingResponse;
+import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
+import com.kirinsidea.data.source.remote.response.AddNewBookmarkResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class BookmarkRepositoryImpl extends BaseRepository implements BookmarkRepository {
+public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     private volatile static BookmarkRepository INSTANCE = null;
 
@@ -61,7 +61,7 @@ public class BookmarkRepositoryImpl extends BaseRepository implements BookmarkRe
 
     @NonNull
     @Override
-    public  Single<WebClippingResponse> uploadWeb(@NonNull WebClippingRequest webClippingRequest){
-        return client.getContentFromUrl(webClippingRequest).subscribeOn(Schedulers.io());
+    public  Single<AddNewBookmarkResponse> uploadWeb(@NonNull AddNewBookmarkRequest addNewBookmarkRequest){
+        return client.getContentFromUrl(addNewBookmarkRequest).subscribeOn(Schedulers.io());
     }
 }
