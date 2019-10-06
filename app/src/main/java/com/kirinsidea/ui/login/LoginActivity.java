@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     }
 
     private void initViewModel() {
-        binding.setVm(Injection.provideBaseViewModel(this, Constant.InjectionType.Login));
+        binding.setVm(Injection.provideViewModel(this, Constant.Type.Login));
         binding.getVm().setNavigator(this);
     }
 
