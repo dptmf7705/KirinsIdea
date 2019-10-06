@@ -3,10 +3,10 @@ package com.kirinsidea.data.source.remote;
 import androidx.annotation.NonNull;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.kirinsidea.data.source.remote.request.FolderRequest;
-import com.kirinsidea.data.source.remote.request.WebClippingRequest;
-import com.kirinsidea.data.source.remote.response.FolderResponse;
-import com.kirinsidea.data.source.remote.response.WebClippingResponse;
+import com.kirinsidea.data.source.remote.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
+import com.kirinsidea.data.source.remote.response.AddNewBookmarkResponse;
+import com.kirinsidea.data.source.remote.response.NewFolderResponse;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -51,15 +51,15 @@ public class RetrofitClient {
 
     }
 
-    public Single<WebClippingResponse> getContentFromUrl(WebClippingRequest webClippingRequest) {
+    public Single<AddNewBookmarkResponse> getContentFromUrl(AddNewBookmarkRequest addNewBookmarkRequest) {
         return retrofit.create(BookmarkApi.class)
-                .getContentFromUrl(webClippingRequest)
+                .getContentFromUrl(addNewBookmarkRequest)
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<FolderResponse> getFolderStorageTime(FolderRequest folderRequest){
+    public Single<NewFolderResponse> addNewFolder(NewFolderRequest newFolderRequest){
         return retrofit.create(FolderApi.class)
-                .getFolderStorageTime(folderRequest)
+                .addNewFolder(newFolderRequest)
                 .subscribeOn(Schedulers.io());
     }
 }

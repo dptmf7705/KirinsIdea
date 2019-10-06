@@ -3,7 +3,7 @@ package com.kirinsidea.data.source.remote.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FolderResponse {
+public class NewFolderResponse {
     @SerializedName("folderName")
     @Expose
     private final String folderName;
@@ -12,7 +12,7 @@ public class FolderResponse {
     @Expose
     private final String storagetime;
 
-    public FolderResponse(String folderName, String storagetime) {
+    public NewFolderResponse(String folderName, String storagetime) {
         this.folderName = folderName;
         this.storagetime = storagetime;
     }
@@ -24,7 +24,7 @@ public class FolderResponse {
 
     @Override
     public String toString() {
-        return "FolderResponse{" +
+        return "NewFolderResponse{" +
                 "folderName='" + folderName + '\'' +
                 ", storagetime='" + storagetime + '\'' +
                 '}';
