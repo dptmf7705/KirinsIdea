@@ -2,7 +2,7 @@ package com.kirinsidea.data.source.remote.request;
 
 import androidx.annotation.NonNull;
 
-public class WebClippingRequest {
+public class AddNewBookmarkRequest {
     @NonNull
     private final String userId;
 
@@ -12,7 +12,7 @@ public class WebClippingRequest {
     @NonNull
     private final String folderName;
 
-    public WebClippingRequest(@NonNull String userId, @NonNull String url, @NonNull String folderName) {
+    public AddNewBookmarkRequest(@NonNull String userId, @NonNull String url, @NonNull String folderName) {
         this.userId = userId;
         this.url = url;
         this.folderName = folderName;
