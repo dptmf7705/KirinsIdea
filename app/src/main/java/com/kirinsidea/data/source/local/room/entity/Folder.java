@@ -12,40 +12,40 @@ import java.util.Objects;
  * 폴더
  *
  * @member folerName         북마크 폴더 이름 (PK)
- * @member folderStorageTime 폴더 생성시간
- * @member folder
+ * @member saveTime 폴더 생성시간
+ * @member isFavorite        즐겨찾기(핀) 여부
  */
 @Entity(tableName = "folder")
 public class Folder {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "folderName")
-    private final String folderName;
+    @PrimaryKey
+    @ColumnInfo(name = "name")
+    private final String name;
     @NonNull
-    private final Date foldeerStorageTime;
+    private final Date saveTime;
     @NonNull
-    private final boolean folderPin;
+    private final boolean isFavorite;
 
-    public Folder(@NonNull String folderName, @NonNull Date foldeerStorageTime, @NonNull boolean folderPin) {
-        this.folderName = folderName;
-        this.foldeerStorageTime = foldeerStorageTime;
-        this.folderPin = folderPin;
+    public Folder(@NonNull String name, @NonNull Date saveTime, @NonNull boolean isFavorite) {
+        this.name = name;
+        this.saveTime = saveTime;
+        this.isFavorite = isFavorite;
 
     }
     @NonNull
-    public String getFolderName(){return folderName;}
+    public String getName(){return name;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Folder folder = (Folder) o;
-        return folderPin == folder.folderPin &&
-                Objects.equals(folderName, folder.folderName) &&
-                foldeerStorageTime.equals(folder.foldeerStorageTime);
+        return isFavorite == folder.isFavorite &&
+                Objects.equals(name, folder.name) &&
+                saveTime.equals(folder.saveTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(folderName, foldeerStorageTime, folderPin);
+        return Objects.hash(name, saveTime, isFavorite);
     }
 }
