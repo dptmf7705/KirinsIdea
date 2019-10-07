@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.ui.BaseViewModel;
 
@@ -16,11 +17,13 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     @NonNull
     private final MutableLiveData<String> inputPassword = new MutableLiveData<>();
 
-    @NonNull
     private LoginRepository repository;
 
-    private LoginViewModel(@NonNull final LoginRepository repository) {
-        this.repository = repository;
+    @NonNull
+    @Override
+    public BaseViewModel init(@NonNull final BaseRepository... repositories) {
+        this.repository = (LoginRepository) repositories[0];
+        return this;
     }
 
     public void startLoginWithGoogle() {
@@ -49,26 +52,5 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     @NonNull
     public MutableLiveData<String> getInputPassword() {
         return inputPassword;
-    }
-
-
-    public static class Factory implements ViewModelProvider.Factory {
-
-        @NonNull
-        private final LoginRepository repository;
-
-        public Factory(@NonNull final LoginRepository repository) {
-            this.repository = repository;
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-                //noinspection unchecked
-                return (T) new LoginViewModel(repository);
-            }
-            throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
-        }
     }
 }

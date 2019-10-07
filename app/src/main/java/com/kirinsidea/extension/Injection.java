@@ -10,7 +10,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.kirinsidea.R;
-import com.kirinsidea.common.Constant;
 import com.kirinsidea.data.repository.BookmarkRepositoryImpl;
 import com.kirinsidea.data.repository.FolderRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
@@ -34,36 +33,15 @@ public class Injection{
         String AddNewBookmark = "AddNewBookmark";
         String Folder = "Folder";
     }
+
     @NonNull
-    public static <T extends BaseViewModel> T provideViewModel(@NonNull final FragmentActivity activity, String type){
-        switch (type){
-            case Type.Login:
-                //noinspection unchecked
-                return (T) ViewModelProviders
-                        .of(activity, new LoginViewModel.Factory(
-                                provideBaseRepository(activity, Type.Login)))
-                        .get(LoginViewModel.class);
-            case Type.Bookmark:
-                //noinspection unchecked
-                return (T) ViewModelProviders
-                        .of(activity, new BookmarkViewModel.Factory(
-                                provideBaseRepository(activity, Type.Bookmark)))
-                        .get(BookmarkViewModel.class);
-            case Type.BookmarkList:
-                //noinspection unchecked
-                return (T) ViewModelProviders
-                        .of(activity, new BookmarkListViewModel.Factory(
-                                provideBaseRepository(activity, Type.Bookmark)))
-                        .get(BookmarkListViewModel.class);
-            case Type.AddNewBookmark:
-                //noinspection unchecked
-                return (T) ViewModelProviders
-                        .of(activity, new AddNewBookmarkViewModel.Factory(
-                                provideBaseRepository(activity, Type.Bookmark), provideBaseRepository(activity, Type.Folder)))
-                        .get(AddNewBookmarkViewModel.class);
-        }
-        return null;
+    public static <VM extends BaseViewModel> VM provideViewModel(
+            @NonNull final FragmentActivity activity,
+            @NonNull final Class<VM> vmClass){
+
+        return ViewModelProviders.of(activity).get(vmClass);
     }
+
     @NonNull
     private static <T extends BaseRepository> T provideBaseRepository(@NonNull final Context context, String type) {
         switch (type) {
@@ -96,6 +74,7 @@ public class Injection{
         }
         return null;
     }
+
     @NonNull
     private static GoogleLoginApi provideGoogleLoginApi(@NonNull final Context context) {
         return GoogleLoginApi.getInstance(provideGoogleSignInClient(context));
