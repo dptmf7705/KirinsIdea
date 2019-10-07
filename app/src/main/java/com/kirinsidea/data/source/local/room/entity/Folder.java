@@ -11,21 +11,22 @@ import java.util.Objects;
 /**
  * 폴더
  *
- * @member folerName         북마크 폴더 이름 (PK)
- * @member saveTime 폴더 생성시간
- * @member isFavorite        즐겨찾기(핀) 여부
+ * @member folerName    북마크 폴더 이름 (PK)
+ * @member saveTime     폴더 생성시간
+ * @member isFavorite   즐겨찾기(핀) 여부
  */
 @Entity(tableName = "folder")
 public class Folder {
     @PrimaryKey
-    @ColumnInfo(name = "name")
+    @NonNull
     private final String name;
     @NonNull
     private final Date saveTime;
-    @NonNull
     private final boolean isFavorite;
 
-    public Folder(@NonNull String name, @NonNull Date saveTime, @NonNull boolean isFavorite) {
+    public Folder(@NonNull final String name,
+                  @NonNull final Date saveTime,
+                  final boolean isFavorite) {
         this.name = name;
         this.saveTime = saveTime;
         this.isFavorite = isFavorite;
@@ -33,6 +34,15 @@ public class Folder {
     }
     @NonNull
     public String getName(){return name;}
+
+    @NonNull
+    public Date getSaveTime() {
+        return saveTime;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
 
     @Override
     public boolean equals(Object o) {

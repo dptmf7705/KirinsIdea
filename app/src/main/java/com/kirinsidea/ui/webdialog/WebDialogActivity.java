@@ -30,7 +30,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     }
 
     private void initViewModel(){
-        binding.setVm(Injection.provideViewModel(this, Constant.Type.AddNewBookmark));
+        binding.setVm(Injection.provideViewModel(this, Injection.Type.AddNewBookmark));
         binding.getVm().setNavigator(this);
     }
     private void initViews() {

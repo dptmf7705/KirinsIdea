@@ -11,7 +11,7 @@ import com.kirinsidea.data.source.remote.google.GoogleLoginApi;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
-public class LoginRepositoryImpl extends BaseRepository implements LoginRepository {
+public class LoginRepositoryImpl implements LoginRepository {
     private volatile static LoginRepository INSTANCE = null;
 
     public static LoginRepository getInstance(@NonNull final GoogleLoginApi googleApi,

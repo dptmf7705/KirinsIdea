@@ -41,7 +41,7 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     }
 
     private void initViewModel() {
-        binding.setVm(Injection.provideViewModel(this, Constant.Type.Bookmark));
+        binding.setVm(Injection.provideViewModel(this, Injection.Type.Bookmark));
         binding.getVm().loadBookmark(bookmarkId);
     }
 }

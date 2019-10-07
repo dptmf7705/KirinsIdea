@@ -12,7 +12,7 @@ import io.reactivex.Single;
 public interface FolderDao extends BaseDao<Folder> {
 
     @Query(Constant.Query.selectFolderByName)
-    Single<Folder> selectByName(final String folderName);
+    Single<Folder> selectByName(final String name);
 
     @Query(Constant.Query.selectFolderAll)
     Single<Folder> selectAll();
