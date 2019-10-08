@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.kirinsidea.App;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.BookmarkRepositoryImpl;
 import com.kirinsidea.data.repository.FolderRepository;
@@ -29,7 +30,7 @@ public abstract class Providers {
             @NonNull final FragmentActivity activity,
             @NonNull final Class<VM> vmClass) {
 
-        return Injectors.initViewModel(activity,
+        return Injectors.initViewModel(
                 ViewModelProviders.of(activity).get(vmClass));
     }
 
@@ -54,13 +55,15 @@ public abstract class Providers {
     }
 
     @NonNull
-    static BookmarkDao getBookmarkDao(@NonNull final Context context) {
-        return AppDatabase.getDatabase(context).bookmarkDao();
+    static BookmarkDao getBookmarkDao() {
+        return AppDatabase.getDatabase(App.instance().getContext())
+                .bookmarkDao();
     }
 
     @NonNull
-    static FolderDao getFolderDao(@NonNull final Context context) {
-        return AppDatabase.getDatabase(context).folderDao();
+    static FolderDao getFolderDao() {
+        return AppDatabase.getDatabase(App.instance().getContext())
+                .folderDao();
     }
 
     @NonNull
@@ -69,7 +72,9 @@ public abstract class Providers {
     }
 
     @NonNull
-    static GoogleLoginApi getGoogleLoginApi(@NonNull final Context context) {
+    static GoogleLoginApi getGoogleLoginApi() {
+
+        final Context context = App.instance().getContext();
 
         final GoogleSignInOptions options = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -78,7 +83,7 @@ public abstract class Providers {
                 .requestProfile()
                 .build();
 
-        return GoogleLoginApi.getInstance(GoogleSignIn
-                .getClient(context.getApplicationContext(), options));
+        return GoogleLoginApi.getInstance(
+                GoogleSignIn.getClient(context, options));
     }
 }
