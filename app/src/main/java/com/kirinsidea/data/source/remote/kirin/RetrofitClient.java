@@ -6,9 +6,11 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
 import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -47,15 +49,30 @@ public class RetrofitClient {
                 .build();
     }
 
-    public Single<NewBookmarkResponse> observeAddNewBookmark(NewBookmarkRequest newBookmarkRequest) {
+    @NonNull
+    public Single<NewBookmarkResponse> observeAddNewBookmark(
+            @NonNull final NewBookmarkRequest request) {
+
         return retrofit.create(BookmarkApi.class)
-                .observeAddNewBookmark(newBookmarkRequest)
+                .observeAddNewBookmark(request)
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single<NewFolderResponse> observeAddNewFolder(NewFolderRequest newFolderRequest) {
+    @NonNull
+    public Single<NewFolderResponse> observeAddNewFolder(
+            @NonNull final NewFolderRequest request) {
+
         return retrofit.create(FolderApi.class)
-                .observeAddNewFolder(newFolderRequest)
+                .observeAddNewFolder(request)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    public Completable observeAddNewMemo(
+            @NonNull final NewMemoRequest request) {
+
+        return retrofit.create(MemoApi.class)
+                .observeAddNewMemo(request)
                 .subscribeOn(Schedulers.io());
     }
 }

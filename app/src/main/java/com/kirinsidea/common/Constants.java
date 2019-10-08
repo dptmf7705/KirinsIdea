@@ -9,8 +9,11 @@ public abstract class Constants {
         /* 새 북마크 추가 URL */
         String SUB_URL_NEW_BOOKMARK = "webclipp";
 
-        /* 폴더 생성 base URL */
-        String SUB_URL_FOLDER = "folder";
+        /* 폴더 생성 URL */
+        String SUB_URL_NEW_FOLDER = "folder";
+
+        /* 메모 추가 URL */
+        String SUB_URL_NEW_MEMO = "memo";
     }
 
     public @interface Room {
