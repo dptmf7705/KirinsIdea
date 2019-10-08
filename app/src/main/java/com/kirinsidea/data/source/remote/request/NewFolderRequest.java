@@ -6,9 +6,12 @@ public class NewFolderRequest {
     @NonNull
     private final String folderName;
 
-    public NewFolderRequest(@NonNull String folderName) {
+    public NewFolderRequest(@NonNull final String folderName) {
         this.folderName = folderName;
     }
+
     @NonNull
-    public String getFolderName(){return folderName;}
+    public String getFolderName() {
+        return folderName;
+    }
 }

@@ -4,14 +4,12 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
+import com.kirinsidea.data.source.remote.request.NewBookmarkRequest;
 import com.kirinsidea.ui.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,7 +42,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         if (fname == null || TextUtils.isEmpty(fname)) {
             return;
         }
-        addDisposable(bookmarkRepository.observeAddNewBookmark(new AddNewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
+        addDisposable(bookmarkRepository.observeAddNewBookmark(new NewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
                 url, fname))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> navigator.get().finishWebDialog(),

@@ -1,23 +1,33 @@
 package com.kirinsidea.data.source.remote.response;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class NewFolderResponse {
     @SerializedName("folderName")
     @Expose
+    @Nullable
     private final String folderName;
 
     @SerializedName("storagetime")
     @Expose
+    @Nullable
     private final String storagetime;
 
-    public NewFolderResponse(String folderName, String storagetime) {
+    public NewFolderResponse(@Nullable final String folderName,
+                             @Nullable final String storagetime) {
         this.folderName = folderName;
         this.storagetime = storagetime;
     }
-    public String getFolderName() {return folderName;}
 
+    @Nullable
+    public String getFolderName() {
+        return folderName;
+    }
+
+    @Nullable
     public String getStoragetime() {
         return storagetime;
     }

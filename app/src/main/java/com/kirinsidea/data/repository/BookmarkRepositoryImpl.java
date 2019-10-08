@@ -6,8 +6,8 @@ import androidx.paging.DataSource;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
 import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
-import com.kirinsidea.data.source.remote.response.AddNewBookmarkResponse;
+import com.kirinsidea.data.source.remote.request.NewBookmarkRequest;
+import com.kirinsidea.data.source.remote.response.NewBookmarkResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -56,7 +56,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public Single<AddNewBookmarkResponse> observeAddNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest) {
-        return retrofit.observeAddNewBookmark(addNewBookmarkRequest).subscribeOn(Schedulers.io());
+    public Single<NewBookmarkResponse> observeAddNewBookmark(@NonNull NewBookmarkRequest request) {
+        return retrofit.observeAddNewBookmark(request).subscribeOn(Schedulers.io());
     }
 }

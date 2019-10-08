@@ -2,7 +2,7 @@ package com.kirinsidea.data.source.remote.request;
 
 import androidx.annotation.NonNull;
 
-public class AddNewBookmarkRequest {
+public class NewBookmarkRequest {
     @NonNull
     private final String userId;
 
@@ -12,13 +12,18 @@ public class AddNewBookmarkRequest {
     @NonNull
     private final String folderName;
 
-    public AddNewBookmarkRequest(@NonNull String userId, @NonNull String url, @NonNull String folderName) {
+    public NewBookmarkRequest(@NonNull final String userId,
+                              @NonNull final String url,
+                              @NonNull final String folderName) {
         this.userId = userId;
         this.url = url;
         this.folderName = folderName;
     }
+
     @NonNull
-    public String getUserId(){return userId;}
+    public String getUserId() {
+        return userId;
+    }
 
     @NonNull
     public String getUrl() {
@@ -26,5 +31,7 @@ public class AddNewBookmarkRequest {
     }
 
     @NonNull
-    public String getFolderName(){return folderName;}
+    public String getFolderName() {
+        return folderName;
+    }
 }
