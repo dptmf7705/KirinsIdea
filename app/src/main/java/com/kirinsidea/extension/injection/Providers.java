@@ -17,7 +17,7 @@ import com.kirinsidea.data.repository.LoginRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
-import com.kirinsidea.data.source.remote.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
 import com.kirinsidea.ui.BaseViewModel;

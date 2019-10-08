@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.request;
+package com.kirinsidea.data.source.remote.kirin.request;
 
 import androidx.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.response;
+package com.kirinsidea.data.source.remote.kirin.response;
 
 import androidx.annotation.Nullable;
 

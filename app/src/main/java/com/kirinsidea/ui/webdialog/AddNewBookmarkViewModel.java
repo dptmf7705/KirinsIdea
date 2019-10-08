@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.source.remote.request.NewBookmarkRequest;
+import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

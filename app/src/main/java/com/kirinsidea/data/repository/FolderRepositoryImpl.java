@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.Folder;
-import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.response.NewFolderResponse;
+import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
