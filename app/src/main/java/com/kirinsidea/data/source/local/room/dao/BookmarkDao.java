@@ -15,6 +15,6 @@ public interface BookmarkDao extends BaseDao<Bookmark> {
     @Query(Constants.Query.SELECT_BOOKMARK_BY_ID)
     Single<Bookmark> selectById(final int id);
 
-    @Query(Constants.Query.SELECT_BOOKMARK_ALL)
+    @Query(Constants.Query.SELECT_ALL_BOOKMARK)
     DataSource.Factory<Integer, Bookmark> selectAll();
 }

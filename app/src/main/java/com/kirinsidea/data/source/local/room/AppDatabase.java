@@ -11,6 +11,7 @@ import androidx.room.TypeConverters;
 import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
 import com.kirinsidea.data.source.local.room.entity.Folder;
 
@@ -23,8 +24,9 @@ abstract public class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, Constants.Room.DATABASE_NAME).build();
+                    INSTANCE = Room.databaseBuilder(context,
+                            AppDatabase.class, Constants.Room.DATABASE_NAME)
+                            .build();
                 }
             }
         }
@@ -33,4 +35,5 @@ abstract public class AppDatabase extends RoomDatabase {
 
     public abstract BookmarkDao bookmarkDao();
     public abstract FolderDao folderDao();
+    public abstract MemoDao memoDao();
 }

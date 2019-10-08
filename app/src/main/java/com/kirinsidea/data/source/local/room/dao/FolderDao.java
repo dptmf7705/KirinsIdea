@@ -14,6 +14,6 @@ public interface FolderDao extends BaseDao<Folder> {
     @Query(Constants.Query.SELECT_FOLDER_BY_NAME)
     Single<Folder> selectByName(final String name);
 
-    @Query(Constants.Query.SELECT_FOLDER_ALL)
+    @Query(Constants.Query.SELECT_ALL_FOLDER)
     Single<Folder> selectAll();
 }

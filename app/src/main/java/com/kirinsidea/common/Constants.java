@@ -23,13 +23,16 @@ public abstract class Constants {
         String SELECT_BOOKMARK_BY_ID = "SELECT * FROM bookmark WHERE id = :id LIMIT 1";
 
         /* bookmark 테이블에서 전체 북마크 조회 */
-        String SELECT_BOOKMARK_ALL = "SELECT * FROM bookmark";
+        String SELECT_ALL_BOOKMARK = "SELECT * FROM bookmark";
 
         /* folder 테이블에서 id 기준으로 폴더 조회 */
         String SELECT_FOLDER_BY_NAME = "SELECT * FROM folder WHERE name = :name LIMIT 1";
 
         /* folder 테이블에서 전체 폴더 조회 */
-        String SELECT_FOLDER_ALL = "SELECT * FROM folder";
+        String SELECT_ALL_FOLDER = "SELECT * FROM folder";
+
+        /* memo 테이블에서 bookmark id 기준 조회 */
+        String SELECT_ALL_MEMO_BY_BOOKMARK_ID = "SELECT * FROM memo WHERE bookmarkId = :bookmarkId";
     }
 
     public @interface Message {
