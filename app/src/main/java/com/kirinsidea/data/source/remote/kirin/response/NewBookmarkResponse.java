@@ -1,47 +1,65 @@
-package com.kirinsidea.data.source.remote.response;
+package com.kirinsidea.data.source.remote.kirin.response;
+
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AddNewBookmarkResponse {
+public class NewBookmarkResponse {
     @SerializedName("html")
     @Expose
+    @Nullable
     private final String html;
 
     @SerializedName("mainimage")
     @Expose
+    @Nullable
     private final String mainimage;
 
     @SerializedName("author")
     @Expose
+    @Nullable
     private final String author;
 
     @SerializedName("writetime")
     @Expose
+    @Nullable
     private final String writetime;
 
     @SerializedName("storagetime")
     @Expose
+    @Nullable
     private final String storagetime;
 
     @SerializedName("title")
     @Expose
+    @Nullable
     private final String title;
 
     @SerializedName("originalweburl")
     @Expose
+    @Nullable
     private final String originalweburl;
 
     @SerializedName("simpleweburl")
     @Expose
+    @Nullable
     private final String simpleweburl;
 
     @SerializedName("folderName")
     @Expose
+    @Nullable
     private final String folderName;
 
-    public AddNewBookmarkResponse(String html, String mainimage, String author, String writetime,
-                                  String storagetime, String title, String originalweburl, String simpleweburl, String folderName) {
+    public NewBookmarkResponse(@Nullable final String html,
+                               @Nullable final String mainimage,
+                               @Nullable final String author,
+                               @Nullable final String writetime,
+                               @Nullable final String storagetime,
+                               @Nullable final String title,
+                               @Nullable final String originalweburl,
+                               @Nullable final String simpleweburl,
+                               @Nullable final String folderName) {
         this.html = html;
         this.mainimage = mainimage;
         this.author = author;
@@ -53,43 +71,54 @@ public class AddNewBookmarkResponse {
         this.folderName = folderName;
     }
 
+    @Nullable
     public String getHtml() {
         return html;
     }
 
+    @Nullable
     public String getMainimage() {
         return mainimage;
     }
 
+    @Nullable
     public String getAuthor() {
         return author;
     }
 
+    @Nullable
     public String getWritetime() {
         return writetime;
     }
 
+    @Nullable
     public String getStoragetime() {
         return storagetime;
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }
 
+    @Nullable
     public String getOriginalweburl() {
         return originalweburl;
     }
 
+    @Nullable
     public String getSimpleweburl() {
         return simpleweburl;
     }
 
-    public String getFolderName() {return folderName;}
+    @Nullable
+    public String getFolderName() {
+        return folderName;
+    }
 
     @Override
     public String toString() {
-        return "AddNewBookmarkResponse{" +
+        return "NewBookmarkResponse{" +
                 "html='" + html + '\'' +
                 ", mainimage='" + mainimage + '\'' +
                 ", author='" + author + '\'' +

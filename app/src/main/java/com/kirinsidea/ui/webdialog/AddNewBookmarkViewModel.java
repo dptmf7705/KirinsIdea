@@ -4,13 +4,12 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
+import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,17 +18,17 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     private String TAG = "AddNewBookmarkViewModel";
 
     @NonNull
-    private MutableLiveData<String> folderName = new MutableLiveData<>();
+    private final MutableLiveData<String> folderName = new MutableLiveData<>();
+
+    private BookmarkRepository bookmarkRepository;
+    private FolderRepository folderRepository;
 
     @NonNull
-    private final BookmarkRepository bookmarkRepository;
-
-    @NonNull
-    private final FolderRepository folderRepository;
-
-    public AddNewBookmarkViewModel(@NonNull BookmarkRepository bookmarkRepository, @NonNull FolderRepository folderRepository) {
-        this.bookmarkRepository = bookmarkRepository;
-        this.folderRepository = folderRepository;
+    @Override
+    public BaseViewModel init(@NonNull final BaseRepository... repositories) {
+        this.bookmarkRepository = (BookmarkRepository) repositories[0];
+        this.folderRepository = (FolderRepository) repositories[1];
+        return this;
     }
 
     @NonNull
@@ -43,35 +42,10 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         if (fname == null || TextUtils.isEmpty(fname)) {
             return;
         }
-        addDisposable(bookmarkRepository.observeAddNewBookmark(new AddNewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
+        addDisposable(bookmarkRepository.observeAddNewBookmark(new NewBookmarkRequest(FirebaseAuth.getInstance().getUid(),
                 url, fname))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> navigator.get().finishWebDialog(),
                         error::setValue));
     }
-
-    public static class Factory implements ViewModelProvider.Factory {
-
-        @NonNull
-        private final BookmarkRepository bookmarkRepository;
-
-        @NonNull
-        private final FolderRepository folderRepository;
-
-        public Factory(@NonNull BookmarkRepository bookmarkRepository, @NonNull FolderRepository folderRepository) {
-            this.bookmarkRepository = bookmarkRepository;
-            this.folderRepository = folderRepository;
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass.isAssignableFrom(AddNewBookmarkViewModel.class)) {
-                //noinspection unchecked
-                return (T) new AddNewBookmarkViewModel(bookmarkRepository, folderRepository);
-            }
-            throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
-        }
-    }
-
 }

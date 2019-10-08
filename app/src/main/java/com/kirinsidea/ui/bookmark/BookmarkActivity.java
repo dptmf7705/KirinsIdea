@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.common.Constant;
 import com.kirinsidea.databinding.ActivityBookmarkBinding;
-import com.kirinsidea.extension.Injection;
+import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
 
 public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
@@ -41,7 +40,7 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     }
 
     private void initViewModel() {
-        binding.setVm(Injection.provideViewModel(this, Constant.Type.Bookmark));
+        binding.setVm(Providers.getViewModel(this, BookmarkViewModel.class));
         binding.getVm().loadBookmark(bookmarkId);
     }
 }

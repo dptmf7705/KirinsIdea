@@ -5,40 +5,35 @@ import androidx.paging.DataSource;
 
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
-import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.AddNewBookmarkRequest;
-import com.kirinsidea.data.source.remote.response.AddNewBookmarkResponse;
+import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
+import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class BookmarkRepositoryImpl implements BookmarkRepository {
-
-    private volatile static BookmarkRepository INSTANCE = null;
-
-    public static BookmarkRepository getInstance(@NonNull final BookmarkDao bookmarkDao,
-                                                 @NonNull final RetrofitClient client) {
-        if (INSTANCE == null) {
-            synchronized (BookmarkRepositoryImpl.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new BookmarkRepositoryImpl(bookmarkDao, client);
-                }
-            }
-        }
-        return INSTANCE;
+    private static class LazyHolder {
+        private static final BookmarkRepository INSTANCE = new BookmarkRepositoryImpl();
     }
 
     @NonNull
-    private final BookmarkDao bookmarkDao;
+    public static BookmarkRepository getInstance() {
+        return LazyHolder.INSTANCE;
+    }
+
+    private BookmarkRepositoryImpl() { }
+
+    private RetrofitClient retrofit;
+    private BookmarkDao bookmarkDao;
+
     @NonNull
-    private RetrofitClient client;
-
-
-    private BookmarkRepositoryImpl(@NonNull final BookmarkDao bookmarkDao,
-                                   @NonNull final RetrofitClient client) {
-        this.bookmarkDao = bookmarkDao;
-        this.client = client;
+    @Override
+    public BaseRepository init(@NonNull Object... dataSources) {
+        this.retrofit = (RetrofitClient) dataSources[0];
+        this.bookmarkDao = (BookmarkDao) dataSources[1];
+        return this;
     }
 
     @NonNull
@@ -61,7 +56,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public  Single<AddNewBookmarkResponse> observeAddNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest){
-        return client.observeAddNewBookmark(addNewBookmarkRequest).subscribeOn(Schedulers.io());
+    public Single<NewBookmarkResponse> observeAddNewBookmark(@NonNull NewBookmarkRequest request) {
+        return retrofit.observeAddNewBookmark(request).subscribeOn(Schedulers.io());
     }
 }

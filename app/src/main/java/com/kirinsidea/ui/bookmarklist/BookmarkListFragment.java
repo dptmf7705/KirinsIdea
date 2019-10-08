@@ -7,9 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.common.Constant;
 import com.kirinsidea.databinding.FragmentBookmarkListBinding;
-import com.kirinsidea.extension.Injection;
+import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseFragment;
 import com.kirinsidea.ui.bookmark.BookmarkActivity;
 
@@ -32,7 +31,7 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
     }
 
     private void initViewModel() {
-        binding.setVm(Injection.provideViewModel(getActivity(), Constant.Type.BookmarkList));
+        binding.setVm(Providers.getViewModel(getActivity(), BookmarkListViewModel.class));
     }
 
     private void initViews() {

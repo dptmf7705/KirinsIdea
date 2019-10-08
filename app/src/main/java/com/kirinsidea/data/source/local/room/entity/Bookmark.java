@@ -24,7 +24,6 @@ import java.util.Objects;
 @Entity(tableName = "bookmark")
 public class Bookmark {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     private final int id;
     @NonNull
     private final String originalWebUrl;
@@ -53,7 +52,7 @@ public class Bookmark {
                     @NonNull final String writeTime,
                     @NonNull final String path,
                     @NonNull final String storageTime,
-                    @NonNull final int folderId) {
+                    final int folderId) {
         this.id = id;
         this.originalWebUrl = originalWebUrl;
         this.simpleWebUrl = simpleWebUrl;

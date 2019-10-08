@@ -4,37 +4,35 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.Folder;
-import com.kirinsidea.data.source.remote.RetrofitClient;
-import com.kirinsidea.data.source.remote.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.response.NewFolderResponse;
+import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class FolderRepositoryImpl implements FolderRepository{
-
-    private volatile static FolderRepository INSTANCE = null;
-
-    public static FolderRepository getInstance(@NonNull final RetrofitClient client, @NonNull final FolderDao folderDao) {
-        if (INSTANCE == null) {
-            synchronized (FolderRepositoryImpl.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new FolderRepositoryImpl(client, folderDao);
-                }
-            }
-        }
-        return INSTANCE;
+public class FolderRepositoryImpl implements FolderRepository {
+    private static class LazyHolder {
+        private static final FolderRepository INSTANCE = new FolderRepositoryImpl();
     }
 
     @NonNull
-    private final FolderDao folderDao;
-    @NonNull
-    private RetrofitClient client;
+    public static FolderRepository getInstance() {
+        return LazyHolder.INSTANCE;
+    }
 
-    public FolderRepositoryImpl(@NonNull final RetrofitClient client, @NonNull FolderDao folderDao) {
-        this.folderDao = folderDao;
-        this.client = client;
+    private FolderRepositoryImpl() { }
+
+    private RetrofitClient retrofit;
+    private FolderDao folderDao;
+
+    @NonNull
+    @Override
+    public BaseRepository init(@NonNull Object... dataSources) {
+        this.retrofit = (RetrofitClient) dataSources[0];
+        this.folderDao = (FolderDao) dataSources[1];
+        return this;
     }
 
     @NonNull
@@ -57,7 +55,7 @@ public class FolderRepositoryImpl implements FolderRepository{
 
     @NonNull
     @Override
-    public  Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest newFolderRequest){
-        return client.observeAddNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
+    public Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest request) {
+        return retrofit.observeAddNewFolder(request).subscribeOn(Schedulers.io());
     }
 }
