@@ -13,30 +13,26 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class FolderRepositoryImpl implements FolderRepository {
-
-    private volatile static FolderRepository INSTANCE = null;
-
-    public static FolderRepository getInstance(@NonNull final RetrofitClient retrofit,
-                                               @NonNull final FolderDao folderDao) {
-        if (INSTANCE == null) {
-            synchronized (FolderRepositoryImpl.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new FolderRepositoryImpl(retrofit, folderDao);
-                }
-            }
-        }
-        return INSTANCE;
+    private static class LazyHolder {
+        private static final FolderRepository INSTANCE = new FolderRepositoryImpl();
     }
 
     @NonNull
-    private RetrofitClient retrofit;
-    @NonNull
-    private final FolderDao folderDao;
+    public static FolderRepository getInstance() {
+        return LazyHolder.INSTANCE;
+    }
 
-    public FolderRepositoryImpl(@NonNull final RetrofitClient retrofit,
-                                @NonNull final FolderDao folderDao) {
-        this.retrofit = retrofit;
-        this.folderDao = folderDao;
+    private FolderRepositoryImpl() { }
+
+    private RetrofitClient retrofit;
+    private FolderDao folderDao;
+
+    @NonNull
+    @Override
+    public BaseRepository init(@NonNull Object... dataSources) {
+        this.retrofit = (RetrofitClient) dataSources[0];
+        this.folderDao = (FolderDao) dataSources[1];
+        return this;
     }
 
     @NonNull

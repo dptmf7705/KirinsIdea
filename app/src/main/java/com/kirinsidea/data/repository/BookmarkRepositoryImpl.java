@@ -14,30 +14,26 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class BookmarkRepositoryImpl implements BookmarkRepository {
-
-    private volatile static BookmarkRepository INSTANCE = null;
-
-    public static BookmarkRepository getInstance(@NonNull final RetrofitClient retrofit,
-                                                 @NonNull final BookmarkDao bookmarkDao) {
-        if (INSTANCE == null) {
-            synchronized (BookmarkRepositoryImpl.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new BookmarkRepositoryImpl(retrofit, bookmarkDao);
-                }
-            }
-        }
-        return INSTANCE;
+    private static class LazyHolder {
+        private static final BookmarkRepository INSTANCE = new BookmarkRepositoryImpl();
     }
 
     @NonNull
-    private final RetrofitClient retrofit;
-    @NonNull
-    private final BookmarkDao bookmarkDao;
+    public static BookmarkRepository getInstance() {
+        return LazyHolder.INSTANCE;
+    }
 
-    private BookmarkRepositoryImpl(@NonNull final RetrofitClient retrofit,
-                                   @NonNull final BookmarkDao bookmarkDao) {
-        this.retrofit = retrofit;
-        this.bookmarkDao = bookmarkDao;
+    private BookmarkRepositoryImpl() { }
+
+    private RetrofitClient retrofit;
+    private BookmarkDao bookmarkDao;
+
+    @NonNull
+    @Override
+    public BaseRepository init(@NonNull Object... dataSources) {
+        this.retrofit = (RetrofitClient) dataSources[0];
+        this.bookmarkDao = (BookmarkDao) dataSources[1];
+        return this;
     }
 
     @NonNull

@@ -10,7 +10,7 @@ import com.kirinsidea.data.source.remote.response.AddNewBookmarkResponse;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
-public interface BookmarkRepository extends BaseRepository{
+public interface BookmarkRepository extends BaseRepository {
 
     @NonNull
     Single<Bookmark> observeBookmarkById(final int id);

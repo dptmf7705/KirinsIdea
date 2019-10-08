@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.kirinsidea.R;
-import com.kirinsidea.common.Constant;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
-import com.kirinsidea.extension.Injection;
+import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
 import com.kirinsidea.utils.WebUrlUtil;
 
-public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> implements WebNavigator{
+public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> implements WebNavigator {
 
     private String TAG = "WebDialogActivity";
     private String Connecturl;
@@ -29,16 +28,17 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         initViews();
     }
 
-    private void initViewModel(){
-        binding.setVm(Injection.provideViewModel(this, AddNewBookmarkViewModel.class));
+    private void initViewModel() {
+        binding.setVm(Providers.getViewModel(this, AddNewBookmarkViewModel.class));
         binding.getVm().setNavigator(this);
     }
+
     private void initViews() {
         binding.btnKeep.setOnClickListener(__ -> getWebUrl());
     }
 
     @Override
-    public String getWebUrl(){
+    public String getWebUrl() {
         final Intent intent = getIntent();
         final String action = intent.getAction();
         final String type = intent.getType();
@@ -54,7 +54,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     }
 
     @Override
-    public void finishWebDialog(){
+    public void finishWebDialog() {
         finish();
     }
 }
