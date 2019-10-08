@@ -1,6 +1,6 @@
 package com.kirinsidea.common;
 
-public abstract class Constant {
+public abstract class Constants {
 
     public @interface Retrofit {
         /**

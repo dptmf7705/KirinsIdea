@@ -3,7 +3,7 @@ package com.kirinsidea.data.source.remote;
 import androidx.annotation.NonNull;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.kirinsidea.common.Constant;
+import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.remote.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.request.NewFolderRequest;
 import com.kirinsidea.data.source.remote.response.NewBookmarkResponse;
@@ -40,7 +40,7 @@ public class RetrofitClient {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.Retrofit.BASE_URL)
+                .baseUrl(Constants.Retrofit.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)

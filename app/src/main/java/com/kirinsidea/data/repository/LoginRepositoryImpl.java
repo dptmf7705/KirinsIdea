@@ -5,8 +5,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.AuthCredential;
-import com.kirinsidea.data.source.remote.firebase.FirebaseAuthApi;
-import com.kirinsidea.data.source.remote.google.GoogleLoginApi;
+import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
+import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

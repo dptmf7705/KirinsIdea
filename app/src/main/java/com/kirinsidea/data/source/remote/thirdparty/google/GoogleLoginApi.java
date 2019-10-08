@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.google;
+package com.kirinsidea.data.source.remote.thirdparty.google;
 
 import android.content.Intent;
 

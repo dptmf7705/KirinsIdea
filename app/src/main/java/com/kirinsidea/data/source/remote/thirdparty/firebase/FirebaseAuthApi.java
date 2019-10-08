@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.firebase;
+package com.kirinsidea.data.source.remote.thirdparty.firebase;
 
 import androidx.annotation.NonNull;
 

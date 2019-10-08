@@ -1,6 +1,6 @@
 package com.kirinsidea.data.source.remote;
 
-import com.kirinsidea.common.Constant;
+import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.remote.request.NewFolderRequest;
 import com.kirinsidea.data.source.remote.response.NewFolderResponse;
 
@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 
 public interface FolderApi {
 
-    @POST(Constant.Retrofit.SUB_URL_FOLDER)
-    Single<NewFolderResponse> observeAddNewFolder(@Body NewFolderRequest newFolderRequest);
+    @POST(Constants.Retrofit.SUB_URL_FOLDER)
+    Single<NewFolderResponse> observeAddNewFolder(@Body NewFolderRequest request);
 }
