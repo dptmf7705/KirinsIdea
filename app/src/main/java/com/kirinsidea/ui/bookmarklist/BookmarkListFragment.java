@@ -32,7 +32,7 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
     }
 
     private void initViewModel() {
-        binding.setVm(Injection.provideViewModel(getActivity(), Injection.Type.BookmarkList));
+        binding.setVm(Injection.provideViewModel(getActivity(), BookmarkListViewModel.class));
     }
 
     private void initViews() {

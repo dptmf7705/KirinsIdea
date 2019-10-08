@@ -17,12 +17,12 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     private volatile static BookmarkRepository INSTANCE = null;
 
-    public static BookmarkRepository getInstance(@NonNull final BookmarkDao bookmarkDao,
-                                                 @NonNull final RetrofitClient client) {
+    public static BookmarkRepository getInstance(@NonNull final RetrofitClient retrofit,
+                                                 @NonNull final BookmarkDao bookmarkDao) {
         if (INSTANCE == null) {
             synchronized (BookmarkRepositoryImpl.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new BookmarkRepositoryImpl(bookmarkDao, client);
+                    INSTANCE = new BookmarkRepositoryImpl(retrofit, bookmarkDao);
                 }
             }
         }
@@ -30,15 +30,14 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     }
 
     @NonNull
-    private final BookmarkDao bookmarkDao;
+    private final RetrofitClient retrofit;
     @NonNull
-    private RetrofitClient client;
+    private final BookmarkDao bookmarkDao;
 
-
-    private BookmarkRepositoryImpl(@NonNull final BookmarkDao bookmarkDao,
-                                   @NonNull final RetrofitClient client) {
+    private BookmarkRepositoryImpl(@NonNull final RetrofitClient retrofit,
+                                   @NonNull final BookmarkDao bookmarkDao) {
+        this.retrofit = retrofit;
         this.bookmarkDao = bookmarkDao;
-        this.client = client;
     }
 
     @NonNull
@@ -61,7 +60,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public  Single<AddNewBookmarkResponse> observeAddNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest){
-        return client.observeAddNewBookmark(addNewBookmarkRequest).subscribeOn(Schedulers.io());
+    public Single<AddNewBookmarkResponse> observeAddNewBookmark(@NonNull AddNewBookmarkRequest addNewBookmarkRequest) {
+        return retrofit.observeAddNewBookmark(addNewBookmarkRequest).subscribeOn(Schedulers.io());
     }
 }

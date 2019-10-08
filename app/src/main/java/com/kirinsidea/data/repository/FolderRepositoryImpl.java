@@ -12,15 +12,16 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
-public class FolderRepositoryImpl implements FolderRepository{
+public class FolderRepositoryImpl implements FolderRepository {
 
     private volatile static FolderRepository INSTANCE = null;
 
-    public static FolderRepository getInstance(@NonNull final RetrofitClient client, @NonNull final FolderDao folderDao) {
+    public static FolderRepository getInstance(@NonNull final RetrofitClient retrofit,
+                                               @NonNull final FolderDao folderDao) {
         if (INSTANCE == null) {
             synchronized (FolderRepositoryImpl.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new FolderRepositoryImpl(client, folderDao);
+                    INSTANCE = new FolderRepositoryImpl(retrofit, folderDao);
                 }
             }
         }
@@ -28,13 +29,14 @@ public class FolderRepositoryImpl implements FolderRepository{
     }
 
     @NonNull
-    private final FolderDao folderDao;
+    private RetrofitClient retrofit;
     @NonNull
-    private RetrofitClient client;
+    private final FolderDao folderDao;
 
-    public FolderRepositoryImpl(@NonNull final RetrofitClient client, @NonNull FolderDao folderDao) {
+    public FolderRepositoryImpl(@NonNull final RetrofitClient retrofit,
+                                @NonNull final FolderDao folderDao) {
+        this.retrofit = retrofit;
         this.folderDao = folderDao;
-        this.client = client;
     }
 
     @NonNull
@@ -57,7 +59,7 @@ public class FolderRepositoryImpl implements FolderRepository{
 
     @NonNull
     @Override
-    public  Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest newFolderRequest){
-        return client.observeAddNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
+    public Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest newFolderRequest) {
+        return retrofit.observeAddNewFolder(newFolderRequest).subscribeOn(Schedulers.io());
     }
 }
