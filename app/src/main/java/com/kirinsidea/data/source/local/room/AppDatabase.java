@@ -14,8 +14,9 @@ import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.local.room.entity.Bookmark;
 import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.local.room.entity.Memo;
 
-@Database(entities = {Bookmark.class, Folder.class}, version = 1, exportSchema = false)
+@Database(entities = {Bookmark.class, Folder.class, Memo.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 abstract public class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
