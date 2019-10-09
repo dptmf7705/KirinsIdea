@@ -1,6 +1,7 @@
 package com.kirinsidea.data.source.local.room.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -22,7 +23,7 @@ public class Memo {
     private final long endIndex;
     @NonNull
     private final String text;
-    @NonNull
+    @Nullable
     private final String memo;
     private final int bookmarkId;
 
@@ -30,7 +31,7 @@ public class Memo {
                 final long startIndex,
                 final long endIndex,
                 @NonNull final String text,
-                @NonNull final String memo,
+                @Nullable final String memo,
                 final int bookmarkId) {
         this.id = id;
         this.startIndex = startIndex;
@@ -57,7 +58,7 @@ public class Memo {
         return text;
     }
 
-    @NonNull
+    @Nullable
     public String getMemo() {
         return memo;
     }

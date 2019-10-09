@@ -15,9 +15,12 @@ import com.kirinsidea.data.repository.FolderRepository;
 import com.kirinsidea.data.repository.FolderRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
+import com.kirinsidea.data.repository.MemoRepository;
+import com.kirinsidea.data.repository.MemoRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
@@ -50,20 +53,28 @@ public abstract class Providers {
     }
 
     @NonNull
+    static MemoRepository getMemoRepository() {
+        return MemoRepositoryImpl.getInstance();
+    }
+
+    @NonNull
     static RetrofitClient getRetrofitClient() {
         return RetrofitClient.getInstance();
     }
 
     @NonNull
     static BookmarkDao getBookmarkDao() {
-        return AppDatabase.getDatabase(App.instance().getContext())
-                .bookmarkDao();
+        return AppDatabase.getDatabase(App.instance().getContext()).bookmarkDao();
     }
 
     @NonNull
     static FolderDao getFolderDao() {
-        return AppDatabase.getDatabase(App.instance().getContext())
-                .folderDao();
+        return AppDatabase.getDatabase(App.instance().getContext()).folderDao();
+    }
+
+    @NonNull
+    static MemoDao getMemoDao() {
+        return AppDatabase.getDatabase(App.instance().getContext()).memoDao();
     }
 
     @NonNull

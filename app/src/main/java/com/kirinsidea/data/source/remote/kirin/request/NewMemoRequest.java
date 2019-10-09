@@ -1,20 +1,21 @@
 package com.kirinsidea.data.source.remote.kirin.request;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class NewMemoRequest {
     private final long startIndex;
     private final long endIndex;
     @NonNull
     private final String text;
-    @NonNull
+    @Nullable
     private final String memo;
     private final int bookmarkId;
 
     public NewMemoRequest(final long startIndex,
                           final long endIndex,
                           @NonNull final String text,
-                          @NonNull final String memo,
+                          @Nullable final String memo,
                           final int bookmarkId) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
@@ -36,7 +37,7 @@ public class NewMemoRequest {
         return text;
     }
 
-    @NonNull
+    @Nullable
     public String getMemo() {
         return memo;
     }
