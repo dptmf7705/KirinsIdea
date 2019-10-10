@@ -4,16 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class NewMemoRequest {
-    private final long startIndex;
-    private final long endIndex;
+    private final int startIndex;
+    private final int endIndex;
     @NonNull
     private final String text;
     @Nullable
     private final String memo;
     private final int bookmarkId;
 
-    public NewMemoRequest(final long startIndex,
-                          final long endIndex,
+    public NewMemoRequest(final int startIndex,
+                          final int endIndex,
                           @NonNull final String text,
                           @Nullable final String memo,
                           final int bookmarkId) {
@@ -24,11 +24,11 @@ public class NewMemoRequest {
         this.bookmarkId = bookmarkId;
     }
 
-    public long getStartIndex() {
+    public int getStartIndex() {
         return startIndex;
     }
 
-    public long getEndIndex() {
+    public int getEndIndex() {
         return endIndex;
     }
 
@@ -44,5 +44,16 @@ public class NewMemoRequest {
 
     public int getBookmarkId() {
         return bookmarkId;
+    }
+
+    @Override
+    public String toString() {
+        return "NewMemoRequest{" +
+                "startIndex=" + startIndex +
+                ", endIndex=" + endIndex +
+                ", text='" + text + '\'' +
+                ", memo='" + memo + '\'' +
+                ", bookmarkId=" + bookmarkId +
+                '}';
     }
 }

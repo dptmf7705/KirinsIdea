@@ -41,9 +41,11 @@ public class MemoRepositoryImpl implements MemoRepository {
     @NonNull
     @Override
     public Completable observeAddNewMemo(@NonNull final NewMemoRequest request) {
-        return Completable
-                .mergeArray(retrofit.observeAddNewMemo(request),
-                        memoDao.insert(MemoRequestMapper.toMemo(request)))
+//        return Completable
+//                .mergeArray(retrofit.observeAddNewMemo(request),
+//                        memoDao.insert(MemoRequestMapper.toMemo(request)))
+//                .subscribeOn(Schedulers.io());
+        return memoDao.insert(MemoRequestMapper.toMemo(request))
                 .subscribeOn(Schedulers.io());
     }
 
@@ -52,5 +54,11 @@ public class MemoRepositoryImpl implements MemoRepository {
     public Single<List<Memo>> observeMemoList(final int bookmarkId) {
         return memoDao.selectByBookmarkId(bookmarkId)
                 .subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    @Override
+    public Completable observeDeleteMemo(Memo memo) {
+        return memoDao.delete(memo).subscribeOn(Schedulers.io());
     }
 }

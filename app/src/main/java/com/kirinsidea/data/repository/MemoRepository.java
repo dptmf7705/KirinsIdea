@@ -17,4 +17,7 @@ public interface MemoRepository extends BaseRepository {
 
     @NonNull
     Single<List<Memo>> observeMemoList(final int bookmarkId);
+
+    @NonNull
+    Completable observeDeleteMemo(final Memo memo);
 }

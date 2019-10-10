@@ -1,9 +1,10 @@
 package com.kirinsidea.ui.bookmark;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.MemoRepository;
@@ -17,20 +18,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MemoViewModel extends BaseViewModel {
     @NonNull
-    private final MutableLiveData<String> content = new MutableLiveData<>();
+    private final MutableLiveData<Integer> bookmarkId = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<List<Memo>> memoList = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<Long> startIndex = new MutableLiveData<>();
+    private final MutableLiveData<Pair<Integer, Integer>> selectedIndex = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Long> endIndex = new MutableLiveData<>();
+    private final MutableLiveData<String> selectedText = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<String> text = new MutableLiveData<>();
+    private final MutableLiveData<String> inputMemo = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<String> memo = new MutableLiveData<>();
-
-    private LiveData<Integer> bookmarkId;
+    private final MutableLiveData<Memo> selectedItem = new MutableLiveData<>();
 
     private MemoRepository repository;
 
@@ -41,24 +40,65 @@ public class MemoViewModel extends BaseViewModel {
         return this;
     }
 
-    public void loadMemoList(final int bookmarkId) {
-        this.bookmarkId = Transformations.map(memoList, list ->
-                list.isEmpty() ? bookmarkId : list.get(0).getBookmarkId());
+    void loadMemoList(final int bookmarkId) {
+        this.bookmarkId.setValue(bookmarkId);
+        loadMemoList();
+    }
 
-        addDisposable(repository.observeMemoList(bookmarkId)
+    private void loadMemoList() {
+        final int bid = bookmarkId.getValue() == null ? 0 : this.bookmarkId.getValue();
+        addDisposable(repository.observeMemoList(bid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(memoList::setValue, error::setValue));
     }
 
     public void addNewMemo() {
         addDisposable(repository
-                .observeAddNewMemo(new NewMemoRequest(
-                        startIndex.getValue() == null ? 0 : startIndex.getValue(),
-                        endIndex.getValue() == null ? 0 : endIndex.getValue(),
-                        text.getValue() == null ? "" : text.getValue(),
-                        memo.getValue(),
-                        bookmarkId.getValue() == null ? 0 : bookmarkId.getValue()))
+                .observeAddNewMemo(getNewMemoRequest())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> { }, error::setValue));
+                .subscribe(() -> loadMemoList(), this.error::setValue));
+    }
+
+    public void deleteSelectedMemo() {
+        final Memo memo = selectedItem.getValue();
+        if (memo == null) {
+            return;
+        }
+        addDisposable(repository
+                .observeDeleteMemo(memo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    selectedItem.setValue(null);
+                    loadMemoList();
+                }, error::setValue));
+    }
+
+    private NewMemoRequest getNewMemoRequest() {
+        return new NewMemoRequest(
+                selectedIndex.getValue() == null ? 0 : selectedIndex.getValue().first,
+                selectedIndex.getValue() == null ? 0 : selectedIndex.getValue().second,
+                selectedText.getValue() == null ? "" : selectedText.getValue(),
+                inputMemo.getValue() == null ? "" : inputMemo.getValue(),
+                bookmarkId.getValue() == null ? 0 : bookmarkId.getValue());
+    }
+
+    @NonNull
+    public LiveData<List<Memo>> getMemoList() {
+        return memoList;
+    }
+
+    @NonNull
+    public MutableLiveData<Memo> getSelectedItem() {
+        return selectedItem;
+    }
+
+    @NonNull
+    public MutableLiveData<Pair<Integer, Integer>> getSelectedIndex() {
+        return selectedIndex;
+    }
+
+    @NonNull
+    public MutableLiveData<String> getSelectedText() {
+        return selectedText;
     }
 }

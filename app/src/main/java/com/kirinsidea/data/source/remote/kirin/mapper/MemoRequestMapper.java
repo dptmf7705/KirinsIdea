@@ -9,7 +9,7 @@ public class MemoRequestMapper {
 
     @NonNull
     public static Memo toMemo(@NonNull final NewMemoRequest request) {
-        return new Memo(0,
+        return new Memo(
                 request.getStartIndex(),
                 request.getEndIndex(),
                 request.getText(),
