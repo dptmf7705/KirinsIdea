@@ -8,15 +8,19 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.kirinsidea.App;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.BookmarkRepositoryImpl;
 import com.kirinsidea.data.repository.FolderRepository;
 import com.kirinsidea.data.repository.FolderRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
+import com.kirinsidea.data.repository.MemoRepository;
+import com.kirinsidea.data.repository.MemoRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
@@ -29,7 +33,7 @@ public abstract class Providers {
             @NonNull final FragmentActivity activity,
             @NonNull final Class<VM> vmClass) {
 
-        return Injectors.initViewModel(activity,
+        return Injectors.initViewModel(
                 ViewModelProviders.of(activity).get(vmClass));
     }
 
@@ -49,18 +53,33 @@ public abstract class Providers {
     }
 
     @NonNull
+    static MemoRepository getMemoRepository() {
+        return MemoRepositoryImpl.getInstance();
+    }
+
+    @NonNull
     static RetrofitClient getRetrofitClient() {
         return RetrofitClient.getInstance();
     }
 
     @NonNull
-    static BookmarkDao getBookmarkDao(@NonNull final Context context) {
-        return AppDatabase.getDatabase(context).bookmarkDao();
+    static BookmarkDao getBookmarkDao() {
+        return getAppDatabase().bookmarkDao();
     }
 
     @NonNull
-    static FolderDao getFolderDao(@NonNull final Context context) {
-        return AppDatabase.getDatabase(context).folderDao();
+    static FolderDao getFolderDao() {
+        return getAppDatabase().folderDao();
+    }
+
+    @NonNull
+    static MemoDao getMemoDao() {
+        return getAppDatabase().memoDao();
+    }
+
+    @NonNull
+    static AppDatabase getAppDatabase() {
+        return AppDatabase.getDatabase();
     }
 
     @NonNull
@@ -69,7 +88,9 @@ public abstract class Providers {
     }
 
     @NonNull
-    static GoogleLoginApi getGoogleLoginApi(@NonNull final Context context) {
+    static GoogleLoginApi getGoogleLoginApi() {
+
+        final Context context = App.instance().getContext();
 
         final GoogleSignInOptions options = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -78,7 +99,7 @@ public abstract class Providers {
                 .requestProfile()
                 .build();
 
-        return GoogleLoginApi.getInstance(GoogleSignIn
-                .getClient(context.getApplicationContext(), options));
+        return GoogleLoginApi.getInstance(
+                GoogleSignIn.getClient(context, options));
     }
 }

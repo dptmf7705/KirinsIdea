@@ -10,6 +10,6 @@ import retrofit2.http.POST;
 
 public interface FolderApi {
 
-    @POST(Constants.Retrofit.SUB_URL_FOLDER)
+    @POST(Constants.Retrofit.SUB_URL_NEW_FOLDER)
     Single<NewFolderResponse> observeAddNewFolder(@Body NewFolderRequest request);
 }
