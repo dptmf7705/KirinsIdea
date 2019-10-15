@@ -64,17 +64,22 @@ public abstract class Providers {
 
     @NonNull
     static BookmarkDao getBookmarkDao() {
-        return AppDatabase.getDatabase(App.instance().getContext()).bookmarkDao();
+        return getAppDatabase().bookmarkDao();
     }
 
     @NonNull
     static FolderDao getFolderDao() {
-        return AppDatabase.getDatabase(App.instance().getContext()).folderDao();
+        return getAppDatabase().folderDao();
     }
 
     @NonNull
     static MemoDao getMemoDao() {
-        return AppDatabase.getDatabase(App.instance().getContext()).memoDao();
+        return getAppDatabase().memoDao();
+    }
+
+    @NonNull
+    static AppDatabase getAppDatabase() {
+        return AppDatabase.getDatabase(App.instance().getContext());
     }
 
     @NonNull
