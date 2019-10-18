@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-public class DataUtil {
+public class DateUtil {
     @NonNull
     public static String getCurrentDateTime() {
         return DateFormat.format("yyyy-MM-dd HH:mm:ss", new Date())

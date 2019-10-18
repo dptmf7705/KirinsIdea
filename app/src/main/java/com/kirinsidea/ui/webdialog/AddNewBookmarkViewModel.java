@@ -3,12 +3,9 @@ package com.kirinsidea.ui.webdialog;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
@@ -16,7 +13,7 @@ import com.kirinsidea.data.source.local.room.entity.Folder;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.ui.BaseViewModel;
-import com.kirinsidea.utils.DataUtil;
+import com.kirinsidea.utils.DateUtil;
 
 import java.util.List;
 
@@ -68,7 +65,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
 
     public void addNewFolder() {
         final String newFolderName = folderName.getValue();
-        final String storageTime = DataUtil.getCurrentDateTime();
+        final String storageTime = DateUtil.getCurrentDateTime();
 
         if (newFolderName == null || TextUtils.isEmpty(newFolderName)) {
             return;
