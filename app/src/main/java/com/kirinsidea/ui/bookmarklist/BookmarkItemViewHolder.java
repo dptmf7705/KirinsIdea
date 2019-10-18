@@ -18,7 +18,7 @@ public class BookmarkItemViewHolder extends RecyclerView.ViewHolder {
         binding = DataBindingUtil.bind(itemView);
     }
 
-    public void bindTo(BookmarkEntity item) {
+    public void bindTo(BookmarkItem item) {
         binding.setItem(item);
     }
 }

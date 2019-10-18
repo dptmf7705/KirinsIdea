@@ -36,11 +36,11 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLaunchIntentData();
-        initViewModel();
+        initViewModels();
     }
 
-    private void initViewModel() {
-        binding.setVm(Providers.getViewModel(this, BookmarkViewModel.class));
-        binding.getVm().loadBookmark(bookmarkId);
+    private void initViewModels() {
+        binding.setBookmarkVm(Providers.getViewModel(this, BookmarkViewModel.class));
+        binding.getBookmarkVm().loadBookmark(bookmarkId);
     }
 }

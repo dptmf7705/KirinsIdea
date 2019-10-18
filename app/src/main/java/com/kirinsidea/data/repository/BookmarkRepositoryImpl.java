@@ -7,6 +7,10 @@ import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
+import com.kirinsidea.mapper.BookmarkItemMapper;
+import com.kirinsidea.mapper.BookmarkMapper;
+import com.kirinsidea.ui.bookmark.Bookmark;
+import com.kirinsidea.ui.bookmarklist.BookmarkItem;
 import com.kirinsidea.utils.FileUtil;
 
 import io.reactivex.Completable;
@@ -31,7 +35,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public BaseRepository init(@NonNull Object... dataSources) {
+    public BaseRepository init(@NonNull final Object... dataSources) {
         this.retrofit = (RetrofitClient) dataSources[0];
         this.bookmarkDao = (BookmarkDao) dataSources[1];
         return this;
@@ -39,14 +43,16 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public Single<BookmarkEntity> observeBookmarkById(int id) {
-        return bookmarkDao.selectById(id).subscribeOn(Schedulers.io());
+    public Single<Bookmark> observeBookmarkById(final int id) {
+        return bookmarkDao.selectById(id)
+                .map(BookmarkMapper::entityToModel)
+                .subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
-    public DataSource.Factory<Integer, BookmarkEntity> observeBookmarkList() {
-        return bookmarkDao.selectAll();
+    public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList() {
+        return bookmarkDao.selectAll().map(BookmarkItemMapper::entityToModel);
     }
 
     @NonNull

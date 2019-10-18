@@ -3,8 +3,9 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
 
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
+import com.kirinsidea.ui.bookmark.Bookmark;
+import com.kirinsidea.ui.bookmarklist.BookmarkItem;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -12,10 +13,10 @@ import io.reactivex.Single;
 public interface BookmarkRepository extends BaseRepository {
 
     @NonNull
-    Single<BookmarkEntity> observeBookmarkById(final int id);
+    Single<Bookmark> observeBookmarkById(final int id);
 
     @NonNull
-    DataSource.Factory<Integer, BookmarkEntity> observeBookmarkList();
+    DataSource.Factory<Integer, BookmarkItem> observeBookmarkList();
 
     @NonNull
     Single<Integer> checkIfExistUrl(String Url);

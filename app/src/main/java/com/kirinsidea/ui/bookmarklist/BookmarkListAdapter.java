@@ -8,14 +8,13 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.ui.listener.ItemClickListener;
 
-public class BookmarkListAdapter extends PagedListAdapter<BookmarkEntity, BookmarkItemViewHolder> {
+public class BookmarkListAdapter extends PagedListAdapter<BookmarkItem, BookmarkItemViewHolder> {
 
-    private ItemClickListener<BookmarkEntity> itemClickListener;
+    private ItemClickListener<BookmarkItem> itemClickListener;
 
-    BookmarkListAdapter(ItemClickListener<BookmarkEntity> itemClickListener) {
+    BookmarkListAdapter(ItemClickListener<BookmarkItem> itemClickListener) {
         super(DIFF_CALLBACK);
         this.itemClickListener = itemClickListener;
     }
@@ -29,7 +28,7 @@ public class BookmarkListAdapter extends PagedListAdapter<BookmarkEntity, Bookma
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkItemViewHolder holder, int position) {
-        final BookmarkEntity item = getItem(holder.getAdapterPosition());
+        final BookmarkItem item = getItem(holder.getAdapterPosition());
         holder.bindTo(item);
 
         if (itemClickListener != null) {
@@ -39,15 +38,15 @@ public class BookmarkListAdapter extends PagedListAdapter<BookmarkEntity, Bookma
     }
 
 
-    private static final DiffUtil.ItemCallback<BookmarkEntity> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<BookmarkEntity>() {
+    private static final DiffUtil.ItemCallback<BookmarkItem> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<BookmarkItem>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull BookmarkEntity oldItem, @NonNull BookmarkEntity newItem) {
+                public boolean areItemsTheSame(@NonNull BookmarkItem oldItem, @NonNull BookmarkItem newItem) {
                     return oldItem.getId() == newItem.getId();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull BookmarkEntity oldItem, @NonNull BookmarkEntity newItem) {
+                public boolean areContentsTheSame(@NonNull BookmarkItem oldItem, @NonNull BookmarkItem newItem) {
                     return oldItem.equals(newItem);
                 }
             };
