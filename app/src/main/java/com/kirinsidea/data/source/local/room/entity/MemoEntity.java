@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 
+import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
+
 import java.util.Objects;
 
 /**
@@ -85,5 +87,30 @@ public class MemoEntity {
                 ", memo='" + memo + '\'' +
                 ", bookmarkId=" + bookmarkId +
                 '}';
+    }
+
+    public static class Builder {
+        private int startIndex;
+        private int endIndex;
+        private String text;
+        private String memo;
+        private int bookmarkId;
+
+        public Builder fromRequest(@NonNull final NewMemoRequest request) {
+            this.startIndex = request.getStartIndex();
+            this.endIndex = request.getEndIndex();
+            this.text = request.getText();
+            this.memo = request.getMemo();
+            this.bookmarkId = request.getBookmarkId();
+            return this;
+        }
+
+        public MemoEntity build() {
+            return new MemoEntity(startIndex,
+                    endIndex,
+                    text,
+                    memo,
+                    bookmarkId);
+        }
     }
 }
