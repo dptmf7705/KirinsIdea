@@ -15,6 +15,9 @@ public class FolderListAdapter extends ListAdapter<Folder, FolderItemViewHolder>
 
     private ItemClickListener<Folder> itemClickListener;
 
+    private static final int Top = 0;
+    private static final int Other = 1;
+
     FolderListAdapter(ItemClickListener<Folder> itemClickListener) {
         super(DIFF_CALLBACK);
         this.itemClickListener = itemClickListener;
@@ -23,9 +26,9 @@ public class FolderListAdapter extends ListAdapter<Folder, FolderItemViewHolder>
     @Override
     public int getItemViewType(int position) {
         if(position == 0){
-            return 0;
+            return Top;
         } else {
-            return 1;
+            return Other;
         }
     }
 
