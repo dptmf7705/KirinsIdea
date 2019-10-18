@@ -10,14 +10,14 @@ import androidx.lifecycle.Transformations;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.data.source.local.room.entity.Bookmark;
+import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.ui.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BookmarkViewModel extends BaseViewModel {
     @NonNull
-    private final MutableLiveData<Bookmark> bookmark = new MutableLiveData<>();
+    private final MutableLiveData<BookmarkEntity> bookmark = new MutableLiveData<>();
     private LiveData<Spanned> content;
 
     private BookmarkRepository repository;
@@ -47,7 +47,7 @@ public class BookmarkViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<Bookmark> getBookmark() {
+    public LiveData<BookmarkEntity> getBookmark() {
         return bookmark;
     }
 

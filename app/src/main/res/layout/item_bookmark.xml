@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.kirinsidea.data.source.local.room.entity.Bookmark" />
+            type="com.kirinsidea.data.source.local.room.entity.BookmarkEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

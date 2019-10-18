@@ -16,7 +16,7 @@ import java.util.Objects;
  * @member bookmarkId   북마크 ID (PK)
  */
 @Entity(tableName = "memo", primaryKeys = {"startIndex", "endIndex", "bookmarkId"})
-public class Memo {
+public class MemoEntity {
     private final int startIndex;
     private final int endIndex;
     @NonNull
@@ -25,11 +25,11 @@ public class Memo {
     private final String memo;
     private final int bookmarkId;
 
-    public Memo(final int startIndex,
-                final int endIndex,
-                @NonNull final String text,
-                @Nullable final String memo,
-                final int bookmarkId) {
+    public MemoEntity(final int startIndex,
+                      final int endIndex,
+                      @NonNull final String text,
+                      @Nullable final String memo,
+                      final int bookmarkId) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
         this.text = text;
@@ -63,12 +63,12 @@ public class Memo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Memo memo1 = (Memo) o;
-        return startIndex == memo1.startIndex &&
-                endIndex == memo1.endIndex &&
-                bookmarkId == memo1.bookmarkId &&
-                text.equals(memo1.text) &&
-                Objects.equals(memo, memo1.memo);
+        MemoEntity memoEntity1 = (MemoEntity) o;
+        return startIndex == memoEntity1.startIndex &&
+                endIndex == memoEntity1.endIndex &&
+                bookmarkId == memoEntity1.bookmarkId &&
+                text.equals(memoEntity1.text) &&
+                Objects.equals(memo, memoEntity1.memo);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Memo {
 
     @Override
     public String toString() {
-        return "Memo{" +
+        return "MemoEntity{" +
                 "startIndex=" + startIndex +
                 ", endIndex=" + endIndex +
                 ", text='" + text + '\'' +

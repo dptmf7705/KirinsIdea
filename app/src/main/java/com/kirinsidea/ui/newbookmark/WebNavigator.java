@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.webdialog;
+package com.kirinsidea.ui.newbookmark;
 
 public interface WebNavigator {
 

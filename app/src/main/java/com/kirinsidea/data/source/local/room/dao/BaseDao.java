@@ -3,17 +3,11 @@ package com.kirinsidea.data.source.local.room.dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
-import androidx.room.RawQuery;
 import androidx.room.Update;
-import androidx.sqlite.db.SimpleSQLiteQuery;
-import androidx.sqlite.db.SupportSQLiteQuery;
-
-import com.kirinsidea.data.source.local.room.entity.Bookmark;
 
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Single;
 
 public interface BaseDao<T> {
 

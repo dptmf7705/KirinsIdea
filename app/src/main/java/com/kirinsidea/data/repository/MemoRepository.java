@@ -2,7 +2,7 @@ package com.kirinsidea.data.repository;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.data.source.local.room.entity.Memo;
+import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 
 import java.util.List;
@@ -16,8 +16,8 @@ public interface MemoRepository extends BaseRepository {
     Completable observeAddNewMemo(@NonNull final NewMemoRequest request);
 
     @NonNull
-    Single<List<Memo>> observeMemoList(final int bookmarkId);
+    Single<List<MemoEntity>> observeMemoList(final int bookmarkId);
 
     @NonNull
-    Completable observeDeleteMemo(final Memo memo);
+    Completable observeDeleteMemo(final MemoEntity memoEntity);
 }
