@@ -21,11 +21,11 @@ public class Folder {
     @NonNull
     private final String name;
     @NonNull
-    private final Date saveTime;
+    private final String saveTime;
     private final boolean isFavorite;
 
     public Folder(@NonNull final String name,
-                  @NonNull final Date saveTime,
+                  @NonNull final String saveTime,
                   final boolean isFavorite) {
         this.name = name;
         this.saveTime = saveTime;
@@ -36,7 +36,7 @@ public class Folder {
     public String getName(){return name;}
 
     @NonNull
-    public Date getSaveTime() {
+    public String getSaveTime() {
         return saveTime;
     }
 

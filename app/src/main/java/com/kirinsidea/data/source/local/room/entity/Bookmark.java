@@ -1,10 +1,10 @@
 package com.kirinsidea.data.source.local.room.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -19,7 +19,7 @@ import java.util.Objects;
  * @member writeTime        포스팅 시간
  * @member path             로컬 저장 경로
  * @member storageTime      서버 저장 시간
- * @member folderId         저장 폴더 ID
+ * @member folderName       저장 폴더 이름
  */
 @Entity(tableName = "bookmark")
 public class Bookmark {
@@ -41,7 +41,8 @@ public class Bookmark {
     private final String path;
     @NonNull
     private final String storageTime;
-    private final int folderId;
+    @NonNull
+    private final String folderName;
 
     public Bookmark(final int id,
                     @NonNull final String originalWebUrl,
@@ -52,7 +53,7 @@ public class Bookmark {
                     @NonNull final String writeTime,
                     @NonNull final String path,
                     @NonNull final String storageTime,
-                    final int folderId) {
+                    @NonNull final String folderName) {
         this.id = id;
         this.originalWebUrl = originalWebUrl;
         this.simpleWebUrl = simpleWebUrl;
@@ -62,7 +63,7 @@ public class Bookmark {
         this.writeTime = writeTime;
         this.path = path;
         this.storageTime = storageTime;
-        this.folderId = folderId;
+        this.folderName = folderName;
     }
 
     public int getId() {
@@ -109,8 +110,9 @@ public class Bookmark {
         return storageTime;
     }
 
-    public int getFolderId() {
-        return folderId;
+    @NonNull
+    public String getFolderName() {
+        return folderName;
     }
 
     @Override
@@ -119,7 +121,7 @@ public class Bookmark {
         if (o == null || getClass() != o.getClass()) return false;
         Bookmark bookmark = (Bookmark) o;
         return id == bookmark.id &&
-                folderId == bookmark.folderId &&
+                folderName == bookmark.folderName &&
                 originalWebUrl.equals(bookmark.originalWebUrl) &&
                 simpleWebUrl.equals(bookmark.simpleWebUrl) &&
                 mainImageUrl.equals(bookmark.mainImageUrl) &&
@@ -132,6 +134,6 @@ public class Bookmark {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderId);
+        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderName);
     }
 }
