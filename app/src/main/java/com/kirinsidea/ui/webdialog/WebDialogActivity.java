@@ -13,12 +13,11 @@ import com.kirinsidea.ui.BaseActivity;
 import com.kirinsidea.utils.WebUrlUtil;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> implements WebNavigator {
 
-    private String TAG = "WebDialogActivity";
+    private static final String TAG = "WebDialogActivity";
     private String ConnectUrl;
     private Disposable disposable;
 
