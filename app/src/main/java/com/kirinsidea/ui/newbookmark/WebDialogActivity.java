@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.webdialog;
+package com.kirinsidea.ui.newbookmark;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.folderList.FolderListAdapter;
 import com.kirinsidea.utils.WebUrlUtil;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 

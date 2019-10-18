@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.webdialog;
+package com.kirinsidea.ui.folderList;
 
 import android.view.View;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.databinding.ItemWebBottomsheetBinding;
 
 public class FolderItemViewHolder extends RecyclerView.ViewHolder {
@@ -16,7 +16,7 @@ public class FolderItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
     }
-    public void bindTo(Folder item) {
+    public void bindTo(FolderEntity item) {
         binding.setItem(item);
     }
 }

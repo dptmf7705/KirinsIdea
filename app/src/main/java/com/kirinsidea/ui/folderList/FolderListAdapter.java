@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.webdialog;
+package com.kirinsidea.ui.folderList;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.ui.listener.ItemClickListener;
 
-public class FolderListAdapter extends ListAdapter<Folder, FolderItemViewHolder> {
+public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewHolder> {
 
-    private ItemClickListener<Folder> itemClickListener;
+    private ItemClickListener<FolderEntity> itemClickListener;
 
     private static final int Top = 0;
     private static final int Other = 1;
 
-    FolderListAdapter(ItemClickListener<Folder> itemClickListener) {
+    public FolderListAdapter(ItemClickListener<FolderEntity> itemClickListener) {
         super(DIFF_CALLBACK);
         this.itemClickListener = itemClickListener;
     }
@@ -46,7 +46,7 @@ public class FolderListAdapter extends ListAdapter<Folder, FolderItemViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull FolderItemViewHolder holder, int position) {
-        final Folder item = getItem(holder.getAdapterPosition());
+        final FolderEntity item = getItem(holder.getAdapterPosition());
         holder.bindTo(item);
 
         if (itemClickListener != null) {
@@ -55,15 +55,15 @@ public class FolderListAdapter extends ListAdapter<Folder, FolderItemViewHolder>
         }
     }
 
-    private static final DiffUtil.ItemCallback<Folder> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<Folder>() {
+    private static final DiffUtil.ItemCallback<FolderEntity> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<FolderEntity>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull Folder oldItem, @NonNull Folder newItem) {
+                public boolean areItemsTheSame(@NonNull FolderEntity oldItem, @NonNull FolderEntity newItem) {
                     return oldItem.getName() == newItem.getName();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull Folder oldItem, @NonNull Folder newItem) {
+                public boolean areContentsTheSame(@NonNull FolderEntity oldItem, @NonNull FolderEntity newItem) {
                     return oldItem.equals(newItem);
                 }
             };

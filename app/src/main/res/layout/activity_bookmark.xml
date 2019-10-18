@@ -5,7 +5,7 @@
 
         <variable
             name="vm"
-            type="com.kirinsidea.ui.bookmark.BookmarkViewModel" />
+            type="com.kirinsidea.ui.bookmarkEntity.BookmarkViewModel" />
     </data>
 
     <ScrollView
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_small_12dp"
                 android:layout_marginBottom="@dimen/space_xsmall_8dp"
-                android:text="@{vm.bookmark.title}"
+                android:text="@{vm.bookmarkEntity.title}"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />
 
@@ -34,12 +34,12 @@
                 style="@style/TextView.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.bookmark.originalWebUrl}"
+                android:text="@{vm.bookmarkEntity.originalWebUrl}"
                 android:textColor="@color/colorGray" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_image"
-                image="@{vm.bookmark.mainImageUrl}"
+                image="@{vm.bookmarkEntity.mainImageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_xxlarge_28dp" />

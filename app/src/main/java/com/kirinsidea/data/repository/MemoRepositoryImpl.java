@@ -3,7 +3,7 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
-import com.kirinsidea.data.source.local.room.entity.Memo;
+import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.kirin.mapper.MemoRequestMapper;
 import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
@@ -51,14 +51,14 @@ public class MemoRepositoryImpl implements MemoRepository {
 
     @NonNull
     @Override
-    public Single<List<Memo>> observeMemoList(final int bookmarkId) {
+    public Single<List<MemoEntity>> observeMemoList(final int bookmarkId) {
         return memoDao.selectByBookmarkId(bookmarkId)
                 .subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
-    public Completable observeDeleteMemo(Memo memo) {
-        return memoDao.delete(memo).subscribeOn(Schedulers.io());
+    public Completable observeDeleteMemo(MemoEntity memoEntity) {
+        return memoDao.delete(memoEntity).subscribeOn(Schedulers.io());
     }
 }

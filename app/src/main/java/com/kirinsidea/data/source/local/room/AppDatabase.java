@@ -10,11 +10,11 @@ import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
-import com.kirinsidea.data.source.local.room.entity.Bookmark;
-import com.kirinsidea.data.source.local.room.entity.Folder;
-import com.kirinsidea.data.source.local.room.entity.Memo;
+import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
+import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 
-@Database(entities = {Bookmark.class, Folder.class, Memo.class}, version = 1, exportSchema = false)
+@Database(entities = {BookmarkEntity.class, FolderEntity.class, MemoEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static class LazyHolder {

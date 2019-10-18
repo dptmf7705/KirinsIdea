@@ -13,7 +13,7 @@ import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmark.MemoViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
-import com.kirinsidea.ui.webdialog.AddNewBookmarkViewModel;
+import com.kirinsidea.ui.newbookmark.AddNewBookmarkViewModel;
 
 abstract class Injectors {
 

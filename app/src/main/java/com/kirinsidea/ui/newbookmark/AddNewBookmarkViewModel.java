@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.webdialog;
+package com.kirinsidea.ui.newbookmark;
 
 import android.text.TextUtils;
 
@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.ui.BaseViewModel;
@@ -26,7 +26,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     private final MutableLiveData<String> folderName = new MutableLiveData<>();
 
     @NonNull
-    private MutableLiveData<List<Folder>> folderList = new MutableLiveData<>();
+    private MutableLiveData<List<FolderEntity>> folderList = new MutableLiveData<>();
 
     private MutableLiveData<String> status = new MutableLiveData<>();
 
@@ -54,7 +54,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     }
 
     @NonNull
-    public LiveData<List<Folder>> getFolderList() {
+    public LiveData<List<FolderEntity>> getFolderList() {
         return folderList;
     }
 

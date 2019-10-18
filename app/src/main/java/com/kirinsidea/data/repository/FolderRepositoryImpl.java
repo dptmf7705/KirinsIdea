@@ -3,10 +3,9 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
-import com.kirinsidea.data.source.local.room.entity.Folder;
+import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.mapper.FolderRequestMapper;
 
 import java.util.List;
 
@@ -40,13 +39,13 @@ public class FolderRepositoryImpl implements FolderRepository {
 
     @NonNull
     @Override
-    public Single<Folder> observeFolderByName(String folderName) {
+    public Single<FolderEntity> observeFolderByName(String folderName) {
         return folderDao.selectByName(folderName).subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
-    public Single<List<Folder>> observeFolderList() {
+    public Single<List<FolderEntity>> observeFolderList() {
         return folderDao.selectAll();
     }
 
@@ -55,7 +54,7 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
 
         return retrofit.observeAddNewFolder(request)
-                .mergeWith(folderDao.insert(FolderRequestMapper.toFolder(request)))
+                .mergeWith(folderDao.insert(new FolderEntity.Builder().fromRequest(request).build()))
                 .subscribeOn(Schedulers.io());
     }
 }

@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.MemoRepository;
-import com.kirinsidea.data.source.local.room.entity.Memo;
+import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 import com.kirinsidea.ui.BaseViewModel;
 
@@ -20,7 +20,7 @@ public class MemoViewModel extends BaseViewModel {
     @NonNull
     private final MutableLiveData<Integer> bookmarkId = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<List<Memo>> memoList = new MutableLiveData<>();
+    private final MutableLiveData<List<MemoEntity>> memoList = new MutableLiveData<>();
 
     @NonNull
     private final MutableLiveData<Pair<Integer, Integer>> selectedIndex = new MutableLiveData<>();
@@ -29,7 +29,7 @@ public class MemoViewModel extends BaseViewModel {
     @NonNull
     private final MutableLiveData<String> inputMemo = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Memo> selectedItem = new MutableLiveData<>();
+    private final MutableLiveData<MemoEntity> selectedItem = new MutableLiveData<>();
 
     private MemoRepository repository;
 
@@ -60,12 +60,12 @@ public class MemoViewModel extends BaseViewModel {
     }
 
     public void deleteSelectedMemo() {
-        final Memo memo = selectedItem.getValue();
-        if (memo == null) {
+        final MemoEntity memoEntity = selectedItem.getValue();
+        if (memoEntity == null) {
             return;
         }
         addDisposable(repository
-                .observeDeleteMemo(memo)
+                .observeDeleteMemo(memoEntity)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     selectedItem.setValue(null);
@@ -83,12 +83,12 @@ public class MemoViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<List<Memo>> getMemoList() {
+    public LiveData<List<MemoEntity>> getMemoList() {
         return memoList;
     }
 
     @NonNull
-    public MutableLiveData<Memo> getSelectedItem() {
+    public MutableLiveData<MemoEntity> getSelectedItem() {
         return selectedItem;
     }
 

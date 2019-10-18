@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kirinsidea.data.source.local.room.entity.Bookmark;
+import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.databinding.ItemBookmarkBinding;
 
 public class BookmarkItemViewHolder extends RecyclerView.ViewHolder {
@@ -18,7 +18,7 @@ public class BookmarkItemViewHolder extends RecyclerView.ViewHolder {
         binding = DataBindingUtil.bind(itemView);
     }
 
-    public void bindTo(Bookmark item) {
+    public void bindTo(BookmarkEntity item) {
         binding.setItem(item);
     }
 }

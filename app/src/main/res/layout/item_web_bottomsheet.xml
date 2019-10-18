@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.kirinsidea.data.source.local.room.entity.Folder" />
+            type="com.kirinsidea.data.source.local.room.entity.FolderEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
