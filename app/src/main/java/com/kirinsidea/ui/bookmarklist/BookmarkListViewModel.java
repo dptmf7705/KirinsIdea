@@ -7,13 +7,12 @@ import androidx.paging.PagedList;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.ui.BaseViewModel;
 
 public class BookmarkListViewModel extends BaseViewModel {
     private static final int PAGE_SIZE = 10;
 
-    private LiveData<PagedList<BookmarkEntity>> bookmarkList;
+    private LiveData<PagedList<BookmarkItem>> bookmarkList;
 
     private BookmarkRepository repository;
 
@@ -30,7 +29,7 @@ public class BookmarkListViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<PagedList<BookmarkEntity>> getBookmarkList() {
+    public LiveData<PagedList<BookmarkItem>> getBookmarkList() {
         return bookmarkList;
     }
 }

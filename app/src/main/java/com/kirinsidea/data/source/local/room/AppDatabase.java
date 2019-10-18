@@ -9,13 +9,18 @@ import com.kirinsidea.App;
 import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
-import com.kirinsidea.data.source.local.room.dao.MemoDao;
+import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
+import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
+import com.kirinsidea.extension.room.Converters;
 
-@Database(entities = {BookmarkEntity.class, FolderEntity.class, MemoEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
+@Database(entities = {
+        BookmarkEntity.class,
+        FolderEntity.class,
+        HighlightEntity.class
+}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static class LazyHolder {
         private static final AppDatabase INSTANCE = Room.databaseBuilder(
@@ -32,5 +37,5 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract FolderDao folderDao();
 
-    public abstract MemoDao memoDao();
+    public abstract HighlightDao highlightDao();
 }

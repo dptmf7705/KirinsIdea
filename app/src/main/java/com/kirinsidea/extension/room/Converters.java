@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.local.room;
+package com.kirinsidea.extension.room;
 
 import androidx.room.TypeConverter;
 

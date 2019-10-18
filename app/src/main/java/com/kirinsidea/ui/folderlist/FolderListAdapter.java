@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.folderList;
+package com.kirinsidea.ui.folderlist;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

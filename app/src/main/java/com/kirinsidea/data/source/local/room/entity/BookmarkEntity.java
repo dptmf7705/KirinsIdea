@@ -150,7 +150,7 @@ public class BookmarkEntity {
         private String storageTime;
         private String folderName;
 
-        public Builder fromResponse(@NonNull final NewBookmarkResponse response, @NonNull final String path) {
+        public Builder fromResponse(@NonNull final NewBookmarkResponse response) {
             this.id = 0;
             this.originalWebUrl = response.getOriginalweburl();
             this.simpleWebUrl = response.getSimpleweburl();
@@ -158,10 +158,13 @@ public class BookmarkEntity {
             this.title = response.getTitle();
             this.author = response.getAuthor();
             this.writeTime = response.getWritetime();
-            this.path = path;
             this.storageTime = response.getStoragetime();
             this.folderName = response.getFolderName();
+            return this;
+        }
 
+        public Builder setPath(String path) {
+            this.path = path;
             return this;
         }
 

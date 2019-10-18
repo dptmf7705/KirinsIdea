@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.kirin;
+package com.kirinsidea.data.source.remote.kirin.api;
 
 import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;

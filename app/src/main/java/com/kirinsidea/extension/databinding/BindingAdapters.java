@@ -3,12 +3,10 @@ package com.kirinsidea.extension.databinding;
 import android.graphics.Bitmap;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 import androidx.paging.PagedList;
@@ -73,7 +71,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("image")
-    public static void loadImageFromBitmap(@NonNull final ImageView imageView,
+    public static void loadImageFromBitmap(@NonNull final AppCompatImageView imageView,
                                            @Nullable final Bitmap bitmap) {
         if (bitmap == null) {
             return;
@@ -83,7 +81,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"image"})
-    public static void loadImageFromUri(@NonNull final ImageView button,
+    public static void loadImageFromUri(@NonNull final AppCompatImageView button,
                                         @Nullable final String imageUrl) {
         if (imageUrl == null) {
             return;
@@ -93,25 +91,24 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"image"})
-    public static void loadImageFromResource(@NonNull final ImageView imageView,
+    public static void loadImageFromResource(@NonNull final AppCompatImageView imageView,
                                              final int resId) {
         Glide.with(imageView).load(resId).into(imageView);
     }
 
     @BindingAdapter({"html"})
-    public static void displayHtmlText(@NonNull final TextView textView,
-                                       @Nullable final String html) {
-        if (TextUtils.isEmpty(html)) {
+    public static void displayHtmlText(@NonNull final AppCompatTextView textView,
+                                       @Nullable final CharSequence html) {
+        if (html == null || TextUtils.isEmpty(html)) {
             return;
         }
 
-        textView.setText(Html.fromHtml(html));
+        textView.setText(Html.fromHtml(html.toString()));
     }
 
     @BindingAdapter({"active"})
     public static void setActive(@NonNull final AppCompatTextView textView,
                                  final boolean isActive) {
-         textView.setActivated(isActive);
-        Log.d("BindingAdapter"," isActive: "+isActive);
+        textView.setActivated(isActive);
     }
 }

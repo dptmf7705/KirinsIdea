@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.remote.kirin;
+package com.kirinsidea.data.source.remote.kirin.api;
 
 import io.reactivex.Single;
 import okhttp3.ResponseBody;

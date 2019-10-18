@@ -10,7 +10,7 @@ import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
-import com.kirinsidea.ui.folderList.FolderListAdapter;
+import com.kirinsidea.ui.folderlist.FolderListAdapter;
 import com.kirinsidea.utils.WebUrlUtil;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
@@ -64,7 +64,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     }
 
     private void initViewModel() {
-        binding.setVm(Providers.getViewModel(this, AddNewBookmarkViewModel.class));
+        binding.setVm(Providers.getViewModel(this, NewBookmarkViewModel.class));
         binding.getVm().setNavigator(this);
         binding.getVm().getStatus().observe(this, status -> {
             if(status.equals("ERROR")){

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.kirinsidea.ui.newbookmark.AddNewBookmarkViewModel" />
+            type="com.kirinsidea.ui.newbookmark.NewBookmarkViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
