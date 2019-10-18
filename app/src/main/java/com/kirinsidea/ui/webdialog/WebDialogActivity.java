@@ -31,6 +31,10 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        checkPermission();
+    }
+
+    public void checkPermission(){
         disposable = TedRx2Permission.with(WebDialogActivity.this)
                 .setRationaleTitle("저장소 접근 권한 허용")
                 .setRationaleMessage("파일 저장소 접근권한이 필요합니다")
