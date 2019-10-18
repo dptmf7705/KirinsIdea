@@ -1,4 +1,4 @@
-package com.kirinsidea.ui.folderList;
+package com.kirinsidea.ui.folderlist;
 
 import android.view.View;
 

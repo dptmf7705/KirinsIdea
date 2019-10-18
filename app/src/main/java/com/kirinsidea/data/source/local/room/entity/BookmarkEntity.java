@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
+
+import java.util.Objects;
+
 /**
  * 북마크
  *
@@ -16,7 +20,7 @@ import androidx.room.PrimaryKey;
  * @member writeTime        포스팅 시간
  * @member path             로컬 저장 경로
  * @member storageTime      서버 저장 시간
- * @member folderId         저장 폴더 ID
+ * @member folderName       저장 폴더 이름
  */
 @Entity(tableName = "bookmark")
 public class BookmarkEntity {
@@ -38,7 +42,8 @@ public class BookmarkEntity {
     private final String path;
     @NonNull
     private final String storageTime;
-    private final int folderId;
+    @NonNull
+    private final String folderName;
 
     public BookmarkEntity(final int id,
                           @NonNull final String originalWebUrl,
@@ -49,7 +54,7 @@ public class BookmarkEntity {
                           @NonNull final String writeTime,
                           @NonNull final String path,
                           @NonNull final String storageTime,
-                          final int folderId) {
+                          @NonNull final String folderName) {
         this.id = id;
         this.originalWebUrl = originalWebUrl;
         this.simpleWebUrl = simpleWebUrl;
@@ -59,7 +64,7 @@ public class BookmarkEntity {
         this.writeTime = writeTime;
         this.path = path;
         this.storageTime = storageTime;
-        this.folderId = folderId;
+        this.folderName = folderName;
     }
 
     public int getId() {
@@ -106,7 +111,74 @@ public class BookmarkEntity {
         return storageTime;
     }
 
-    public int getFolderId() {
-        return folderId;
+    @NonNull
+    public String getFolderName() {
+        return folderName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookmarkEntity bookmarkEntity = (BookmarkEntity) o;
+        return id == bookmarkEntity.id &&
+                folderName == bookmarkEntity.folderName &&
+                originalWebUrl.equals(bookmarkEntity.originalWebUrl) &&
+                simpleWebUrl.equals(bookmarkEntity.simpleWebUrl) &&
+                mainImageUrl.equals(bookmarkEntity.mainImageUrl) &&
+                title.equals(bookmarkEntity.title) &&
+                author.equals(bookmarkEntity.author) &&
+                writeTime.equals(bookmarkEntity.writeTime) &&
+                path.equals(bookmarkEntity.path) &&
+                storageTime.equals(bookmarkEntity.storageTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderName);
+    }
+
+    public static class Builder {
+        private int id;
+        private String originalWebUrl;
+        private String simpleWebUrl;
+        private String mainImageUrl;
+        private String title;
+        private String author;
+        private String writeTime;
+        private String path;
+        private String storageTime;
+        private String folderName;
+
+        public Builder fromResponse(@NonNull final NewBookmarkResponse response) {
+            this.id = 0;
+            this.originalWebUrl = response.getOriginalweburl();
+            this.simpleWebUrl = response.getSimpleweburl();
+            this.mainImageUrl = response.getMainimage();
+            this.title = response.getTitle();
+            this.author = response.getAuthor();
+            this.writeTime = response.getWritetime();
+            this.storageTime = response.getStoragetime();
+            this.folderName = response.getFolderName();
+            return this;
+        }
+
+        public Builder setPath(String path) {
+            this.path = path;
+            return this;
+        }
+
+        public BookmarkEntity build() {
+            return new BookmarkEntity(id,
+                    originalWebUrl,
+                    simpleWebUrl,
+                    mainImageUrl,
+                    title,
+                    author,
+                    writeTime,
+                    path,
+                    storageTime,
+                    folderName);
+        }
     }
 }

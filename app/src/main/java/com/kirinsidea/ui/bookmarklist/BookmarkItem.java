@@ -2,6 +2,8 @@ package com.kirinsidea.ui.bookmarklist;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
+
 import java.util.Objects;
 
 public class BookmarkItem {
@@ -66,5 +68,32 @@ public class BookmarkItem {
     @Override
     public int hashCode() {
         return Objects.hash(id, simpleWebUrl, mainImageUrl, title, storageTime);
+    }
+
+    public static class Builder {
+        private int id;
+        private String simpleWebUrl;
+        private String mainImageUrl;
+        private String title;
+        private String storageTime;
+
+        @NonNull
+        public Builder fromEntity(@NonNull final BookmarkEntity entity) {
+            this.id = entity.getId();
+            this.simpleWebUrl = entity.getSimpleWebUrl();
+            this.mainImageUrl = entity.getMainImageUrl();
+            this.title = entity.getTitle();
+            this.storageTime = entity.getStorageTime();
+            return this;
+        }
+
+        @NonNull
+        public BookmarkItem build() {
+            return new BookmarkItem(id,
+                    simpleWebUrl,
+                    mainImageUrl,
+                    title,
+                    storageTime);
+        }
     }
 }

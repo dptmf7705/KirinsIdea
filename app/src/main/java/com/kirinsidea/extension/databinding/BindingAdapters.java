@@ -3,11 +3,11 @@ package com.kirinsidea.extension.databinding;
 import android.graphics.Bitmap;
 import android.text.Html;
 import android.text.TextUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
@@ -109,7 +109,6 @@ public class BindingAdapters {
     @BindingAdapter({"active"})
     public static void setActive(@NonNull final AppCompatTextView textView,
                                  final boolean isActive) {
-         textView.setActivated(isActive);
-        Log.d("BindingAdapter"," isActive: "+isActive);
+        textView.setActivated(isActive);
     }
 }

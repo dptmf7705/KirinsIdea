@@ -19,8 +19,8 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
-    private String TAG = "AddNewBookmarkViewModel";
+public class NewBookmarkViewModel extends BaseViewModel<WebNavigator> {
+    private String TAG = "NewBookmarkViewModel";
 
     @NonNull
     private final MutableLiveData<String> folderName = new MutableLiveData<>();
