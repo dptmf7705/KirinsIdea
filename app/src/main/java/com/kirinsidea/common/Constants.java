@@ -28,7 +28,10 @@ public abstract class Constants {
         /* bookmark 테이블에서 전체 북마크 조회 */
         String SELECT_ALL_BOOKMARK = "SELECT * FROM bookmark";
 
-        /* folder 테이블에서 id 기준으로 폴더 조회 */
+        /* bookmark 테이블에서 originalWebUrl 기준으로 북마크 조회*/
+        String SELECT_BOOKMARK_BY_URL = "SELECT COUNT(*) FROM bookmark WHERE originalWebUrl = :originalWebUrl ";
+
+        /* folder 테이블에서 name 기준으로 폴더 조회 */
         String SELECT_FOLDER_BY_NAME = "SELECT * FROM folder WHERE name = :name LIMIT 1";
 
         /* folder 테이블에서 전체 폴더 조회 */
