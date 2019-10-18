@@ -6,7 +6,9 @@ import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.Folder;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
+import com.kirinsidea.data.source.remote.mapper.FolderRequestMapper;
+
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -22,7 +24,8 @@ public class FolderRepositoryImpl implements FolderRepository {
         return LazyHolder.INSTANCE;
     }
 
-    private FolderRepositoryImpl() { }
+    private FolderRepositoryImpl() {
+    }
 
     private RetrofitClient retrofit;
     private FolderDao folderDao;
@@ -43,19 +46,16 @@ public class FolderRepositoryImpl implements FolderRepository {
 
     @NonNull
     @Override
-    public Single<Folder> observeFolderList() {
+    public Single<List<Folder>> observeFolderList() {
         return folderDao.selectAll();
     }
 
     @NonNull
     @Override
-    public Completable observeAddNewFolder(@NonNull Folder folder) {
-        return folderDao.insert(folder).subscribeOn(Schedulers.io());
-    }
+    public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
 
-    @NonNull
-    @Override
-    public Single<NewFolderResponse> observeAddNewFolder(@NonNull NewFolderRequest request) {
-        return retrofit.observeAddNewFolder(request).subscribeOn(Schedulers.io());
+        return retrofit.observeAddNewFolder(request)
+                .mergeWith(folderDao.insert(FolderRequestMapper.toFolder(request)))
+                .subscribeOn(Schedulers.io());
     }
 }
