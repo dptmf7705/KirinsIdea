@@ -19,7 +19,7 @@ public interface BookmarkRepository extends BaseRepository {
     DataSource.Factory<Integer, Bookmark> observeBookmarkList();
 
     @NonNull
-    int checkIfExistUrl(String Url);
+    Single<Integer> checkIfExistUrl(String Url);
 
     @NonNull
     Completable observeAddNewBookmark(@NonNull NewBookmarkRequest request);

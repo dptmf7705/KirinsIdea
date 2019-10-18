@@ -38,7 +38,8 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
                 .setRationaleTitle("저장소 접근 권한 허용")
                 .setRationaleMessage("파일 저장소 접근권한이 필요합니다")
                 .setDeniedMessage("저장소 권한이 거부되었습니다.\n[설정] > [권한] 에서 권한을 허용하셔야합니다.")
-                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request()
                 .subscribe(tedPermissionResult -> {
                     if (tedPermissionResult.isGranted()) {
@@ -47,7 +48,8 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
                         initViews();
                     } else {
                         Toast.makeText(this,
-                                "권한 거부\n" + tedPermissionResult.getDeniedPermissions().toString(), Toast.LENGTH_SHORT)
+                                "권한 거부\n" + tedPermissionResult.getDeniedPermissions()
+                                        .toString(), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }, throwable -> {
@@ -65,13 +67,15 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         binding.getVm().setNavigator(this);
         binding.getVm().getStatus().observe(this, status -> {
             if(status.equals("ERROR")){
-                Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
+                        .show();
             }
         });
     }
 
     private void initViews() {
-        binding.recyclerFolder.setAdapter(new FolderListAdapter(item -> binding.getVm().addNewBookmark(item.getName())));
+        binding.recyclerFolder.setAdapter(new FolderListAdapter(item -> binding.getVm()
+                .checkExistUrl(item.getName())));
     }
 
       @Override

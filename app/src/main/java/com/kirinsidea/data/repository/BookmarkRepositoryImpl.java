@@ -60,7 +60,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public int checkIfExistUrl(String Url) {
+    public Single<Integer> checkIfExistUrl(String Url) {
         return bookmarkDao.selectByUrl(Url);
     }
 
@@ -71,7 +71,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
                 .flatMapCompletable(response ->
                         retrofit.downloadFileByUrl(response.getHtml())
                                 .map(responseBody -> FileUtil.writeFile(responseBody.source()))
-                                .flatMapCompletable(path -> bookmarkDao.insert(BookmarkResponseMapper.toBookmark(response, path))))
+                                .flatMapCompletable(path -> bookmarkDao
+                                        .insert(BookmarkResponseMapper.toBookmark(response, path))))
                 .subscribeOn(Schedulers.io());
 
     }

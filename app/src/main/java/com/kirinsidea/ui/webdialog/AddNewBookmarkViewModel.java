@@ -59,7 +59,7 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     }
 
     @NonNull
-    public LiveData<String> getStatus(){
+    public LiveData<String> getStatus() {
         return status;
     }
 
@@ -70,24 +70,33 @@ public class AddNewBookmarkViewModel extends BaseViewModel<WebNavigator> {
         if (newFolderName == null || TextUtils.isEmpty(newFolderName)) {
             return;
         }
-        addDisposable(folderRepository.observeAddNewFolder(new NewFolderRequest(newFolderName, storageTime))
+        addDisposable(folderRepository.observeAddNewFolder(new NewFolderRequest(newFolderName,
+                storageTime))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> navigator.get().finishWebDialog(),
                         error::setValue));
 
-        addNewBookmark(newFolderName);
+        checkExistUrl(newFolderName);
     }
 
-    public void addNewBookmark(String fname) {
+    public void checkExistUrl(String fname) {
         String url = navigator.get().getWebUrl();
 
-        if (bookmarkRepository.checkIfExistUrl(url) == 0) {
-            addDisposable(bookmarkRepository.observeAddNewBookmark(new NewBookmarkRequest(url, fname))
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> navigator.get().finishWebDialog(),
-                            error::setValue));
-        } else {
-            status.setValue("ERROR");
-        }
+        addDisposable(bookmarkRepository.checkIfExistUrl(url)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(integer -> {
+                    if (integer == 0) {
+                        addNewBookmark(url, fname);
+                    } else {
+                        status.setValue("ERROR");
+                    }
+                }));
+    }
+
+    public void addNewBookmark(String url, String fname) {
+        addDisposable(bookmarkRepository.observeAddNewBookmark(new NewBookmarkRequest(url, fname))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> navigator.get().finishWebDialog(),
+                        error::setValue));
     }
 }

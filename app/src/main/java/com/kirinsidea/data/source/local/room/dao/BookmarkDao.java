@@ -20,5 +20,5 @@ public interface BookmarkDao extends BaseDao<Bookmark> {
     DataSource.Factory<Integer, Bookmark> selectAll();
 
     @Query(Constants.Query.SELECT_BOOKMARK_BY_URL)
-    int selectByUrl(final String originalWebUrl);
+    Single<Integer> selectByUrl(final String originalWebUrl);
 }
