@@ -13,7 +13,7 @@ import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmark.MemoViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
-import com.kirinsidea.ui.newbookmark.AddNewBookmarkViewModel;
+import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
 
 abstract class Injectors {
 
@@ -33,7 +33,7 @@ abstract class Injectors {
             //noinspection unchecked
             return (VM) viewModel.init(
                     initRepository(Providers.getBookmarkRepository()));
-        } else if (viewModel instanceof AddNewBookmarkViewModel) {
+        } else if (viewModel instanceof NewBookmarkViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(
                     initRepository(Providers.getBookmarkRepository()),

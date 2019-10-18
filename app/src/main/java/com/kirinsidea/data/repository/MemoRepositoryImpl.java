@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
-import com.kirinsidea.data.source.remote.kirin.mapper.MemoRequestMapper;
 import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class MemoRepositoryImpl implements MemoRepository {
 //                .mergeArray(retrofit.observeAddNewMemo(request),
 //                        memoDao.insert(MemoRequestMapper.toMemo(request)))
 //                .subscribeOn(Schedulers.io());
-        return memoDao.insert(MemoRequestMapper.toMemo(request))
+        return memoDao.insert(new MemoEntity.Builder().fromRequest(request).build())
                 .subscribeOn(Schedulers.io());
     }
 

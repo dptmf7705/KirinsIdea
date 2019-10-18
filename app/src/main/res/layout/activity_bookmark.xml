@@ -35,7 +35,7 @@
                 style="@style/TextView.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bookmarkVm.bookmark.originalWebUrl}"
+                android:text="@{bookmarkVm.bookmark.simpleWebUrl}"
                 android:textColor="@color/colorGray" />
 
             <androidx.appcompat.widget.AppCompatTextView

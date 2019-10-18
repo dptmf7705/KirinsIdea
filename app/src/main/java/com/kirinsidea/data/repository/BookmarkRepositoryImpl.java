@@ -7,8 +7,6 @@ import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
-import com.kirinsidea.mapper.BookmarkItemMapper;
-import com.kirinsidea.mapper.BookmarkMapper;
 import com.kirinsidea.ui.bookmark.Bookmark;
 import com.kirinsidea.ui.bookmarklist.BookmarkItem;
 import com.kirinsidea.utils.FileUtil;
@@ -45,14 +43,17 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @Override
     public Single<Bookmark> observeBookmarkById(final int id) {
         return bookmarkDao.selectById(id)
-                .map(BookmarkMapper::entityToModel)
+                .map(entity -> new Bookmark.Builder()
+                        .fromEntity(entity)
+                        .setContents("")
+                        .build())
                 .subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList() {
-        return bookmarkDao.selectAll().map(BookmarkItemMapper::entityToModel);
+        return bookmarkDao.selectAll().map(entity -> new BookmarkItem.Builder().fromEntity(entity).build());
     }
 
     @NonNull
@@ -69,7 +70,10 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
                         retrofit.downloadFileByUrl(response.getHtml())
                                 .map(responseBody -> FileUtil.writeFile(responseBody.source()))
                                 .flatMapCompletable(path -> bookmarkDao
-                                        .insert(new BookmarkEntity.Builder().fromResponse(response, path).build())))
+                                        .insert(new BookmarkEntity.Builder()
+                                                .fromResponse(response)
+                                                .setPath(path)
+                                                .build())))
                 .subscribeOn(Schedulers.io());
 
     }

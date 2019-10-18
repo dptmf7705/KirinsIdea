@@ -4,18 +4,19 @@ import androidx.annotation.NonNull;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kirinsidea.common.Constants;
+import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
+import com.kirinsidea.data.source.remote.kirin.api.FileApi;
+import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
-import com.kirinsidea.utils.FileUtil;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -80,7 +81,7 @@ public class RetrofitClient {
     }
 
     @NonNull
-    public Single<ResponseBody> downloadFileByUrl(@Url String fileUrl){
+    public Single<ResponseBody> downloadFileByUrl(@Url String fileUrl) {
         return retrofit.create(FileApi.class)
                 .downloadFileByUrl(fileUrl)
                 .subscribeOn(Schedulers.io());
