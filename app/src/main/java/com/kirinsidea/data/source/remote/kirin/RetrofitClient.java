@@ -9,7 +9,6 @@ import com.kirinsidea.data.source.remote.kirin.api.FileApi;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.kirin.request.NewMemoRequest;
 import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
 
 import io.reactivex.Completable;
@@ -68,15 +67,6 @@ public class RetrofitClient {
 
         return retrofit.create(FolderApi.class)
                 .observeAddNewFolder(request)
-                .subscribeOn(Schedulers.io());
-    }
-
-    @NonNull
-    public Completable observeAddNewMemo(
-            @NonNull final NewMemoRequest request) {
-
-        return retrofit.create(MemoApi.class)
-                .observeAddNewMemo(request)
                 .subscribeOn(Schedulers.io());
     }
 

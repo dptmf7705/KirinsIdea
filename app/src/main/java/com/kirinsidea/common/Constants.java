@@ -11,9 +11,6 @@ public abstract class Constants {
 
         /* 폴더 생성 URL */
         String SUB_URL_NEW_FOLDER = "folder";
-
-        /* 메모 추가 URL */
-        String SUB_URL_NEW_MEMO = "memo";
     }
 
     public @interface Room {
@@ -36,9 +33,6 @@ public abstract class Constants {
 
         /* folder 테이블에서 전체 폴더 조회 */
         String SELECT_ALL_FOLDER = "SELECT * FROM folder";
-
-        /* memo 테이블에서 bookmark id 기준 조회 */
-        String SELECT_ALL_MEMO_BY_BOOKMARK_ID = "SELECT * FROM memo WHERE bookmarkId = :bookmarkId";
     }
 
     public @interface Message {
