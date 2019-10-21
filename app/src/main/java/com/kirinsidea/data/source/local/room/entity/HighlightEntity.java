@@ -87,7 +87,7 @@ public class HighlightEntity {
     }
 
     public static class Builder {
-        private final int id = 0;
+        private final int id;
         private final int bookmarkId;
         private final int startIndex;
         private final int endIndex;
@@ -95,6 +95,7 @@ public class HighlightEntity {
         private final String color;
 
         public Builder(@NonNull final Highlight model) {
+            this.id = model.getId();
             this.bookmarkId = model.getBookmarkId();
             this.startIndex = model.getStartIndex();
             this.endIndex = model.getEndIndex();
