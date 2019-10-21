@@ -66,7 +66,7 @@ public abstract class Providers {
 
     @NonNull
     private static AppDatabase getAppDatabase() {
-        return AppDatabase.getDatabase();
+        return AppDatabase.getInstance(App.instance().getContext());
     }
 
     @NonNull
