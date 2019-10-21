@@ -1,7 +1,10 @@
 package com.kirinsidea.data.source.local.room.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.kirinsidea.ui.highlight.Highlight;
 
 /**
  * 하이라이트
@@ -24,6 +27,15 @@ public class HighlightEntity {
     private String color;
 
     public HighlightEntity() {
+    }
+
+    private HighlightEntity(Builder builder) {
+        this.id = builder.id;
+        this.bookmarkId = builder.bookmarkId;
+        this.startIndex = builder.startIndex;
+        this.endIndex = builder.endIndex;
+        this.text = builder.text;
+        this.color = builder.color;
     }
 
     public int getId() {
@@ -72,5 +84,26 @@ public class HighlightEntity {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public static class Builder {
+        private final int id = 0;
+        private final int bookmarkId;
+        private final int startIndex;
+        private final int endIndex;
+        private final String text;
+        private final String color;
+
+        public Builder(@NonNull final Highlight model) {
+            this.bookmarkId = model.getBookmarkId();
+            this.startIndex = model.getStartIndex();
+            this.endIndex = model.getEndIndex();
+            this.text = model.getText();
+            this.color = model.getColor().getColorName();
+        }
+
+        public HighlightEntity build() {
+            return new HighlightEntity(this);
+        }
     }
 }
