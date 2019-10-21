@@ -35,11 +35,11 @@ public class GoogleLoginApi {
     }
 
     @NonNull
-    public Single<Intent> observeLoginIntent() {
+    public Single<Intent> getLoginIntent() {
         return Single.just(signInClient.getSignInIntent());
     }
 
-    public Single<AuthCredential> observeAuthCredential(@NonNull final Intent data) {
+    public Single<AuthCredential> getAuthCredential(@NonNull final Intent data) {
         return Single.create(emitter -> {
             try {
                 final GoogleSignInAccount account = GoogleSignIn

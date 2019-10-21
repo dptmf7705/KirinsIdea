@@ -16,8 +16,6 @@ import com.kirinsidea.data.repository.FolderRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
-import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
-import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
@@ -50,23 +48,13 @@ public abstract class Providers {
     }
 
     @NonNull
-    static RetrofitClient getRetrofitClient() {
-        return RetrofitClient.getInstance();
+    static <T> T getRoomDao(@NonNull final Class<T> daoClass) {
+        return AppDatabase.getInstance(App.instance().getContext()).create(daoClass);
     }
 
     @NonNull
-    static BookmarkDao getBookmarkDao() {
-        return getAppDatabase().bookmarkDao();
-    }
-
-    @NonNull
-    static FolderDao getFolderDao() {
-        return getAppDatabase().folderDao();
-    }
-
-    @NonNull
-    private static AppDatabase getAppDatabase() {
-        return AppDatabase.getInstance(App.instance().getContext());
+    static <T> T getRetrofitApi(@NonNull final Class<T> apiClass) {
+        return RetrofitClient.getInstance().create(apiClass);
     }
 
     @NonNull

@@ -4,24 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kirinsidea.BuildConfig;
-import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
-import com.kirinsidea.data.source.remote.kirin.api.FileApi;
-import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
-import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
-import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Url;
 
 public class RetrofitClient {
     private static final String BASE_URL = "http://133.186.146.239:5000/";
@@ -90,28 +79,7 @@ public class RetrofitClient {
                 .writeTimeout(30, TimeUnit.SECONDS);
     }
 
-    @NonNull
-    public Single<NewBookmarkResponse> observeAddNewBookmark(
-            @NonNull final NewBookmarkRequest request) {
-
-        return retrofit.create(BookmarkApi.class)
-                .observeAddNewBookmark(request)
-                .subscribeOn(Schedulers.io());
-    }
-
-    @NonNull
-    public Completable observeAddNewFolder(
-            @NonNull final NewFolderRequest request) {
-
-        return retrofit.create(FolderApi.class)
-                .observeAddNewFolder(request)
-                .subscribeOn(Schedulers.io());
-    }
-
-    @NonNull
-    public Single<ResponseBody> downloadFileByUrl(@Url String fileUrl) {
-        return retrofit.create(FileApi.class)
-                .downloadFileByUrl(fileUrl)
-                .subscribeOn(Schedulers.io());
+    public <T> T create(Class<T> apiClass) {
+        return retrofit.create(apiClass);
     }
 }

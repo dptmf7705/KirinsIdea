@@ -5,7 +5,8 @@ import androidx.paging.DataSource;
 
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
-import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
+import com.kirinsidea.data.source.remote.kirin.api.FileApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.bookmark.Bookmark;
 import com.kirinsidea.ui.bookmarklist.BookmarkItem;
@@ -28,21 +29,23 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     private BookmarkRepositoryImpl() {
     }
 
-    private RetrofitClient retrofit;
-    private BookmarkDao bookmarkDao;
+    private BookmarkDao bookmarkLocalDataSource;
+    private BookmarkApi bookmarkRemoteDataSource;
+    private FileApi fileRemoteDataSource;
 
     @NonNull
     @Override
     public BaseRepository init(@NonNull final Object... dataSources) {
-        this.retrofit = (RetrofitClient) dataSources[0];
-        this.bookmarkDao = (BookmarkDao) dataSources[1];
+        this.bookmarkLocalDataSource = (BookmarkDao) dataSources[0];
+        this.bookmarkRemoteDataSource = (BookmarkApi) dataSources[1];
+        this.fileRemoteDataSource = (FileApi) dataSources[2];
         return this;
     }
 
     @NonNull
     @Override
     public Single<Bookmark> observeBookmarkById(final int id) {
-        return bookmarkDao.selectById(id)
+        return bookmarkLocalDataSource.selectById(id)
                 .map(entity -> new Bookmark.Builder()
                         .fromEntity(entity)
                         .setContents("")
@@ -53,23 +56,24 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList() {
-        return bookmarkDao.selectAll().map(entity -> new BookmarkItem.Builder().fromEntity(entity).build());
+        return bookmarkLocalDataSource.selectAll().map(entity ->
+                new BookmarkItem.Builder().fromEntity(entity).build());
     }
 
     @NonNull
     @Override
     public Single<Integer> checkIfExistUrl(String Url) {
-        return bookmarkDao.selectByUrl(Url);
+        return bookmarkLocalDataSource.selectByUrl(Url);
     }
 
     @NonNull
     @Override
     public Completable observeAddNewBookmark(@NonNull NewBookmarkRequest request) {
-        return retrofit.observeAddNewBookmark(request)
+        return bookmarkRemoteDataSource.addNewBookmark(request)
                 .flatMapCompletable(response ->
-                        retrofit.downloadFileByUrl(response.getHtml())
+                        fileRemoteDataSource.downloadFileByUrl(response.getHtml())
                                 .map(responseBody -> FileUtil.writeFile(responseBody.source()))
-                                .flatMapCompletable(path -> bookmarkDao
+                                .flatMapCompletable(path -> bookmarkLocalDataSource
                                         .insert(new BookmarkEntity.Builder(response)
                                                 .setPath(path)
                                                 .build())))

@@ -33,7 +33,19 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract BookmarkDao bookmarkDao();
+    public <T> T create(@NonNull final Class<T> daoClass) {
+        if (daoClass.isAssignableFrom(BookmarkDao.class)) {
+            //noinspection unchecked
+            return (T) bookmarkDao();
+        } else if (daoClass.isAssignableFrom(FolderDao.class)) {
+            //noinspection unchecked
+            return (T) folderDao();
+        }
 
-    public abstract FolderDao folderDao();
+        throw new IllegalArgumentException("Unknown Dao class" + daoClass.getSimpleName());
+    }
+
+    abstract BookmarkDao bookmarkDao();
+
+    abstract FolderDao folderDao();
 }

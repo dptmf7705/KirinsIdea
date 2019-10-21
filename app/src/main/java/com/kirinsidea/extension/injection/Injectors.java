@@ -2,11 +2,15 @@ package com.kirinsidea.extension.injection;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
 import com.kirinsidea.data.repository.LoginRepository;
+import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
+import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
+import com.kirinsidea.data.source.remote.kirin.api.FileApi;
+import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.ui.BaseViewModel;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
@@ -16,9 +20,7 @@ import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
 abstract class Injectors {
 
     @NonNull
-    static <VM extends BaseViewModel> VM initViewModel(
-            @NonNull final VM viewModel) {
-
+    static <VM extends BaseViewModel> VM initViewModel(@NonNull final VM viewModel) {
         if (viewModel instanceof LoginViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(
@@ -39,13 +41,11 @@ abstract class Injectors {
         }
 
         throw new IllegalArgumentException(
-                Constants.Message.ERROR_INIT_VIEW_MODEL);
+                "Unknown View Model class : " + viewModel.getClass().getSimpleName());
     }
 
     @NonNull
-    private static <R extends BaseRepository> R initRepository(
-            @NonNull final R repository) {
-
+    private static <R extends BaseRepository> R initRepository(@NonNull final R repository) {
         if (repository instanceof LoginRepository) {
             //noinspection unchecked
             return (R) repository.init(
@@ -54,16 +54,17 @@ abstract class Injectors {
         } else if (repository instanceof BookmarkRepository) {
             //noinspection unchecked
             return (R) repository.init(
-                    Providers.getRetrofitClient(),
-                    Providers.getBookmarkDao());
+                    Providers.getRoomDao(BookmarkDao.class),
+                    Providers.getRetrofitApi(BookmarkApi.class),
+                    Providers.getRetrofitApi(FileApi.class));
         } else if (repository instanceof FolderRepository) {
             //noinspection unchecked
             return (R) repository.init(
-                    Providers.getRetrofitClient(),
-                    Providers.getFolderDao());
+                    Providers.getRoomDao(FolderDao.class),
+                    Providers.getRetrofitApi(FolderApi.class));
         }
 
         throw new IllegalArgumentException(
-                Constants.Message.ERROR_INIT_REPOSITORY);
+                "Unknown Repository class : " + repository.getClass().getSimpleName());
     }
 }
