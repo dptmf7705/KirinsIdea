@@ -54,7 +54,7 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
 
         return retrofit.observeAddNewFolder(request)
-                .mergeWith(folderDao.insert(new FolderEntity.Builder().fromRequest(request).build()))
+                .mergeWith(folderDao.insert(new FolderEntity.Builder(request).build()))
                 .subscribeOn(Schedulers.io());
     }
 }

@@ -70,8 +70,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
                         retrofit.downloadFileByUrl(response.getHtml())
                                 .map(responseBody -> FileUtil.writeFile(responseBody.source()))
                                 .flatMapCompletable(path -> bookmarkDao
-                                        .insert(new BookmarkEntity.Builder()
-                                                .fromResponse(response)
+                                        .insert(new BookmarkEntity.Builder(response)
                                                 .setPath(path)
                                                 .build())))
                 .subscribeOn(Schedulers.io());

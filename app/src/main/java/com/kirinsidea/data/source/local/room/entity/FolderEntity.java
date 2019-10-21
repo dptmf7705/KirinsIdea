@@ -17,67 +17,88 @@ import java.util.Objects;
  */
 @Entity(tableName = "folder")
 public class FolderEntity {
-    @PrimaryKey
-    @NonNull
-    private final String name;
-    @NonNull
-    private final String saveTime;
-    private final boolean isFavorite;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String name;
+    private String saveTime;
+    private boolean isFavorite;
 
-    public FolderEntity(@NonNull final String name,
-                        @NonNull final String saveTime,
-                        final boolean isFavorite) {
-        this.name = name;
-        this.saveTime = saveTime;
-        this.isFavorite = isFavorite;
-
+    public FolderEntity() {
     }
 
-    @NonNull
+    private FolderEntity(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.saveTime = builder.saveTime;
+        this.isFavorite = builder.isFavorite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    @NonNull
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSaveTime() {
         return saveTime;
+    }
+
+    public void setSaveTime(String saveTime) {
+        this.saveTime = saveTime;
     }
 
     public boolean isFavorite() {
         return isFavorite;
     }
 
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FolderEntity folderEntity = (FolderEntity) o;
-        return isFavorite == folderEntity.isFavorite &&
-                Objects.equals(name, folderEntity.name) &&
-                saveTime.equals(folderEntity.saveTime);
+        FolderEntity that = (FolderEntity) o;
+        return id == that.id &&
+                isFavorite == that.isFavorite &&
+                name.equals(that.name) &&
+                saveTime.equals(that.saveTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, saveTime, isFavorite);
+        return Objects.hash(id, name, saveTime, isFavorite);
     }
 
     public static class Builder {
-        private String name;
-        private String saveTime;
-        private boolean isFavorite;
+        private final int id = 0;
+        private final String name;
+        private final String saveTime;
+        private boolean isFavorite = false;
 
-        public Builder fromRequest(@NonNull final NewFolderRequest request) {
+        public Builder(@NonNull final NewFolderRequest request) {
             this.name = request.getFolderName();
-            this.isFavorite = false;
             this.saveTime = request.getStorageTime();
+        }
+
+        public Builder setFavorite(boolean favorite) {
+            isFavorite = favorite;
             return this;
         }
 
         public FolderEntity build() {
-            return new FolderEntity(name,
-                    saveTime,
-                    isFavorite);
+            return new FolderEntity(this);
         }
     }
 }
