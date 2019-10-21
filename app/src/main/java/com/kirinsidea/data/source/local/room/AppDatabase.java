@@ -12,12 +12,14 @@ import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
 import com.kirinsidea.extension.room.Converters;
 
 @TypeConverters({Converters.class})
 @Database(entities = {
         BookmarkEntity.class,
-        FolderEntity.class
+        FolderEntity.class,
+        HighlightEntity.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "app_database";
