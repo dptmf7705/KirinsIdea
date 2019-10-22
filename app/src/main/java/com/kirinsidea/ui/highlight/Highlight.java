@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
 
+import java.util.Objects;
+
 public class Highlight {
     private int id;
     private int bookmarkId;
@@ -88,6 +90,19 @@ public class Highlight {
 
     public void setColor(@NonNull HighlightColor color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Highlight highlight = (Highlight) o;
+        return id == highlight.id &&
+                bookmarkId == highlight.bookmarkId &&
+                startIndex == highlight.startIndex &&
+                endIndex == highlight.endIndex &&
+                text.equals(highlight.text) &&
+                color == highlight.color;
     }
 
     public static class Builder {
