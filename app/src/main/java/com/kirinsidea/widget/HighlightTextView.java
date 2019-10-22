@@ -31,8 +31,8 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
     protected void addSpanToSpannable(@NonNull final Spannable spannable,
                                       @NonNull final HighlightSpan span) {
         spannable.setSpan(span,
-                span.getHighlight().getStartIndex(),
-                span.getHighlight().getEndIndex(),
+                span.getHighlight().getSelection().first,
+                span.getHighlight().getSelection().second,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 

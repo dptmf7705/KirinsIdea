@@ -97,9 +97,9 @@ public class HighlightEntity {
         public Builder(@NonNull final Highlight model) {
             this.id = model.getId();
             this.bookmarkId = model.getBookmarkId();
-            this.startIndex = model.getStartIndex();
-            this.endIndex = model.getEndIndex();
-            this.text = model.getText();
+            this.startIndex = model.getSelection().first;
+            this.endIndex = model.getSelection().second;
+            this.text = model.getSelectedText();
             this.color = model.getColor().getColorName();
         }
 

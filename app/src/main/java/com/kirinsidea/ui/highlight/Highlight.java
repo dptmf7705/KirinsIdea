@@ -1,18 +1,18 @@
 package com.kirinsidea.ui.highlight;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
 
-import java.util.Objects;
-
 public class Highlight {
     private int id;
     private int bookmarkId;
-    private int startIndex;
-    private int endIndex;
     @NonNull
-    private String text = "";
+    private Pair<Integer, Integer> selection = new Pair<>(0, 0);
+    @NonNull
+    private String selectedText = "";
     @NonNull
     private HighlightColor color = HighlightColor.Yellow;
 
@@ -21,24 +21,21 @@ public class Highlight {
 
     public Highlight(final int id,
                      final int bookmarkId,
-                     final int startIndex,
-                     final int endIndex,
-                     @NonNull final String text,
+                     @NonNull final Pair<Integer, Integer> selection,
+                     @NonNull final String selectedText,
                      @NonNull final HighlightColor color) {
         this.id = id;
         this.bookmarkId = bookmarkId;
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-        this.text = text;
+        this.selection = selection;
+        this.selectedText = selectedText;
         this.color = color;
     }
 
     private Highlight(@NonNull final Builder builder) {
         this.id = builder.id;
         this.bookmarkId = builder.bookmarkId;
-        this.startIndex = builder.startIndex;
-        this.endIndex = builder.endIndex;
-        this.text = builder.text;
+        this.selection = builder.selection;
+        this.selectedText = builder.selectedText;
         this.color = builder.color;
     }
 
@@ -58,29 +55,22 @@ public class Highlight {
         this.bookmarkId = bookmarkId;
     }
 
-    public int getStartIndex() {
-        return startIndex;
+    @NonNull
+    public Pair<Integer, Integer> getSelection() {
+        return selection;
     }
 
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
-    }
-
-    public int getEndIndex() {
-        return endIndex;
-    }
-
-    public void setEndIndex(int endIndex) {
-        this.endIndex = endIndex;
+    public void setSelection(@NonNull Pair<Integer, Integer> selection) {
+        this.selection = selection;
     }
 
     @NonNull
-    public String getText() {
-        return text;
+    public String getSelectedText() {
+        return selectedText;
     }
 
-    public void setText(@NonNull String text) {
-        this.text = text;
+    public void setSelectedText(@NonNull String selectedText) {
+        this.selectedText = selectedText;
     }
 
     @NonNull
@@ -99,28 +89,26 @@ public class Highlight {
         Highlight highlight = (Highlight) o;
         return id == highlight.id &&
                 bookmarkId == highlight.bookmarkId &&
-                startIndex == highlight.startIndex &&
-                endIndex == highlight.endIndex &&
-                text.equals(highlight.text) &&
+                selection.equals(highlight.selection) &&
+                selectedText.equals(highlight.selectedText) &&
                 color == highlight.color;
     }
 
     public static class Builder {
         private final int id;
         private final int bookmarkId;
-        private final int startIndex;
-        private final int endIndex;
         @NonNull
-        private final String text;
+        private final Pair<Integer, Integer> selection;
+        @NonNull
+        private final String selectedText;
         @NonNull
         private final HighlightColor color;
 
         public Builder(@NonNull final HighlightEntity entity) {
             this.id = entity.getId();
             this.bookmarkId = entity.getBookmarkId();
-            this.startIndex = entity.getStartIndex();
-            this.endIndex = entity.getEndIndex();
-            this.text = entity.getText();
+            this.selection = new Pair<>(entity.getStartIndex(), entity.getEndIndex());
+            this.selectedText = entity.getText();
             this.color = HighlightColor.valueOf(entity.getColor());
         }
 
