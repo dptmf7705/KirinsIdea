@@ -1,6 +1,7 @@
 package com.kirinsidea;
 
 import android.app.Application;
+import android.content.Context;
 
 public class App extends Application {
     private static App INSTANCE;
@@ -22,5 +23,9 @@ public class App extends Application {
     public void onTerminate() {
         INSTANCE = null;
         super.onTerminate();
+    }
+
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
