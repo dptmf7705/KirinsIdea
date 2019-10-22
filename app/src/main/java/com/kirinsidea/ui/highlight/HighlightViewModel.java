@@ -1,7 +1,6 @@
 package com.kirinsidea.ui.highlight;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
@@ -129,7 +128,7 @@ public class HighlightViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public MutableLiveData<Highlight> getSelectedItem() {
+    public LiveData<Highlight> getSelectedItem() {
         return selectedItem;
     }
 
