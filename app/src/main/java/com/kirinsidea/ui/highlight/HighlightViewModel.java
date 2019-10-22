@@ -1,11 +1,17 @@
 package com.kirinsidea.ui.highlight;
 
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.HighlightRepository;
+import com.kirinsidea.extension.livedata.LiveDataCompat;
 import com.kirinsidea.extension.livedata.SingleLiveEvent;
 import com.kirinsidea.ui.BaseViewModel;
 
@@ -19,9 +25,11 @@ public class HighlightViewModel extends BaseViewModel {
     @NonNull
     private final MutableLiveData<List<Highlight>> highlightList = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Highlight> selectedItem = new MutableLiveData<>();
+    private final MutableLiveData<Pair<Integer, Integer>> selection = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Boolean> isUpdating = new MutableLiveData<>();
+    private final MutableLiveData<String> selectedText = new MutableLiveData<>();
+
+    private LiveData<Highlight> selectedItem;
 
     private HighlightRepository repository;
 
@@ -29,7 +37,20 @@ public class HighlightViewModel extends BaseViewModel {
     @Override
     public BaseViewModel init(@NonNull BaseRepository... repositories) {
         this.repository = (HighlightRepository) repositories[0];
-        this.selectedItem.setValue(new Highlight());
+        this.selectedItem = Transformations.map(selectedText, selectedText -> {
+            // text selection 끝났을 경우
+            if (TextUtils.isEmpty(selectedText)) {
+                return new Highlight();
+            }
+
+            Highlight highlight = selectedItem.getValue();
+            if (highlight == null) {
+                highlight = new Highlight();
+            }
+            highlight.setSelection(LiveDataCompat.getValue(this.selection, new Pair<>(0, 0)));
+            highlight.setSelectedText(LiveDataCompat.getValue(this.selectedText, ""));
+            return highlight;
+        });
         return this;
     }
 
@@ -97,10 +118,13 @@ public class HighlightViewModel extends BaseViewModel {
         }
         highlight.setColor(color);
 
-        if (Boolean.TRUE.equals(this.isUpdating.getValue())) {
-            updateHighlight(highlight);
-        } else {
+        // selectedItem 변화를 알리기 위해 selectedItem 을 발행하는 selection 의 setValue() 호출
+        this.selectedText.setValue(this.selectedText.getValue());
+
+        if (highlight.getId() == 0) {
             addNewHighlight(highlight);
+        } else {
+            updateHighlight(highlight);
         }
     }
 
@@ -110,12 +134,17 @@ public class HighlightViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<List<Highlight>> getHighlightList() {
-        return highlightList;
+    public MutableLiveData<Pair<Integer, Integer>> getSelection() {
+        return selection;
     }
 
     @NonNull
-    public MutableLiveData<Boolean> getIsUpdating() {
-        return isUpdating;
+    public MutableLiveData<String> getSelectedText() {
+        return selectedText;
+    }
+
+    @NonNull
+    public LiveData<List<Highlight>> getHighlightList() {
+        return highlightList;
     }
 }
