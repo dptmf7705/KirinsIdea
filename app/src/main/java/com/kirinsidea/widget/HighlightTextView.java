@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.kirinsidea.App;
 import com.kirinsidea.ui.highlight.Highlight;
 
 public class HighlightTextView extends SpannableTextView<HighlightTextView.HighlightSpan> {
@@ -44,8 +45,7 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
 
     public static class HighlightSpan extends ClickableSpan {
         @Nullable
-        private SpanClickListener spanClickListener;
-
+        private final SpanClickListener spanClickListener;
         @NonNull
         private final Highlight highlight;
 
@@ -64,7 +64,7 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
 
         @Override
         public void updateDrawState(@NonNull TextPaint ds) {
-            ds.bgColor = highlight.getColor().getColorResId();
+            ds.bgColor = App.instance().getResources().getColor(highlight.getColor().getColorResId());
             ds.setUnderlineText(false);
         }
 

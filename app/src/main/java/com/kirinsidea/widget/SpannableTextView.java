@@ -55,6 +55,17 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
     }
 
     /**
+     * span 을 spannable 에 추가한다.
+     */
+    public void addSpan(@NonNull final T span) {
+        Spannable spannable = getSpannable();
+        if (spannable == null) {
+            return;
+        }
+        addSpanToSpannable(spannable, span);
+    }
+
+    /**
      * Spannable 에 적용된 span 객체를 모두 삭제한다.
      */
     protected void removeAllSpans(@NonNull final Spannable spannable) {

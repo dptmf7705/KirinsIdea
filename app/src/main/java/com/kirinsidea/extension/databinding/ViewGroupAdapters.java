@@ -1,5 +1,7 @@
 package com.kirinsidea.extension.databinding;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
@@ -8,6 +10,8 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +64,16 @@ public class ViewGroupAdapters {
 
         ((LinearLayoutManager) recyclerView.getLayoutManager())
                 .setOrientation(orientation);
+    }
+
+    /**
+     * BottomSheet STATE 변경
+     */
+    @BindingAdapter({"behavior_stateExpanded"})
+    public static void setBehaviorState(@NonNull final ViewGroup layout,
+                                        final boolean expanded) {
+        BottomSheetBehavior.from(layout).setState(
+                expanded ? BottomSheetBehavior.STATE_EXPANDED
+                        : BottomSheetBehavior.STATE_HIDDEN);
     }
 }

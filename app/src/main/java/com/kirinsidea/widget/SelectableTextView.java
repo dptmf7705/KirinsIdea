@@ -14,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -25,11 +23,10 @@ public class SelectableTextView extends AppCompatTextView implements ActionMode.
     @Nullable
     protected String selectedText;  // 선택된 text
 
-    /**
-     * selection 이 발생하면 데이터를 발행한다. (selection, selectedText 값이 바뀔 때)
-     */
     @NonNull
-    protected final PublishSubject<Boolean> selectionChangeStream = PublishSubject.create();
+    protected final PublishSubject<Pair<Integer, Integer>> selectionChangeStream = PublishSubject.create();
+    @NonNull
+    protected final PublishSubject<String> selectedTextChangeStream = PublishSubject.create();
 
     public SelectableTextView(Context context) {
         super(context);
@@ -82,19 +79,19 @@ public class SelectableTextView extends AppCompatTextView implements ActionMode.
     }
 
     /**
-     * selection 값이 변경되면 selectionChangeStream 발행
+     * selection 값이 변경되면 Stream 발행
      */
     public void setSelection(@Nullable final Pair<Integer, Integer> selection) {
         this.selection = selection;
-        this.selectionChangeStream.onNext(true);
+        this.selectionChangeStream.onNext(selection == null ? new Pair<>(0, 0) : selection);
     }
 
     /**
-     * selectedText 값이 변경되면 selectionChangeStream 발행
+     * selectedText 값이 변경되면 Stream 발행
      */
     public void setSelectedText(@Nullable String selectedText) {
         this.selectedText = selectedText;
-        this.selectionChangeStream.onNext(true);
+        this.selectedTextChangeStream.onNext(selectedText == null ? "" : selectedText);
     }
 
     @Nullable
@@ -105,10 +102,6 @@ public class SelectableTextView extends AppCompatTextView implements ActionMode.
     @Nullable
     public String getSelectedText() {
         return selectedText;
-    }
-
-    public void startActionMode() {
-        startActionMode(this);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -144,16 +137,23 @@ public class SelectableTextView extends AppCompatTextView implements ActionMode.
     protected void onDetachedFromWindow() {
         setCustomSelectionActionModeCallback(null);
         selectionChangeStream.onComplete();
+        selectedTextChangeStream.onComplete();
         super.onDetachedFromWindow();
     }
 
     /**
-     * debounce 로 selectionChangeStream 연속 발행 방지
+     * selectedText 값이 변경되었을 때만 데이터를 발행한다. (distinctUntilChanged)
      */
     @NonNull
-    public Observable<Boolean> getSelectionChangeStream() {
-        return selectionChangeStream
-                .debounce(10, TimeUnit.MILLISECONDS)
-                .serialize();
+    public Observable<String> getSelectedTextChangeStream() {
+        return selectedTextChangeStream.distinctUntilChanged().serialize();
+    }
+
+    /**
+     * selection 값이 변경되었을 때만 데이터를 발행한다. (distinctUntilChanged)
+     */
+    @NonNull
+    public Observable<Pair<Integer, Integer>> getSelectionChangeStream() {
+        return selectionChangeStream.distinctUntilChanged().serialize();
     }
 }
