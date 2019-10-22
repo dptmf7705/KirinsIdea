@@ -129,7 +129,7 @@ public class HighlightViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<Highlight> getSelectedItem() {
+    public MutableLiveData<Highlight> getSelectedItem() {
         return selectedItem;
     }
 
