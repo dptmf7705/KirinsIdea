@@ -1,41 +1,51 @@
 package com.kirinsidea.data.source.local.room;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.kirinsidea.App;
-import com.kirinsidea.common.Constants;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
-import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
 import com.kirinsidea.extension.room.Converters;
 
 @TypeConverters({Converters.class})
 @Database(entities = {
         BookmarkEntity.class,
-        FolderEntity.class,
-        MemoEntity.class
+        FolderEntity.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    private static class LazyHolder {
-        private static final AppDatabase INSTANCE = Room.databaseBuilder(
-                App.instance().getContext(),
-                AppDatabase.class, Constants.Room.DATABASE_NAME)
-                .build();
+    private static final String DATABASE_NAME = "app_database";
+
+    private static volatile AppDatabase INSTANCE = null;
+
+    public static AppDatabase getInstance(@NonNull final Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                    AppDatabase.class,
+                    DATABASE_NAME).build();
+        }
+        return INSTANCE;
     }
 
-    public static AppDatabase getDatabase() {
-        return LazyHolder.INSTANCE;
+    public <T> T create(@NonNull final Class<T> daoClass) {
+        if (daoClass.isAssignableFrom(BookmarkDao.class)) {
+            //noinspection unchecked
+            return (T) bookmarkDao();
+        } else if (daoClass.isAssignableFrom(FolderDao.class)) {
+            //noinspection unchecked
+            return (T) folderDao();
+        }
+
+        throw new IllegalArgumentException("Unknown Dao class" + daoClass.getSimpleName());
     }
 
-    public abstract BookmarkDao bookmarkDao();
+    abstract BookmarkDao bookmarkDao();
 
-    public abstract FolderDao folderDao();
-
-    public abstract MemoDao memoDao();
+    abstract FolderDao folderDao();
 }

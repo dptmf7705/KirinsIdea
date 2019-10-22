@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
-public interface LoginRepository extends BaseRepository{
+public interface LoginRepository extends BaseRepository {
 
     @NonNull
     Single<Intent> observeGoogleLoginIntent();

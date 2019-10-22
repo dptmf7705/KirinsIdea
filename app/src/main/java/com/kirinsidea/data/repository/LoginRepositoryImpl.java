@@ -21,34 +21,35 @@ public class LoginRepositoryImpl implements LoginRepository {
         return LazyHolder.INSTANCE;
     }
 
-    private LoginRepositoryImpl() { }
+    private LoginRepositoryImpl() {
+    }
 
-    private FirebaseAuthApi firebaseApi;
-    private GoogleLoginApi googleApi;
+    private FirebaseAuthApi firebaseRemoteDataSource;
+    private GoogleLoginApi googleRemoteDataSource;
 
     @NonNull
     @Override
     public BaseRepository init(@NonNull Object... dataSources) {
-        this.firebaseApi = (FirebaseAuthApi) dataSources[0];
-        this.googleApi = (GoogleLoginApi) dataSources[1];
+        this.firebaseRemoteDataSource = (FirebaseAuthApi) dataSources[0];
+        this.googleRemoteDataSource = (GoogleLoginApi) dataSources[1];
         return this;
     }
 
     @NonNull
     @Override
     public Single<Intent> observeGoogleLoginIntent() {
-        return googleApi.observeLoginIntent();
+        return googleRemoteDataSource.getLoginIntent();
     }
 
     @NonNull
     @Override
     public Completable observeLoginWithGoogle(@NonNull Intent intent) {
-        return googleApi.observeAuthCredential(intent)
+        return googleRemoteDataSource.getAuthCredential(intent)
                 .flatMapCompletable(this::observeFirebaseAuth);
     }
 
     @NonNull
     private Completable observeFirebaseAuth(@NonNull AuthCredential credential) {
-        return firebaseApi.observeFirebaseAuth(credential);
+        return firebaseRemoteDataSource.LoginWithCredential(credential);
     }
 }

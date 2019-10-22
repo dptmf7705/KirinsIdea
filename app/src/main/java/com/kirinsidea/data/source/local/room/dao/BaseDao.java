@@ -11,14 +11,14 @@ import io.reactivex.Completable;
 
 public interface BaseDao<T> {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     Completable insert(final T entity);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     Completable insertAll(final List<T> entities);
 
     @SuppressWarnings("unchecked")
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     Completable insertAll(final T... entities);
 
     @Update

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
-import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
+import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 
 import java.util.List;
@@ -26,35 +26,35 @@ public class FolderRepositoryImpl implements FolderRepository {
     private FolderRepositoryImpl() {
     }
 
-    private RetrofitClient retrofit;
-    private FolderDao folderDao;
+    private FolderDao folderLocalDataSource;
+    private FolderApi folderRemoteDataSource;
 
     @NonNull
     @Override
     public BaseRepository init(@NonNull Object... dataSources) {
-        this.retrofit = (RetrofitClient) dataSources[0];
-        this.folderDao = (FolderDao) dataSources[1];
+        this.folderLocalDataSource = (FolderDao) dataSources[0];
+        this.folderRemoteDataSource = (FolderApi) dataSources[1];
         return this;
     }
 
     @NonNull
     @Override
     public Single<FolderEntity> observeFolderByName(String folderName) {
-        return folderDao.selectByName(folderName).subscribeOn(Schedulers.io());
+        return folderLocalDataSource.selectByName(folderName).subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
     public Single<List<FolderEntity>> observeFolderList() {
-        return folderDao.selectAll();
+        return folderLocalDataSource.selectAll();
     }
 
     @NonNull
     @Override
     public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
 
-        return retrofit.observeAddNewFolder(request)
-                .mergeWith(folderDao.insert(new FolderEntity.Builder().fromRequest(request).build()))
+        return folderRemoteDataSource.addNewFolder(request)
+                .mergeWith(folderLocalDataSource.insert(new FolderEntity.Builder(request).build()))
                 .subscribeOn(Schedulers.io());
     }
 }

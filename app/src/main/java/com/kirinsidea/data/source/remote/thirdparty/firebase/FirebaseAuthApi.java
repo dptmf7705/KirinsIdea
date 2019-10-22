@@ -24,7 +24,7 @@ public class FirebaseAuthApi {
     }
 
     @NonNull
-    public Completable observeFirebaseAuth(
+    public Completable LoginWithCredential(
             @NonNull final AuthCredential credential) {
 
         return Completable.create(emitter ->
