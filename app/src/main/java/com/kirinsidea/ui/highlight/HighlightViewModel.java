@@ -117,8 +117,8 @@ public class HighlightViewModel extends BaseViewModel {
         }
         highlight.setColor(color);
 
-        // selectedItem 변화를 알리기 위해 selectedItem 을 발행하는 selection 의 setValue() 호출
-        this.selectedText.setValue(this.selectedText.getValue());
+        // selectedItem 변화를 알리기 위해
+        LiveDataCompat.notifyDataChanged(this.selectedText);
 
         if (highlight.getId() == 0) {
             addNewHighlight(highlight);
