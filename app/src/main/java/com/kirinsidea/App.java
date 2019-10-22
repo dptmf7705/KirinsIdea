@@ -28,5 +28,4 @@ public class App extends Application {
     public Context getContext() {
         return getApplicationContext();
     }
-    
 }
