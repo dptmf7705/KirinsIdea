@@ -14,7 +14,7 @@ public class Highlight {
     @NonNull
     private String selectedText = "";
     @NonNull
-    private HighlightColor color = HighlightColor.Yellow;
+    private HighlightColor color = HighlightColor.YELLOW;
 
     public Highlight() {
     }
