@@ -4,47 +4,136 @@
 
     <data>
 
+        <import type="com.kirinsidea.ui.highlight.HighlightColor" />
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="bookmarkVm"
             type="com.kirinsidea.ui.bookmark.BookmarkViewModel" />
+
+        <variable
+            name="highlightVm"
+            type="com.kirinsidea.ui.highlight.HighlightViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_median_16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_title"
-                style="@style/TextView.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_small_12dp"
-                android:layout_marginBottom="@dimen/space_xsmall_8dp"
-                android:text="@{bookmarkVm.bookmark.title}"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TextView.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{bookmarkVm.bookmark.simpleWebUrl}"
-                android:textColor="@color/colorGray" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_content"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_median_16dp"
-                app:html="@{bookmarkVm.bookmark.contents}" />
+                android:layout_margin="@dimen/space_median_16dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-        </LinearLayout>
-    </ScrollView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_title"
+                    style="@style/TextView.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_small_12dp"
+                    android:layout_marginBottom="@dimen/space_xsmall_8dp"
+                    android:text="@{bookmarkVm.bookmark.title}"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextView.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{bookmarkVm.bookmark.simpleWebUrl}"
+                    android:textColor="@color/colorGray" />
+
+                <com.kirinsidea.widget.HighlightTextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_median_16dp"
+                    app:highlightItems="@{highlightVm.highlightList}"
+                    app:html="@{bookmarkVm.bookmark.contents}"
+                    app:selectedText="@={highlightVm.selectedText}"
+                    app:selection="@={highlightVm.selection}" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height_56dp"
+            android:background="@color/colorBrown"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="@dimen/toolbar_height_56dp"
+            app:behavior_stateExpanded="@{!TextUtils.isEmpty(highlightVm.selectedText)}"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.YELLOW)}"
+                app:highlightColor="@{HighlightColor.YELLOW}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selected="@{HighlightColor.YELLOW.equals(highlightVm.selectedItem.color)}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.BLUE)}"
+                app:highlightColor="@{HighlightColor.BLUE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_green"
+                app:layout_constraintStart_toEndOf="@id/iv_yellow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selected="@{HighlightColor.BLUE.equals(highlightVm.selectedItem.color)}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.GREEN)}"
+                app:highlightColor="@{HighlightColor.GREEN}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_red"
+                app:layout_constraintStart_toEndOf="@id/iv_blue"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selected="@{HighlightColor.GREEN.equals(highlightVm.selectedItem.color)}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_circle"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.RED)}"
+                app:highlightColor="@{HighlightColor.RED}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_memo"
+                app:layout_constraintStart_toEndOf="@id/iv_green"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selected="@{HighlightColor.RED.equals(highlightVm.selectedItem.color)}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_memo"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_red"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
