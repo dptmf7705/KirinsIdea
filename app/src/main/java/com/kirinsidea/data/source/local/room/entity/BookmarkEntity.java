@@ -168,13 +168,13 @@ public class BookmarkEntity {
 
         public Builder(@NonNull final NewBookmarkResponse response) {
             this.originalWebUrl = response.getOriginalweburl();
-            this.simpleWebUrl = response.getSimpleweburl();
+            this.simpleWebUrl = response.getHosturl();
             this.mainImageUrl = response.getMainimage();
             this.title = response.getTitle();
             this.author = response.getAuthor();
             this.writeTime = response.getWritetime();
-            this.storageTime = response.getStoragetime();
-            this.folderName = response.getFolderName();
+            this.storageTime = response.getStoretime();
+            this.folderName = response.getFolder();
         }
 
         public Builder setPath(String path) {

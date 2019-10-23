@@ -26,10 +26,10 @@ public class NewBookmarkResponse {
     @Nullable
     private final String writetime;
 
-    @SerializedName("storagetime")
+    @SerializedName("storetime")
     @Expose
     @Nullable
-    private final String storagetime;
+    private final String storetime;
 
     @SerializedName("title")
     @Expose
@@ -41,34 +41,34 @@ public class NewBookmarkResponse {
     @Nullable
     private final String originalweburl;
 
-    @SerializedName("simpleweburl")
+    @SerializedName("hosturl")
     @Expose
     @Nullable
-    private final String simpleweburl;
+    private final String hosturl;
 
-    @SerializedName("folderName")
+    @SerializedName("folder")
     @Expose
     @Nullable
-    private final String folderName;
+    private final String folder;
 
     public NewBookmarkResponse(@Nullable final String html,
                                @Nullable final String mainimage,
                                @Nullable final String author,
                                @Nullable final String writetime,
-                               @Nullable final String storagetime,
+                               @Nullable final String storetime,
                                @Nullable final String title,
                                @Nullable final String originalweburl,
-                               @Nullable final String simpleweburl,
-                               @Nullable final String folderName) {
+                               @Nullable final String hosturl,
+                               @Nullable final String folder) {
         this.html = html;
         this.mainimage = mainimage;
         this.author = author;
         this.writetime = writetime;
-        this.storagetime = storagetime;
+        this.storetime = storetime;
         this.title = title;
         this.originalweburl = originalweburl;
-        this.simpleweburl = simpleweburl;
-        this.folderName = folderName;
+        this.hosturl = hosturl;
+        this.folder = folder;
     }
 
     @Nullable
@@ -92,8 +92,8 @@ public class NewBookmarkResponse {
     }
 
     @Nullable
-    public String getStoragetime() {
-        return storagetime;
+    public String getStoretime() {
+        return storetime;
     }
 
     @Nullable
@@ -107,13 +107,13 @@ public class NewBookmarkResponse {
     }
 
     @Nullable
-    public String getSimpleweburl() {
-        return simpleweburl;
+    public String getHosturl() {
+        return hosturl;
     }
 
     @Nullable
-    public String getFolderName() {
-        return folderName;
+    public String getFolder() {
+        return folder;
     }
 
     @Override
@@ -123,11 +123,11 @@ public class NewBookmarkResponse {
                 ", mainimage='" + mainimage + '\'' +
                 ", author='" + author + '\'' +
                 ", writetime='" + writetime + '\'' +
-                ", storagetime='" + storagetime + '\'' +
+                ", storetime='" + storetime + '\'' +
                 ", title='" + title + '\'' +
                 ", originalweburl='" + originalweburl + '\'' +
-                ", simpleweburl='" + simpleweburl + '\'' +
-                ", folderName='" + folderName + '\'' +
+                ", hosturl='" + hosturl + '\'' +
+                ", folder='" + folder + '\'' +
                 '}';
     }
 }
