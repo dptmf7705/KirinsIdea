@@ -5,15 +5,18 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
+import com.kirinsidea.data.repository.HighlightRepository;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
 import com.kirinsidea.data.source.remote.kirin.api.FileApi;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.ui.BaseViewModel;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
+import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
 import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
 
@@ -38,6 +41,10 @@ abstract class Injectors {
             return (VM) viewModel.init(
                     initRepository(Providers.getBookmarkRepository()),
                     initRepository(Providers.getFolderRepository()));
+        } else if (viewModel instanceof HighlightViewModel) {
+            //noinspection unchecked
+            return (VM) viewModel.init(
+                    initRepository(Providers.getHighlightRepository()));
         }
 
         throw new IllegalArgumentException(
@@ -62,6 +69,10 @@ abstract class Injectors {
             return (R) repository.init(
                     Providers.getRoomDao(FolderDao.class),
                     Providers.getRetrofitApi(FolderApi.class));
+        } else if (repository instanceof HighlightRepository) {
+            //noinspection unchecked
+            return (R) repository.init(
+                    Providers.getRoomDao(HighlightDao.class));
         }
 
         throw new IllegalArgumentException(

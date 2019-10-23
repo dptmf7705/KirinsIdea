@@ -13,6 +13,8 @@ import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.BookmarkRepositoryImpl;
 import com.kirinsidea.data.repository.FolderRepository;
 import com.kirinsidea.data.repository.FolderRepositoryImpl;
+import com.kirinsidea.data.repository.HighlightRepository;
+import com.kirinsidea.data.repository.HighlightRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
@@ -45,6 +47,11 @@ public abstract class Providers {
     @NonNull
     static FolderRepository getFolderRepository() {
         return FolderRepositoryImpl.getInstance();
+    }
+
+    @NonNull
+    static HighlightRepository getHighlightRepository() {
+        return HighlightRepositoryImpl.getInstance();
     }
 
     @NonNull

@@ -6,27 +6,28 @@ import com.kirinsidea.R;
 
 public enum HighlightColor {
 
-    Yellow(R.color.colorYellow, "yellow"),
-    Blue(R.color.colorBlue, "blue"),
-    Green(R.color.colorGreen, "green"),
-    Red(R.color.colorRed, "red");
+    YELLOW("YELLOW", R.color.colorYellow),
+    BLUE("BLUE", R.color.colorBlue),
+    GREEN("GREEN", R.color.colorGreen),
+    RED("RED", R.color.colorRed);
 
-    private final int colorResId;
     @NonNull
     private final String colorName;
+    private final int colorResId;
 
-    HighlightColor(final int colorResId,
-                   @NonNull final String colorName) {
-        this.colorResId = colorResId;
+    HighlightColor(@NonNull final String colorName,
+                   final int colorResId) {
         this.colorName = colorName;
-    }
-
-    public int getColorResId() {
-        return colorResId;
+        this.colorResId = colorResId;
     }
 
     @NonNull
     public String getColorName() {
         return colorName;
     }
+
+    public int getColorResId() {
+        return colorResId;
+    }
+
 }

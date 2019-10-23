@@ -20,7 +20,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="@dimen/space_small_12dp"
-            android:src="@drawable/ic_add_circle_outline_yellow_24dp"
+            android:src="@drawable/ic_add"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

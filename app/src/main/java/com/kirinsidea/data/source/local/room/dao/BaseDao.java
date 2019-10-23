@@ -2,7 +2,6 @@ package com.kirinsidea.data.source.local.room.dao;
 
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Update;
 
 import java.util.List;
@@ -11,14 +10,14 @@ import io.reactivex.Completable;
 
 public interface BaseDao<T> {
 
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert
     Completable insert(final T entity);
 
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert
     Completable insertAll(final List<T> entities);
 
     @SuppressWarnings("unchecked")
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert
     Completable insertAll(final T... entities);
 
     @Update

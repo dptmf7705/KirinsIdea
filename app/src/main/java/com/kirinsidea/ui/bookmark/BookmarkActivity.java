@@ -11,6 +11,7 @@ import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityBookmarkBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.highlight.HighlightViewModel;
 
 public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     private static final String EXTRA_BOOKMARK_ID = "EXTRA_BOOKMARK_ID";
@@ -42,5 +43,7 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     private void initViewModels() {
         binding.setBookmarkVm(Providers.getViewModel(this, BookmarkViewModel.class));
         binding.getBookmarkVm().loadBookmark(bookmarkId);
+        binding.setHighlightVm(Providers.getViewModel(this, HighlightViewModel.class));
+        binding.getHighlightVm().loadHighlightList(bookmarkId);
     }
 }
