@@ -54,7 +54,8 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
 
         return folderRemoteDataSource.addNewFolder(request)
-                .mergeWith(folderLocalDataSource.insert(new FolderEntity.Builder(request).build()))
+                .flatMapCompletable(response->
+                        folderLocalDataSource.insert(new FolderEntity.Builder(response).build()))
                 .subscribeOn(Schedulers.io());
     }
 }
