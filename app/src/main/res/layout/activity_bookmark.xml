@@ -58,7 +58,8 @@
                     app:highlightItems="@{highlightVm.highlightList}"
                     app:html="@{bookmarkVm.bookmark.contents}"
                     app:selectedText="@={highlightVm.selectedText}"
-                    app:selection="@={highlightVm.selection}" />
+                    app:selection="@={highlightVm.selection}"
+                    app:vm="@{highlightVm}"/>
 
             </LinearLayout>
         </ScrollView>
@@ -69,7 +70,7 @@
             android:background="@color/colorBrown"
             app:behavior_hideable="true"
             app:behavior_peekHeight="@dimen/toolbar_height_56dp"
-            app:behavior_stateExpanded="@{!TextUtils.isEmpty(highlightVm.selectedText)}"
+            app:behavior_stateExpanded="@{highlightVm.isSelectionMode}"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -119,10 +120,22 @@
                 android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.RED)}"
                 app:highlightColor="@{HighlightColor.RED}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_memo"
+                app:layout_constraintEnd_toStartOf="@id/iv_delete"
                 app:layout_constraintStart_toEndOf="@id/iv_green"
                 app:layout_constraintTop_toTopOf="parent"
                 app:selected="@{HighlightColor.RED.equals(highlightVm.selectedItem.color)}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_add"
+                android:rotation="45"
+                android:onClick="@{__ -> highlightVm.deleteHighlight()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_memo"
+                app:layout_constraintStart_toEndOf="@id/iv_red"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_memo"
@@ -131,7 +144,7 @@
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_red"
+                app:layout_constraintStart_toEndOf="@id/iv_delete"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

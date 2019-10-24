@@ -11,6 +11,7 @@ import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
 
 import com.kirinsidea.ui.highlight.Highlight;
+import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.utils.CollectionUtil;
 import com.kirinsidea.widget.HighlightTextView;
 import com.kirinsidea.widget.HtmlTextView;
@@ -35,9 +36,10 @@ public class TextViewAdapters {
     /**
      * 하이라이트 span 추가
      */
-    @BindingAdapter({"highlightItems"})
+    @BindingAdapter({"highlightItems", "vm"})
     public static void setHighlightItems(@NonNull final HighlightTextView textView,
-                                         @Nullable final List<Highlight> items) {
+                                         @Nullable final List<Highlight> items,
+                                         @NonNull final HighlightViewModel vm) {
         textView.removeAllSpans();
 
         if (CollectionUtil.isEmpty(items)) {
@@ -46,10 +48,8 @@ public class TextViewAdapters {
 
         // 그리기
         for (Highlight item : items) {
-            textView.addSpan(new HighlightTextView.HighlightSpan(item, () -> {
-                textView.setSelection(item.getSelection());
-                textView.setSelectedText(item.getSelectedText());
-            }));
+            textView.addSpan(new HighlightTextView.HighlightSpan(item, () ->
+                    vm.setSelectedItem(item)));
         }
     }
 
