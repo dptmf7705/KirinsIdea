@@ -1,6 +1,7 @@
 package com.kirinsidea.widget;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
@@ -12,12 +13,11 @@ import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class SelectableTextView extends AppCompatTextView implements ActionMode.Callback {
+public class SelectableTextView extends HtmlTextView implements ActionMode.Callback {
     @Nullable
     protected Pair<Integer, Integer> selection;  // 선택된 index
     @Nullable
@@ -131,6 +131,12 @@ public class SelectableTextView extends AppCompatTextView implements ActionMode.
     @Override
     public void onDestroyActionMode(ActionMode mode) {
 
+    }
+
+    @Override
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+        Activity activity = (Activity) getContext();
+        return activity.getWindow().getDecorView().startActionMode(this);
     }
 
     @Override
