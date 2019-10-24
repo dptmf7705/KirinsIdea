@@ -82,7 +82,9 @@ public class HighlightViewModel extends BaseViewModel {
     private void addNewHighlight(@NonNull final Highlight newHighlight) {
         addDisposable(repository.observeAddNewHighlight(newHighlight)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadHighlightList, error::setValue));
+                .subscribe(highlight -> {
+                    loadHighlightList();
+                }, error::setValue));
     }
 
     /**

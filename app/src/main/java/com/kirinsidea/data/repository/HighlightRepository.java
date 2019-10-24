@@ -12,7 +12,7 @@ import io.reactivex.Single;
 public interface HighlightRepository extends BaseRepository {
 
     @NonNull
-    Completable observeAddNewHighlight(@NonNull final Highlight highlight);
+    Single<Highlight> observeAddNewHighlight(@NonNull final Highlight highlight);
 
     @NonNull
     Completable observeUpdateHighlight(@NonNull final Highlight highlight);
@@ -22,4 +22,8 @@ public interface HighlightRepository extends BaseRepository {
 
     @NonNull
     Completable observeDeleteHighlight(@NonNull final Highlight highlight);
+
+    // TODO 서버 완료될 때까지 임시
+    @NonNull
+    Single<Highlight> observeHighlight(final int bookmarkId, final int start, final int end);
 }

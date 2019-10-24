@@ -37,9 +37,13 @@ public class HighlightRepositoryImpl implements HighlightRepository {
 
     @NonNull
     @Override
-    public Completable observeAddNewHighlight(@NonNull Highlight highlight) {
+    public Single<Highlight> observeAddNewHighlight(@NonNull final Highlight highlight) {
         return highlightLocalDataSource
                 .insert(new HighlightEntity.Builder(highlight).build())
+                .toSingleDefault(true)
+                .flatMap(__ -> observeHighlight(highlight.getBookmarkId(),
+                        highlight.getSelection().first,
+                        highlight.getSelection().second))
                 .subscribeOn(Schedulers.io());
     }
 
@@ -71,6 +75,15 @@ public class HighlightRepositoryImpl implements HighlightRepository {
     public Completable observeDeleteHighlight(@NonNull Highlight highlight) {
         return highlightLocalDataSource
                 .delete(new HighlightEntity.Builder(highlight).build())
+                .subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    @Override
+    public Single<Highlight> observeHighlight(final int bookmarkId, final int start, final int end) {
+        return highlightLocalDataSource
+                .selectByBookmarkId(bookmarkId, start, end)
+                .map(highlight -> new Highlight.Builder(highlight).build())
                 .subscribeOn(Schedulers.io());
     }
 
