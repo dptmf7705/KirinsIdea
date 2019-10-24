@@ -56,6 +56,14 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
         addSpanToSpannable(spannable, span);
     }
 
+    public void removeAllSpans(){
+        Spannable spannable = getSpannable();
+        if (spannable == null) {
+            return;
+        }
+        removeAllSpans(spannable);
+    }
+
     /**
      * Spannable 에 적용된 span 객체를 모두 삭제한다.
      */

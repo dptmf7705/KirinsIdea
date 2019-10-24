@@ -38,6 +38,8 @@ public class TextViewAdapters {
     @BindingAdapter({"highlightItems"})
     public static void setHighlightItems(@NonNull final HighlightTextView textView,
                                          @Nullable final List<Highlight> items) {
+        textView.removeAllSpans();
+
         if (CollectionUtil.isEmpty(items)) {
             return;
         }
