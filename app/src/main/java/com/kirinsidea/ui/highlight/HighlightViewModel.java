@@ -27,8 +27,10 @@ public class HighlightViewModel extends BaseViewModel {
     private final MutableLiveData<Pair<Integer, Integer>> selection = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<String> selectedText = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<Highlight> selectedItem = new MutableLiveData<>();
 
-    private LiveData<Highlight> selectedItem;
+    private LiveData<Boolean> isSelectionMode; // 바텀시트 열림, 닫힘 바인딩
 
     private HighlightRepository repository;
 
@@ -36,19 +38,12 @@ public class HighlightViewModel extends BaseViewModel {
     @Override
     public BaseViewModel init(@NonNull BaseRepository... repositories) {
         this.repository = (HighlightRepository) repositories[0];
-        this.selectedItem = Transformations.map(selectedText, selectedText -> {
-            // text selection 끝났을 경우
-            if (TextUtils.isEmpty(selectedText)) {
-                return new Highlight();
+        this.isSelectionMode = Transformations.map(selectedText, selectedText -> {
+            boolean isEmpty = TextUtils.isEmpty(selectedText);
+            if (isEmpty) {
+                selectedItem.setValue(null);
             }
-
-            Highlight highlight = selectedItem.getValue();
-            if (highlight == null) {
-                highlight = new Highlight();
-            }
-            highlight.setSelection(LiveDataCompat.getValue(this.selection, new Pair<>(0, 0)));
-            highlight.setSelectedText(LiveDataCompat.getValue(this.selectedText, ""));
-            return highlight;
+            return !isEmpty;
         });
         return this;
     }
@@ -83,6 +78,7 @@ public class HighlightViewModel extends BaseViewModel {
         addDisposable(repository.observeAddNewHighlight(newHighlight)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(highlight -> {
+                    this.selectedItem.setValue(highlight);
                     loadHighlightList();
                 }, error::setValue));
     }
@@ -97,36 +93,91 @@ public class HighlightViewModel extends BaseViewModel {
     }
 
     /**
-     * 하이라이트 삭제
+     * 하이라이트 삭제 - 뷰에서 호출
      */
     public void deleteHighlight() {
-        final Highlight highlight = this.selectedItem.getValue();
+        Highlight highlight = this.selectedItem.getValue();
         if (highlight == null) {
             return;
         }
+        deleteHighlight(highlight);
+    }
+
+    /**
+     * 하이라이트 삭제
+     */
+    private void deleteHighlight(@NonNull final Highlight highlight) {
         addDisposable(repository.observeDeleteHighlight(highlight)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadHighlightList, error::setValue));
+                .subscribe(() -> {
+                    resetSelectedItem();
+                    loadHighlightList();
+                }, error::setValue));
+    }
+
+    /**
+     * 현재 선택된 하이라이트 변경
+     */
+    public void setSelectedItem(@NonNull final Highlight item) {
+        this.selectedText.setValue(item.getSelectedText());
+        this.selection.setValue(item.getSelection());
+        this.selectedItem.setValue(item);
+    }
+
+    /**
+     * 현재 선택된 하이라이트 선택 해제
+     */
+    private void resetSelectedItem() {
+        this.selectedText.setValue(null);
+        this.selectedItem.setValue(null);
     }
 
     /**
      * 하이라이트 색상 선택
      */
     public void setHighlightColor(@NonNull final HighlightColor color) {
-        final Highlight highlight = this.selectedItem.getValue();
+        setHighlightProperty(
+                LiveDataCompat.getValue(this.selection, new Pair<>(0, 0)),
+                LiveDataCompat.getValue(this.selectedText, ""),
+                color);
+    }
+
+    /**
+     * 새 하이라이트 초기화 또는 속성(selection, selectedText, color) 변경
+     */
+    private void setHighlightProperty(@NonNull final Pair<Integer, Integer> selection,
+                                      @NonNull final String selectedText,
+                                      @NonNull final HighlightColor color) {
+        Highlight highlight = this.selectedItem.getValue();
         if (highlight == null) {
-            return;
-        }
-        highlight.setColor(color);
-
-        // selectedItem 변화를 알리기 위해
-        LiveDataCompat.notifyDataChanged(this.selectedText);
-
-        if (highlight.getId() == 0) {
+            highlight = createNewHighlight(selection, selectedText, color);
             addNewHighlight(highlight);
         } else {
+            highlight.setSelection(selection);
+            highlight.setSelectedText(selectedText);
+            highlight.setColor(color);
             updateHighlight(highlight);
         }
+
+        this.selectedItem.setValue(highlight);
+    }
+
+    /**
+     * 새 하이라이트 객체 생성
+     */
+    private Highlight createNewHighlight(@NonNull final Pair<Integer, Integer> selection,
+                                         @NonNull final String selectedText,
+                                         @NonNull final HighlightColor color) {
+        final Integer bookmarkId = this.bookmarkId.getValue();
+        if (bookmarkId == null) {
+            throw new IllegalStateException("bookmarkId cannot be NULL");
+        }
+        return new Highlight(bookmarkId, selection, selectedText, color);
+    }
+
+    @NonNull
+    public LiveData<Boolean> getIsSelectionMode() {
+        return isSelectionMode;
     }
 
     @NonNull

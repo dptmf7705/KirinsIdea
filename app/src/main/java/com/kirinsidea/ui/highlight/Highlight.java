@@ -7,24 +7,21 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
 
 public class Highlight {
-    private int id;
-    private int bookmarkId;
+    private static final int NEW_HIGHLIGHT_ID = 0;
+    private final int id;
+    private final int bookmarkId;
     @NonNull
-    private Pair<Integer, Integer> selection = new Pair<>(0, 0);
+    private Pair<Integer, Integer> selection;
     @NonNull
-    private String selectedText = "";
+    private String selectedText;
     @NonNull
-    private HighlightColor color = HighlightColor.YELLOW;
+    private HighlightColor color;
 
-    public Highlight() {
-    }
-
-    public Highlight(final int id,
-                     final int bookmarkId,
+    public Highlight(final int bookmarkId,
                      @NonNull final Pair<Integer, Integer> selection,
                      @NonNull final String selectedText,
                      @NonNull final HighlightColor color) {
-        this.id = id;
+        this.id = NEW_HIGHLIGHT_ID;
         this.bookmarkId = bookmarkId;
         this.selection = selection;
         this.selectedText = selectedText;
@@ -43,16 +40,8 @@ public class Highlight {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getBookmarkId() {
         return bookmarkId;
-    }
-
-    public void setBookmarkId(int bookmarkId) {
-        this.bookmarkId = bookmarkId;
     }
 
     @NonNull
