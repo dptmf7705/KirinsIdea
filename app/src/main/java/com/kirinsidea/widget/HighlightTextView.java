@@ -37,9 +37,13 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
+    /**
+     * Spannable 에 적용된 span 배열을 리턴한다.
+     */
+    @Nullable
     @Override
-    protected Class<HighlightSpan> getSpanClass() {
-        return HighlightSpan.class;
+    protected HighlightSpan[] getSpanArray(@NonNull Spannable spannable) {
+        return spannable.getSpans(0, getText().length(), HighlightSpan.class);
     }
 
 

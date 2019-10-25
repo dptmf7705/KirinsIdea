@@ -33,15 +33,6 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
     }
 
     /**
-     * Spannable 에 적용된 span 배열을 리턴한다.
-     */
-    @Nullable
-    protected T[] getSpanArray(@NonNull final Spannable spannable,
-                               @NonNull final Class<T> spanClass) {
-        return spannable.getSpans(0, getText().length(), spanClass);
-    }
-
-    /**
      * span 배열을 spannable 에 추가한다.
      */
     public void addAllSpans(@NonNull final T[] spans) {
@@ -69,7 +60,7 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
      * Spannable 에 적용된 span 객체를 모두 삭제한다.
      */
     protected void removeAllSpans(@NonNull final Spannable spannable) {
-        final T[] spanList = getSpanArray(spannable, getSpanClass());
+        final T[] spanList = getSpanArray(spannable);
         if (ArrayUtil.isEmpty(spanList)) {
             return;
         }
@@ -88,7 +79,8 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
         super.onDetachedFromWindow();
     }
 
-    protected abstract Class<T> getSpanClass();
+    @Nullable
+    protected abstract T[] getSpanArray(@NonNull final Spannable spannable);
 
     protected abstract void addSpanToSpannable(@NonNull final Spannable spannable,
                                                @NonNull final T span);

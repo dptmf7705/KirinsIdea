@@ -1,13 +1,11 @@
 package com.kirinsidea.extension.databinding;
 
 import android.annotation.SuppressLint;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
@@ -15,6 +13,7 @@ import androidx.databinding.InverseBindingListener;
 import com.kirinsidea.ui.highlight.Highlight;
 import com.kirinsidea.utils.CollectionUtil;
 import com.kirinsidea.widget.HighlightTextView;
+import com.kirinsidea.widget.HtmlTextView;
 import com.kirinsidea.widget.SelectableTextView;
 
 import java.util.List;
@@ -24,13 +23,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class TextViewAdapters {
 
     @BindingAdapter({"html"})
-    public static void setTextFromHtml(@NonNull final AppCompatTextView textView,
+    public static void setTextFromHtml(@NonNull final HtmlTextView textView,
                                        @Nullable final CharSequence html) {
         if (html == null || TextUtils.isEmpty(html)) {
             return;
         }
 
-        textView.setText(Html.fromHtml(html.toString()));
+        textView.setTextFromHtml(html);
     }
 
     /**
