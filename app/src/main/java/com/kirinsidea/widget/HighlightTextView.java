@@ -28,6 +28,9 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Spannable 에 HighlightSpan 을 추가한다.
+     */
     @Override
     protected void addSpanToSpannable(@NonNull final Spannable spannable,
                                       @NonNull final HighlightSpan span) {
@@ -38,7 +41,7 @@ public class HighlightTextView extends SpannableTextView<HighlightTextView.Highl
     }
 
     /**
-     * Spannable 에 적용된 span 배열을 리턴한다.
+     * Spannable 에 적용된 HighlightSpan 배열을 리턴한다.
      */
     @Nullable
     @Override
