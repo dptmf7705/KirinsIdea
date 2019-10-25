@@ -25,7 +25,7 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     }
 
     private void getLaunchIntentData() {
-        bookmarkId = getIntent().getIntExtra(EXTRA_BOOKMARK_ID, 1);
+        bookmarkId = getIntent().getIntExtra(EXTRA_BOOKMARK_ID, 0);
     }
 
     @Override
