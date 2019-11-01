@@ -8,12 +8,12 @@ public class NewBookmarkRequest {
     private final String url;
 
     @NonNull
-    private final String folderName;
+    private final int folderId;
 
     public NewBookmarkRequest(@NonNull final String url,
-                              @NonNull final String folderName) {
+                              @NonNull final int folderId) {
         this.url = url;
-        this.folderName = folderName;
+        this.folderId = folderId;
     }
 
     @NonNull
@@ -22,7 +22,7 @@ public class NewBookmarkRequest {
     }
 
     @NonNull
-    public String getFolderName() {
-        return folderName;
+    public int getFolderId() {
+        return folderId;
     }
 }

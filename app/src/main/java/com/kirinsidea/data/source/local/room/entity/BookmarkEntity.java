@@ -20,7 +20,7 @@ import java.util.Objects;
  * @member writeTime        포스팅 시간
  * @member path             로컬 저장 경로
  * @member storageTime      서버 저장 시간
- * @member folderName       저장 폴더 이름
+ * @member folderId         저장 폴더 ID
  */
 @Entity(tableName = "bookmark")
 public class BookmarkEntity {
@@ -34,7 +34,7 @@ public class BookmarkEntity {
     private String writeTime;
     private String path;
     private String storageTime;
-    private String folderName;
+    private int folderId;
 
     public BookmarkEntity() {
     }
@@ -49,7 +49,7 @@ public class BookmarkEntity {
         this.writeTime = builder.writeTime;
         this.path = builder.path;
         this.storageTime = builder.storageTime;
-        this.folderName = builder.folderName;
+        this.folderId = builder.folderId;
     }
 
     public int getId() {
@@ -124,12 +124,12 @@ public class BookmarkEntity {
         this.storageTime = storageTime;
     }
 
-    public String getFolderName() {
-        return folderName;
+    public int getFolderId() {
+        return folderId;
     }
 
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
+    public void setFolderId(int folderId) {
+        this.folderId = folderId;
     }
 
     @Override
@@ -138,20 +138,20 @@ public class BookmarkEntity {
         if (o == null || getClass() != o.getClass()) return false;
         BookmarkEntity that = (BookmarkEntity) o;
         return id == that.id &&
-                originalWebUrl.equals(that.originalWebUrl) &&
-                simpleWebUrl.equals(that.simpleWebUrl) &&
-                mainImageUrl.equals(that.mainImageUrl) &&
-                title.equals(that.title) &&
-                author.equals(that.author) &&
-                writeTime.equals(that.writeTime) &&
-                path.equals(that.path) &&
-                storageTime.equals(that.storageTime) &&
-                folderName.equals(that.folderName);
+                folderId == that.folderId &&
+                Objects.equals(originalWebUrl, that.originalWebUrl) &&
+                Objects.equals(simpleWebUrl, that.simpleWebUrl) &&
+                Objects.equals(mainImageUrl, that.mainImageUrl) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(writeTime, that.writeTime) &&
+                Objects.equals(path, that.path) &&
+                Objects.equals(storageTime, that.storageTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderName);
+        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderId);
     }
 
     public static class Builder {
@@ -163,7 +163,7 @@ public class BookmarkEntity {
         private final String author;
         private final String writeTime;
         private final String storageTime;
-        private final String folderName;
+        private final int folderId;
         private String path = "";
 
         public Builder(@NonNull final NewBookmarkResponse response) {
@@ -174,7 +174,7 @@ public class BookmarkEntity {
             this.author = response.getAuthor();
             this.writeTime = response.getWritetime();
             this.storageTime = response.getStoretime();
-            this.folderName = response.getFolder();
+            this.folderId = response.getFolderId();
         }
 
         public Builder setPath(String path) {

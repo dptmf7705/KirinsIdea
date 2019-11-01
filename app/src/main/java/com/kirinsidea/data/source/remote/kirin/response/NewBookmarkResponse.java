@@ -46,10 +46,10 @@ public class NewBookmarkResponse {
     @Nullable
     private final String hosturl;
 
-    @SerializedName("folder")
+    @SerializedName("folderId")
     @Expose
     @Nullable
-    private final String folder;
+    private final int folderId;
 
     public NewBookmarkResponse(@Nullable final String html,
                                @Nullable final String mainimage,
@@ -59,7 +59,7 @@ public class NewBookmarkResponse {
                                @Nullable final String title,
                                @Nullable final String originalweburl,
                                @Nullable final String hosturl,
-                               @Nullable final String folder) {
+                               @Nullable final int folderId) {
         this.html = html;
         this.mainimage = mainimage;
         this.author = author;
@@ -68,7 +68,7 @@ public class NewBookmarkResponse {
         this.title = title;
         this.originalweburl = originalweburl;
         this.hosturl = hosturl;
-        this.folder = folder;
+        this.folderId = folderId;
     }
 
     @Nullable
@@ -112,8 +112,8 @@ public class NewBookmarkResponse {
     }
 
     @Nullable
-    public String getFolder() {
-        return folder;
+    public int getFolderId() {
+        return folderId;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class NewBookmarkResponse {
                 ", title='" + title + '\'' +
                 ", originalweburl='" + originalweburl + '\'' +
                 ", hosturl='" + hosturl + '\'' +
-                ", folder='" + folder + '\'' +
+                ", folderId='" + folderId + '\'' +
                 '}';
     }
 }
