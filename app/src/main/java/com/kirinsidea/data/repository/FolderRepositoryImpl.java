@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
+import com.kirinsidea.data.source.remote.kirin.mock.FolderMockApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 
 import java.util.List;
@@ -33,29 +34,35 @@ public class FolderRepositoryImpl implements FolderRepository {
     @Override
     public BaseRepository init(@NonNull Object... dataSources) {
         this.folderLocalDataSource = (FolderDao) dataSources[0];
-        this.folderRemoteDataSource = (FolderApi) dataSources[1];
+//        this.folderRemoteDataSource = (FolderApi) dataSources[1];
+        this.folderRemoteDataSource = new FolderMockApi();
         return this;
     }
 
     @NonNull
     @Override
-    public Single<FolderEntity> observeFolderByName(String folderName) {
-        return folderLocalDataSource.selectByName(folderName).subscribeOn(Schedulers.io());
+    public Single<FolderEntity> observeFolderById(int folderId) {
+        return folderLocalDataSource.selectById(folderId).subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
     public Single<List<FolderEntity>> observeFolderList() {
-        return folderLocalDataSource.selectAll();
+        return folderLocalDataSource.selectFolderList().subscribeOn(Schedulers.io());
     }
 
     @NonNull
     @Override
-    public Completable observeAddNewFolder(@NonNull NewFolderRequest request) {
-
+    public Single<Integer> observeAddNewFolder(@NonNull NewFolderRequest request) {
         return folderRemoteDataSource.addNewFolder(request)
-                .flatMapCompletable(response->
-                        folderLocalDataSource.insert(new FolderEntity.Builder(response).build()))
+                .map(response -> new FolderEntity.Builder(response).setFavorite(false).build())
+                .flatMap(entity -> folderLocalDataSource.insert(entity).toSingleDefault(entity.getId()))
                 .subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    @Override
+    public Completable observeChangeFavorite(@NonNull FolderEntity entity) {
+        return folderLocalDataSource.update(entity).subscribeOn(Schedulers.io());
     }
 }
