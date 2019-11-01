@@ -53,16 +53,14 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                 },
                 item -> binding.getFolderlistvm().clickFavorite(item)
         ));
+        binding.getFolderlistvm().getSelectedItem().observe(this
+                , item -> binding.getVm().loadBookmarkListSelected(item));
+        //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);
             FolderEntity allBookmark = new FolderEntity("전체");
             binding.getFolderlistvm().setSelectedItem(allBookmark);
             binding.getVm().loadBookmarkListSelected(allBookmark);
-//            binding.getVm().loadBookmarkList();
-        });
-        binding.getFolderlistvm().getSelectedItem().observe(this, item -> {
-            binding.getVm().loadBookmarkListSelected(item);
-//            binding.getVm().loadBookmarkListByFolderId(item);
         });
     }
 
