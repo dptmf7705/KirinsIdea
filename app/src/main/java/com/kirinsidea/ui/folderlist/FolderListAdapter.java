@@ -15,33 +15,16 @@ public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewH
 
     private ItemClickListener<FolderEntity> itemClickListener;
 
-    private static final int Top = 0;
-    private static final int Other = 1;
-
     public FolderListAdapter(ItemClickListener<FolderEntity> itemClickListener) {
         super(DIFF_CALLBACK);
         this.itemClickListener = itemClickListener;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if(position == 0){
-            return Top;
-        } else {
-            return Other;
-        }
-    }
-
     @NonNull
     @Override
     public FolderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == 0) {
-            return new FolderItemViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_web_bottomsheet, parent, false));
-        } else{
-            return new FolderItemViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_web_bottomsheet, parent, false));
-        }
+        return new FolderItemViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_web_bottomsheet, parent, false));
     }
 
     @Override
@@ -59,7 +42,7 @@ public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewH
             new DiffUtil.ItemCallback<FolderEntity>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull FolderEntity oldItem, @NonNull FolderEntity newItem) {
-                    return oldItem.getName() == newItem.getName();
+                    return oldItem.getId() == newItem.getId();
                 }
 
                 @Override

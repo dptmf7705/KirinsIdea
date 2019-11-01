@@ -11,6 +11,7 @@ import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.BaseActivity;
 import com.kirinsidea.ui.folderlist.FolderListAdapter;
+import com.kirinsidea.ui.folderlist.FolderListViewModel;
 import com.kirinsidea.utils.WebUrlUtil;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
@@ -65,7 +66,11 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
 
     private void initViewModel() {
         binding.setVm(Providers.getViewModel(this, NewBookmarkViewModel.class));
+        binding.setFolderlistvm(Providers.getViewModel(this, FolderListViewModel.class));
         binding.getVm().setNavigator(this);
+        binding.getFolderlistvm().getFolderId().observe(this, integer -> {
+            binding.getVm().checkExistUrl(integer);
+        });
         binding.getVm().getStatus().observe(this, status -> {
             if(status.equals("ERROR")){
                 Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
@@ -76,7 +81,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
 
     private void initViews() {
         binding.recyclerFolder.setAdapter(new FolderListAdapter(item -> binding.getVm()
-                .checkExistUrl(item.getName())));
+                .checkExistUrl(item.getId())));
     }
 
       @Override

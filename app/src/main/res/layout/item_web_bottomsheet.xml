@@ -16,10 +16,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="@dimen/space_small_12dp"
-            android:src="@drawable/icon_dialog_bookmark"
+            android:src="@{item.favorite ? @drawable/ic_icon_pin_selected : @drawable/ic_icon_folder}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

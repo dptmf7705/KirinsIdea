@@ -17,6 +17,7 @@ import com.kirinsidea.ui.BaseViewModel;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.highlight.HighlightViewModel;
+import com.kirinsidea.ui.folderlist.FolderListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
 import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
 
@@ -36,11 +37,14 @@ abstract class Injectors {
             //noinspection unchecked
             return (VM) viewModel.init(
                     initRepository(Providers.getBookmarkRepository()));
+        } else if (viewModel instanceof FolderListViewModel) {
+            //noinspection unchecked
+            return (VM) viewModel.init(
+                    initRepository(Providers.getFolderRepository()));
         } else if (viewModel instanceof NewBookmarkViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(
-                    initRepository(Providers.getBookmarkRepository()),
-                    initRepository(Providers.getFolderRepository()));
+                    initRepository(Providers.getBookmarkRepository()));
         } else if (viewModel instanceof HighlightViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(

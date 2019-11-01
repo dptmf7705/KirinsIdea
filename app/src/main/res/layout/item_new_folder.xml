@@ -5,7 +5,7 @@
         <import type="android.text.TextUtils"/>
         <variable
             name="vm"
-            type="com.kirinsidea.ui.newbookmark.NewBookmarkViewModel" />
+            type="com.kirinsidea.ui.folderlist.FolderListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,10 +17,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="@dimen/space_small_12dp"
-            android:src="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_icon_addfolder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,12 +29,15 @@
             style="@style/EditText.XLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:hint="새폴더"
-            android:textColor="@color/colorBlack"
-            android:text="@={vm.folderName}"
             android:layout_marginStart="@dimen/space_small_12dp"
+            android:layout_marginEnd="@dimen/space_small_12dp"
+            android:hint="새폴더"
+            android:inputType="text"
+            android:singleLine="true"
+            android:text="@={vm.folderName}"
+            android:textColor="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_keep"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +45,7 @@
             android:id="@+id/btn_keep"
             android:layout_width="80dp"
             android:layout_height="35dp"
-            android:text="추가"
+            android:text="저장"
             android:textSize="18sp"
             android:gravity="center"
             android:textStyle="bold"
@@ -52,8 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{__->vm.addNewFolder()}"
-            />
+            android:onClick="@{__->vm.addNewFolder()}" />
 
         <View
             android:id="@+id/divider"
