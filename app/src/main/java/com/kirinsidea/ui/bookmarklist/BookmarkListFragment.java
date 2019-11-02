@@ -1,14 +1,14 @@
 package com.kirinsidea.ui.bookmarklist;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.databinding.FragmentBookmarkListBinding;
 import com.kirinsidea.extension.injection.Providers;
@@ -43,6 +43,9 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
     }
 
     private void initViews() {
+//        ((DefaultItemAnimator)binding.recyclerBookmark.getItemAnimator()).setSupportsChangeAnimations(false);
+        binding.recyclerBookmark.setItemAnimator(null);
+
         binding.recyclerBookmark.setAdapter(new BookmarkListAdapter(
                 item -> startBookmarkActivity(item.getId())));
         //폴더별 북마크 리스트
@@ -54,13 +57,13 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                 item -> binding.getFolderlistvm().clickFavorite(item)
         ));
         binding.getFolderlistvm().getSelectedItem().observe(this
-                , item -> binding.getVm().loadBookmarkListSelected(item));
+                , item -> binding.getVm().loadBookmarkListSelected(item.getId()));
         //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);
             FolderEntity allBookmark = new FolderEntity("전체");
             binding.getFolderlistvm().setSelectedItem(allBookmark);
-            binding.getVm().loadBookmarkListSelected(allBookmark);
+            binding.getVm().loadBookmarkListSelected(-1);
         });
     }
 
