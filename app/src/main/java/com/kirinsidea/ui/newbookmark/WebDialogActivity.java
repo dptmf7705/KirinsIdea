@@ -33,6 +33,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         super.onCreate(savedInstanceState);
 
         checkPermission();
+
     }
 
     public void checkPermission(){
@@ -68,9 +69,8 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         binding.setVm(Providers.getViewModel(this, NewBookmarkViewModel.class));
         binding.setFolderlistvm(Providers.getViewModel(this, FolderListViewModel.class));
         binding.getVm().setNavigator(this);
-        binding.getFolderlistvm().getFolderId().observe(this, integer -> {
-            binding.getVm().checkExistUrl(integer);
-        });
+        binding.getFolderlistvm().getFolderId().observe(this
+                , id -> binding.getVm().checkExistUrl(id));
         binding.getVm().getStatus().observe(this, status -> {
             if(status.equals("ERROR")){
                 Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
