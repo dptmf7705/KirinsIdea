@@ -35,6 +35,7 @@
             android:layout_marginStart="@dimen/space_small_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
+            app:layout_constraintEnd_toStartOf="@id/iv_folder_pin"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
