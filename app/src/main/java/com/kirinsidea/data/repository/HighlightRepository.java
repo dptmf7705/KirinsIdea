@@ -15,7 +15,7 @@ public interface HighlightRepository extends BaseRepository {
     Single<Highlight> observeAddNewHighlight(@NonNull final Highlight highlight);
 
     @NonNull
-    Completable observeUpdateHighlight(@NonNull final Highlight highlight);
+    Single<Highlight> observeUpdateHighlight(@NonNull final Highlight highlight);
 
     @NonNull
     Single<List<Highlight>> observeHighlightListByBookmarkId(final int bookmarkId);

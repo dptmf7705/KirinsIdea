@@ -8,36 +8,36 @@ import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
 
 public class Highlight {
     private static final int NEW_HIGHLIGHT_ID = 0;
-    private final int id;
+    private final int highlightId;
     private final int bookmarkId;
     @NonNull
     private Pair<Integer, Integer> selection;
     @NonNull
-    private String selectedText;
+    private String highlightText;
     @NonNull
-    private HighlightColor color;
+    private HighlightColor highlightColor;
 
     public Highlight(final int bookmarkId,
                      @NonNull final Pair<Integer, Integer> selection,
-                     @NonNull final String selectedText,
-                     @NonNull final HighlightColor color) {
-        this.id = NEW_HIGHLIGHT_ID;
+                     @NonNull final String highlightText,
+                     @NonNull final HighlightColor highlightColor) {
+        this.highlightId = NEW_HIGHLIGHT_ID;
         this.bookmarkId = bookmarkId;
         this.selection = selection;
-        this.selectedText = selectedText;
-        this.color = color;
+        this.highlightText = highlightText;
+        this.highlightColor = highlightColor;
     }
 
     private Highlight(@NonNull final Builder builder) {
-        this.id = builder.id;
+        this.highlightId = builder.highlightId;
         this.bookmarkId = builder.bookmarkId;
         this.selection = builder.selection;
-        this.selectedText = builder.selectedText;
-        this.color = builder.color;
+        this.highlightText = builder.selectedText;
+        this.highlightColor = builder.highlightColor;
     }
 
-    public int getId() {
-        return id;
+    public int getHighlightId() {
+        return highlightId;
     }
 
     public int getBookmarkId() {
@@ -54,21 +54,21 @@ public class Highlight {
     }
 
     @NonNull
-    public String getSelectedText() {
-        return selectedText;
+    public String getHighlightText() {
+        return highlightText;
     }
 
-    public void setSelectedText(@NonNull String selectedText) {
-        this.selectedText = selectedText;
+    public void setHighlightText(@NonNull String highlightText) {
+        this.highlightText = highlightText;
     }
 
     @NonNull
-    public HighlightColor getColor() {
-        return color;
+    public HighlightColor getHighlightColor() {
+        return highlightColor;
     }
 
-    public void setColor(@NonNull HighlightColor color) {
-        this.color = color;
+    public void setHighlightColor(@NonNull HighlightColor highlightColor) {
+        this.highlightColor = highlightColor;
     }
 
     @Override
@@ -76,29 +76,40 @@ public class Highlight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Highlight highlight = (Highlight) o;
-        return id == highlight.id &&
+        return highlightId == highlight.highlightId &&
                 bookmarkId == highlight.bookmarkId &&
                 selection.equals(highlight.selection) &&
-                selectedText.equals(highlight.selectedText) &&
-                color == highlight.color;
+                highlightText.equals(highlight.highlightText) &&
+                highlightColor == highlight.highlightColor;
+    }
+
+    @Override
+    public String toString() {
+        return "Highlight{" +
+                "highlightId=" + highlightId +
+                ", bookmarkId=" + bookmarkId +
+                ", selection=" + selection +
+                ", highlightText='" + highlightText + '\'' +
+                ", highlightColor=" + highlightColor +
+                '}';
     }
 
     public static class Builder {
-        private final int id;
+        private final int highlightId;
         private final int bookmarkId;
         @NonNull
         private final Pair<Integer, Integer> selection;
         @NonNull
         private final String selectedText;
         @NonNull
-        private final HighlightColor color;
+        private final HighlightColor highlightColor;
 
         public Builder(@NonNull final HighlightEntity entity) {
-            this.id = entity.getId();
+            this.highlightId = entity.getHighlightId();
             this.bookmarkId = entity.getBookmarkId();
             this.selection = new Pair<>(entity.getStartIndex(), entity.getEndIndex());
-            this.selectedText = entity.getText();
-            this.color = HighlightColor.valueOf(entity.getColor());
+            this.selectedText = entity.getHighlightText();
+            this.highlightColor = HighlightColor.valueOf(entity.getHighlightColor());
         }
 
         public Highlight build() {

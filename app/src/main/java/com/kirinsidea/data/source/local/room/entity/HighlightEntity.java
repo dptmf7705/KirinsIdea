@@ -9,41 +9,41 @@ import com.kirinsidea.ui.highlight.Highlight;
 /**
  * 하이라이트
  *
- * @member id           ID (PK)
- * @member bookmarkId   북마크 ID
- * @member startIndex   시작 인덱스
- * @member endIndex     끝 인덱스
- * @member text         하이라이트 문구
- * @member color        하이라이트 색깔
+ * @member highlightId      하이라이트 ID (PK)
+ * @member bookmarkId       북마크 ID
+ * @member startIndex       시작 인덱스
+ * @member endIndex         끝 인덱스
+ * @member highlightText    하이라이트 문구
+ * @member highlightColor   하이라이트 색깔
  */
 @Entity(tableName = "highlight")
 public class HighlightEntity {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int highlightId;
     private int bookmarkId;
     private int startIndex;
     private int endIndex;
-    private String text;
-    private String color;
+    private String highlightText;
+    private String highlightColor;
 
     public HighlightEntity() {
     }
 
     private HighlightEntity(Builder builder) {
-        this.id = builder.id;
+        this.highlightId = builder.highlightId;
         this.bookmarkId = builder.bookmarkId;
         this.startIndex = builder.startIndex;
         this.endIndex = builder.endIndex;
-        this.text = builder.text;
-        this.color = builder.color;
+        this.highlightText = builder.highlightText;
+        this.highlightColor = builder.highlightColor;
     }
 
-    public int getId() {
-        return id;
+    public int getHighlightId() {
+        return highlightId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setHighlightId(int highlightId) {
+        this.highlightId = highlightId;
     }
 
     public int getBookmarkId() {
@@ -70,37 +70,37 @@ public class HighlightEntity {
         this.endIndex = endIndex;
     }
 
-    public String getText() {
-        return text;
+    public String getHighlightText() {
+        return highlightText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setHighlightText(String highlightText) {
+        this.highlightText = highlightText;
     }
 
-    public String getColor() {
-        return color;
+    public String getHighlightColor() {
+        return highlightColor;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setHighlightColor(String highlightColor) {
+        this.highlightColor = highlightColor;
     }
 
     public static class Builder {
-        private final int id;
+        private final int highlightId;
         private final int bookmarkId;
         private final int startIndex;
         private final int endIndex;
-        private final String text;
-        private final String color;
+        private final String highlightText;
+        private final String highlightColor;
 
         public Builder(@NonNull final Highlight model) {
-            this.id = model.getId();
+            this.highlightId = model.getHighlightId();
             this.bookmarkId = model.getBookmarkId();
             this.startIndex = model.getSelection().first;
             this.endIndex = model.getSelection().second;
-            this.text = model.getSelectedText();
-            this.color = model.getColor().getColorName();
+            this.highlightText = model.getHighlightText();
+            this.highlightColor = model.getHighlightColor().getColorName();
         }
 
         public HighlightEntity build() {

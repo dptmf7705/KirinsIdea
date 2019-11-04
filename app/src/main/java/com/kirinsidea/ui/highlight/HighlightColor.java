@@ -6,10 +6,9 @@ import com.kirinsidea.R;
 
 public enum HighlightColor {
 
-    YELLOW("YELLOW", R.color.colorYellow),
-    BLUE("BLUE", R.color.colorBlue),
-    GREEN("GREEN", R.color.colorGreen),
-    RED("RED", R.color.colorRed);
+    YELLOW("YELLOW", R.color.highlightYellow),
+    GREEN("GREEN", R.color.highlightGreen),
+    RED("RED", R.color.highlightRed);
 
     @NonNull
     private final String colorName;
