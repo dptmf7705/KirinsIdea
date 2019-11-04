@@ -3,6 +3,7 @@ package com.kirinsidea.extension.injection;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,6 +33,15 @@ public abstract class Providers {
 
         return Injectors.initViewModel(
                 ViewModelProviders.of(activity).get(vmClass));
+    }
+
+    @NonNull
+    public static <VM extends BaseViewModel> VM getViewModel(
+            @NonNull final Fragment fragment,
+            @NonNull final Class<VM> vmClass) {
+
+        return Injectors.initViewModel(
+                ViewModelProviders.of(fragment).get(vmClass));
     }
 
     @NonNull

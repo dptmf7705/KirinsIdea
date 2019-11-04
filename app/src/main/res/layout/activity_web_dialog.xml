@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="com.kirinsidea.ui.newbookmark.NewBookmarkViewModel" />
+        <variable
+            name="folderlistvm"
+            type="com.kirinsidea.ui.folderlist.FolderListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -38,11 +41,11 @@
                     <include
                         android:id="@+id/new_folder"
                         layout="@layout/item_new_folder"
-                        bind:vm="@{vm}" />
+                        bind:vm="@{folderlistvm}" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_folder"
-                        items="@{vm.folderList}"
+                        items="@{folderlistvm.folderList}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:overScrollMode="never"

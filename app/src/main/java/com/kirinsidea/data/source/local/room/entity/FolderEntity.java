@@ -2,34 +2,49 @@ package com.kirinsidea.data.source.local.room.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
 
 import java.util.Objects;
 
 /**
  * 폴더
  *
- * @member folerName    북마크 폴더 이름 (PK)
- * @member saveTime     폴더 생성시간
+ * @member folderId     폴더 아이디(PK)
+ * @member folderName    북마크 폴더 이름
+ * @member storeTime     폴더 생성시간
  * @member isFavorite   즐겨찾기(핀) 여부
  */
 @Entity(tableName = "folder")
 public class FolderEntity {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
     private String name;
-    private String saveTime;
+    private String storeTime;
     private boolean isFavorite;
 
     public FolderEntity() {
     }
 
+    @Ignore
+    public FolderEntity(String name) {
+        this.name = name;
+    }
+
+    @Ignore
+    public FolderEntity(int id, String name, String storeTime, boolean isFavorite) {
+        this.id = id;
+        this.name = name;
+        this.storeTime = storeTime;
+        this.isFavorite = isFavorite;
+    }
+
     private FolderEntity(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
-        this.saveTime = builder.saveTime;
+        this.storeTime = builder.storeTime;
         this.isFavorite = builder.isFavorite;
     }
 
@@ -49,12 +64,12 @@ public class FolderEntity {
         this.name = name;
     }
 
-    public String getSaveTime() {
-        return saveTime;
+    public String getStoreTime() {
+        return storeTime;
     }
 
-    public void setSaveTime(String saveTime) {
-        this.saveTime = saveTime;
+    public void setStoreTime(String storeTime) {
+        this.storeTime = storeTime;
     }
 
     public boolean isFavorite() {
@@ -73,23 +88,24 @@ public class FolderEntity {
         return id == that.id &&
                 isFavorite == that.isFavorite &&
                 name.equals(that.name) &&
-                saveTime.equals(that.saveTime);
+                storeTime.equals(that.storeTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, saveTime, isFavorite);
+        return Objects.hash(id, name, storeTime, isFavorite);
     }
 
     public static class Builder {
-        private final int id = 0;
+        private final int id;
         private final String name;
-        private final String saveTime;
+        private final String storeTime;
         private boolean isFavorite = false;
 
-        public Builder(@NonNull final NewFolderRequest request) {
-            this.name = request.getFolderName();
-            this.saveTime = request.getStorageTime();
+        public Builder(@NonNull final NewFolderResponse response) {
+            this.id = response.getId();
+            this.name = response.getName();
+            this.storeTime = response.getStoreTime();
         }
 
         public Builder setFavorite(boolean favorite) {

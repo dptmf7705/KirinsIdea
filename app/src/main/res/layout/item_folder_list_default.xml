@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
-            name="item"
-            type="com.kirinsidea.data.source.local.room.entity.FolderEntity" />
+            name="vm"
+            type="com.kirinsidea.ui.bookmarklist.BookmarkListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="@dimen/space_small_12dp"
         android:layout_marginTop="@dimen/space_small_12dp"
         android:layout_marginEnd="@dimen/space_small_12dp">
@@ -19,7 +23,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="@dimen/space_small_12dp"
-            android:src="@{item.favorite ? @drawable/ic_icon_pin_selected : @drawable/ic_icon_folder}"
+            android:src="@drawable/ic_icon_folder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,10 +32,10 @@
             style="@style/TextView.XLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:text="@{item.name}"
-            android:textColor="@color/colorBlack"
             android:layout_marginStart="@dimen/space_small_12dp"
+            android:ellipsize="end"
+            android:text="전체"
+            android:textColor="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,3 +51,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+

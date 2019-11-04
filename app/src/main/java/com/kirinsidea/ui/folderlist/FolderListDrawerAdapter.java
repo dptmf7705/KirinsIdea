@@ -11,24 +11,27 @@ import com.kirinsidea.R;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.ui.listener.ItemClickListener;
 
-public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewHolder> {
+public class FolderListDrawerAdapter extends ListAdapter<FolderEntity, FolderItemDrawerViewHolder> {
 
     private ItemClickListener<FolderEntity> itemClickListener;
+    private ItemClickListener<FolderEntity> favoriteClickListener;
 
-    public FolderListAdapter(ItemClickListener<FolderEntity> itemClickListener) {
+    public FolderListDrawerAdapter(ItemClickListener<FolderEntity> itemClickListener,
+                                   ItemClickListener<FolderEntity> favoriteClickListener) {
         super(DIFF_CALLBACK);
         this.itemClickListener = itemClickListener;
+        this.favoriteClickListener = favoriteClickListener;
     }
 
     @NonNull
     @Override
-    public FolderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FolderItemViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_web_bottomsheet, parent, false));
+    public FolderItemDrawerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new FolderItemDrawerViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_folder_list, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FolderItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FolderItemDrawerViewHolder holder, int position) {
         final FolderEntity item = getItem(holder.getAdapterPosition());
         holder.bindTo(item);
 
@@ -36,7 +39,13 @@ public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewH
             holder.itemView.setOnClickListener(__ ->
                     itemClickListener.onItemClick(item));
         }
+
+        if (favoriteClickListener != null) {
+            holder.getBinding().ivFolderPin.setOnClickListener(__ ->
+                    favoriteClickListener.onItemClick(item));
+        }
     }
+
 
     private static final DiffUtil.ItemCallback<FolderEntity> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<FolderEntity>() {

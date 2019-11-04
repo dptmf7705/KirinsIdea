@@ -4,7 +4,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.BindingAdapter;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,5 +77,15 @@ public class ViewGroupAdapters {
         BottomSheetBehavior.from(layout).setState(
                 expanded ? BottomSheetBehavior.STATE_EXPANDED
                         : BottomSheetBehavior.STATE_HIDDEN);
+    }
+
+    @BindingAdapter({"drawer_open"})
+    public static void setDrawerOpen(@NonNull final DrawerLayout drawer,
+                                     final boolean isOpen) {
+        if (isOpen)  {
+            drawer.openDrawer(GravityCompat.END);
+        }else{
+            drawer.closeDrawer(GravityCompat.END);
+        }
     }
 }

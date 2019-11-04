@@ -16,17 +16,20 @@ public class BookmarkItem {
     private final String title;
     @NonNull
     private final String storageTime;
+    private final int folderId;
 
     public BookmarkItem(final int id,
                         @NonNull final String simpleWebUrl,
                         @NonNull final String mainImageUrl,
                         @NonNull final String title,
-                        @NonNull final String storageTime) {
+                        @NonNull final String storageTime,
+                        final int folderId) {
         this.id = id;
         this.simpleWebUrl = simpleWebUrl;
         this.mainImageUrl = mainImageUrl;
         this.title = title;
         this.storageTime = storageTime;
+        this.folderId = folderId;
     }
 
     public int getId() {
@@ -53,12 +56,17 @@ public class BookmarkItem {
         return storageTime;
     }
 
+    public int getFolderId() {
+        return folderId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookmarkItem that = (BookmarkItem) o;
         return id == that.id &&
+                folderId == that.folderId &&
                 simpleWebUrl.equals(that.simpleWebUrl) &&
                 mainImageUrl.equals(that.mainImageUrl) &&
                 title.equals(that.title) &&
@@ -67,7 +75,7 @@ public class BookmarkItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, simpleWebUrl, mainImageUrl, title, storageTime);
+        return Objects.hash(id, simpleWebUrl, mainImageUrl, title, storageTime, folderId);
     }
 
     public static class Builder {
@@ -76,6 +84,7 @@ public class BookmarkItem {
         private String mainImageUrl;
         private String title;
         private String storageTime;
+        private int folderId;
 
         @NonNull
         public Builder fromEntity(@NonNull final BookmarkEntity entity) {
@@ -84,6 +93,7 @@ public class BookmarkItem {
             this.mainImageUrl = entity.getMainImageUrl();
             this.title = entity.getTitle();
             this.storageTime = entity.getStorageTime();
+            this.folderId = entity.getFolderId();
             return this;
         }
 
@@ -93,7 +103,8 @@ public class BookmarkItem {
                     simpleWebUrl,
                     mainImageUrl,
                     title,
-                    storageTime);
+                    storageTime,
+                    folderId);
         }
     }
 }

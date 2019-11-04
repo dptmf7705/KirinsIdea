@@ -3,14 +3,16 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
 
+import com.kirinsidea.App;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
 import com.kirinsidea.data.source.remote.kirin.api.FileApi;
+import com.kirinsidea.data.source.remote.kirin.mock.BookmarkMockApi;
+import com.kirinsidea.data.source.remote.kirin.mock.FileMockApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.bookmark.Bookmark;
 import com.kirinsidea.ui.bookmarklist.BookmarkItem;
-import com.kirinsidea.utils.FileUtil;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -37,8 +39,10 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @Override
     public BaseRepository init(@NonNull final Object... dataSources) {
         this.bookmarkLocalDataSource = (BookmarkDao) dataSources[0];
-        this.bookmarkRemoteDataSource = (BookmarkApi) dataSources[1];
-        this.fileRemoteDataSource = (FileApi) dataSources[2];
+        this.bookmarkRemoteDataSource = new BookmarkMockApi();
+//        this.bookmarkRemoteDataSource = (BookmarkApi) dataSources[1];
+        this.fileRemoteDataSource = new FileMockApi();
+//        this.fileRemoteDataSource = (FileApi) dataSources[2];
         return this;
     }
 
@@ -55,15 +59,21 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     @NonNull
     @Override
-    public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList() {
-        return bookmarkLocalDataSource.selectAll().map(entity ->
-                new BookmarkItem.Builder().fromEntity(entity).build());
+    public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList(final int id) {
+        if(id == allBookmark){
+            return bookmarkLocalDataSource.selectAll().map(entity ->
+                    new BookmarkItem.Builder().fromEntity(entity).build());
+        }else{
+            return bookmarkLocalDataSource.selectByFolderId(id)
+                    .map(entity -> new BookmarkItem.Builder().fromEntity(entity).build());
+        }
+
     }
 
     @NonNull
     @Override
     public Single<Integer> checkIfExistUrl(String Url) {
-        return bookmarkLocalDataSource.selectByUrl(Url);
+        return bookmarkLocalDataSource.selectByUrl(Url).subscribeOn(Schedulers.io());
     }
 
     @NonNull
@@ -72,7 +82,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
         return bookmarkRemoteDataSource.addNewBookmark(request)
                 .flatMapCompletable(response ->
                         fileRemoteDataSource.downloadFileByUrl(response.getHtml())
-                                .map(responseBody -> FileUtil.writeFile(responseBody.source()))
+//                                .map(responseBody -> FileUtil.writeFile(responseBody.source()))
+                                .map(responseBody -> App.instance().getContext().getExternalFilesDir(null).getAbsolutePath() + "/" + "testt.html")
                                 .flatMapCompletable(path -> bookmarkLocalDataSource
                                         .insert(new BookmarkEntity.Builder(response)
                                                 .setPath(path)
