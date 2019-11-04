@@ -1,33 +1,45 @@
 package com.kirinsidea.data.source.local.room.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.kirinsidea.ui.memo.Memo;
+import com.kirinsidea.ui.memo.NewMemo;
 
 /**
  * 메모
  *
- * @member id           ID (PK)
+ * @member memoId       메모 ID (PK)
  * @member highlightId  하이라이트 ID
- * @member content      메모 내용
- * @member isPrivate    true(나만보기) / false(전체공개)
+ * @member title        메모 제목 (하이라이트 문구)
+ * @member memoContent  메모 내용
+ * @member isPrivate    true: 나만보기 / false: 전체공개
  */
 @Entity(tableName = "memo")
 public class MemoEntity {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int memoId;
     private int highlightId;
-    private String content;
+    private String memoContent;
     private boolean isPrivate;
 
     public MemoEntity() {
     }
 
-    public int getId() {
-        return id;
+    private MemoEntity(Builder builder) {
+        this.memoId = builder.memoId;
+        this.highlightId = builder.highlightId;
+        this.memoContent = builder.memoContent;
+        this.isPrivate = builder.isPrivate;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getMemoId() {
+        return memoId;
+    }
+
+    public void setMemoId(int memoId) {
+        this.memoId = memoId;
     }
 
     public int getHighlightId() {
@@ -38,12 +50,12 @@ public class MemoEntity {
         this.highlightId = highlightId;
     }
 
-    public String getContent() {
-        return content;
+    public String getMemoContent() {
+        return memoContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMemoContent(String memoContent) {
+        this.memoContent = memoContent;
     }
 
     public boolean isPrivate() {
@@ -52,5 +64,38 @@ public class MemoEntity {
 
     public void setPrivate(boolean aPrivate) {
         isPrivate = aPrivate;
+    }
+
+    public static class Builder {
+        private final int memoId;
+        private final int highlightId;
+        private final String memoContent;
+        private final boolean isPrivate;
+
+        private Builder(@NonNull final Memo model) {
+            this.memoId = model.getMemoId();
+            this.highlightId = model.getHighlightId();
+            this.memoContent = model.getMemoContent();
+            this.isPrivate = model.isPrivate();
+        }
+
+        public Builder(@NonNull final NewMemo model) {
+            this.memoId = model.getMemoId();
+            this.highlightId = model.getHighlightId();
+            this.memoContent = model.getMemoContent();
+            this.isPrivate = model.isPrivate();
+        }
+
+        public static Builder with(@NonNull final Memo model) {
+            return new Builder(model);
+        }
+
+        public static Builder with(@NonNull final NewMemo model) {
+            return new Builder(model);
+        }
+
+        public MemoEntity build() {
+            return new MemoEntity(this);
+        }
     }
 }

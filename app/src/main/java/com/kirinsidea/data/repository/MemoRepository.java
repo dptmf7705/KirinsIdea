@@ -2,7 +2,10 @@ package com.kirinsidea.data.repository;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
+import com.kirinsidea.ui.memo.Memo;
+import com.kirinsidea.ui.memo.NewMemo;
+
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -10,14 +13,18 @@ import io.reactivex.Single;
 public interface MemoRepository extends BaseRepository {
 
     @NonNull
-    Single<MemoEntity> observeMemoByHighlightId(final int highlightId);
+    Single<List<Memo>> observeMemoListByBookmarkId(final int bookmarkId);
 
     @NonNull
-    Completable observeAddNewMemo(@NonNull final MemoEntity memo);
+    Single<Memo> observeAddNewMemo(@NonNull final NewMemo memo);
 
     @NonNull
-    Completable observeUpdateMemo(@NonNull final MemoEntity memo);
+    Single<Memo> observeUpdateMemo(@NonNull final Memo memo);
 
     @NonNull
-    Completable observeDeleteMemo(@NonNull final MemoEntity memo);
+    Completable observeDeleteMemo(@NonNull final Memo memo);
+
+    // TODO 서버 완료될 때까지 임시
+    @NonNull
+    Single<Memo> observeMemo(final int bookmarkId, final int highlightId);
 }
