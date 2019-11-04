@@ -1,13 +1,10 @@
 package com.kirinsidea.extension.databinding;
 
-import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
-
-import com.kirinsidea.R;
-import com.kirinsidea.ui.highlight.HighlightColor;
+import androidx.databinding.BindingConversion;
 
 public class AnyViewAdapters {
 
@@ -17,19 +14,14 @@ public class AnyViewAdapters {
         view.setActivated(isActive);
     }
 
-    /**
-     * 하이라이트 색상 선택 패널 바인딩
-     *
-     * @value highlightColor    하이라이트 색 바인딩
-     * @value selected          테두리 색 바인딩
-     */
-    @BindingAdapter({"highlightColor", "selected"})
-    public static void setHighlightColor(@NonNull final View view,
-                                         @NonNull final HighlightColor color,
-                                         final boolean selected) {
-        GradientDrawable drawable = (GradientDrawable) view.getBackground();
-        drawable.setColor(view.getResources().getColor(color.getColorResId()));
-        drawable.setStroke(8, view.getResources().getColor(
-                selected ? R.color.colorWhite : R.color.colorBlack));
+    @BindingAdapter({"android:onTouch"})
+    public static void setOnTouchListener(@NonNull final View view,
+                                          @NonNull final View.OnTouchListener listener) {
+        view.setOnTouchListener(listener);
+    }
+
+    @BindingConversion
+    public static int setVisibility(final boolean isVisible) {
+        return isVisible ? View.VISIBLE : View.GONE;
     }
 }

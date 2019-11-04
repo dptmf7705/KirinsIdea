@@ -7,9 +7,11 @@ import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.data.repository.FolderRepository;
 import com.kirinsidea.data.repository.HighlightRepository;
 import com.kirinsidea.data.repository.LoginRepository;
+import com.kirinsidea.data.repository.MemoRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
+import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
 import com.kirinsidea.data.source.remote.kirin.api.FileApi;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
@@ -19,6 +21,7 @@ import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
+import com.kirinsidea.ui.memo.MemoViewModel;
 import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
 
 abstract class Injectors {
@@ -49,6 +52,10 @@ abstract class Injectors {
             //noinspection unchecked
             return (VM) viewModel.init(
                     initRepository(Providers.getHighlightRepository()));
+        } else if (viewModel instanceof MemoViewModel) {
+            //noinspection unchecked
+            return (VM) viewModel.init(
+                    initRepository(Providers.getMemoRepository()));
         }
 
         throw new IllegalArgumentException(
@@ -77,6 +84,10 @@ abstract class Injectors {
             //noinspection unchecked
             return (R) repository.init(
                     Providers.getRoomDao(HighlightDao.class));
+        } else if (repository instanceof MemoRepository) {
+            //noinspection unchecked
+            return (R) repository.init(
+                    Providers.getRoomDao(MemoDao.class));
         }
 
         throw new IllegalArgumentException(

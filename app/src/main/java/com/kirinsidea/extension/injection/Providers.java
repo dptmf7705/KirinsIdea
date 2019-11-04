@@ -18,6 +18,8 @@ import com.kirinsidea.data.repository.HighlightRepository;
 import com.kirinsidea.data.repository.HighlightRepositoryImpl;
 import com.kirinsidea.data.repository.LoginRepository;
 import com.kirinsidea.data.repository.LoginRepositoryImpl;
+import com.kirinsidea.data.repository.MemoRepository;
+import com.kirinsidea.data.repository.MemoRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
@@ -62,6 +64,11 @@ public abstract class Providers {
     @NonNull
     static HighlightRepository getHighlightRepository() {
         return HighlightRepositoryImpl.getInstance();
+    }
+
+    @NonNull
+    static MemoRepository getMemoRepository() {
+        return MemoRepositoryImpl.getInstance();
     }
 
     @NonNull

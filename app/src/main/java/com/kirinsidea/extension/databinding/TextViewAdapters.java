@@ -12,9 +12,11 @@ import androidx.databinding.InverseBindingListener;
 
 import com.kirinsidea.ui.highlight.Highlight;
 import com.kirinsidea.ui.highlight.HighlightViewModel;
+import com.kirinsidea.ui.memo.Memo;
 import com.kirinsidea.utils.CollectionUtil;
 import com.kirinsidea.widget.HighlightTextView;
 import com.kirinsidea.widget.HtmlTextView;
+import com.kirinsidea.widget.MemoEditText;
 import com.kirinsidea.widget.SelectableTextView;
 
 import java.util.List;
@@ -38,18 +40,34 @@ public class TextViewAdapters {
      */
     @BindingAdapter({"highlightItems", "vm"})
     public static void setHighlightItems(@NonNull final HighlightTextView textView,
-                                         @Nullable final List<Highlight> items,
+                                         @Nullable final List<Highlight> highlightList,
                                          @NonNull final HighlightViewModel vm) {
-        textView.removeAllSpans();
 
-        if (CollectionUtil.isEmpty(items)) {
-            return;
+        textView.removeAllSpans(HighlightTextView.HighlightSpan.class);
+
+        if (!CollectionUtil.isEmpty(highlightList)) {
+            // 하이라이트 그리기
+            for (Highlight item : highlightList) {
+                textView.addSpan(new HighlightTextView.HighlightSpan(item, () ->
+                        vm.setSelectedItem(item)));
+            }
         }
+    }
 
-        // 그리기
-        for (Highlight item : items) {
-            textView.addSpan(new HighlightTextView.HighlightSpan(item, () ->
-                    vm.setSelectedItem(item)));
+    /**
+     * 메모 span 추가
+     */
+    @BindingAdapter({"memoItems"})
+    public static void setMemoItems(@NonNull final HighlightTextView textView,
+                                    @Nullable final List<Memo> memoList) {
+
+        textView.removeAllSpans(HighlightTextView.MemoSpan.class);
+
+        if (!CollectionUtil.isEmpty(memoList)) {
+            // 메모 그리기
+            for (Memo item : memoList) {
+                textView.addSpan(new HighlightTextView.MemoSpan(item));
+            }
         }
     }
 
@@ -100,6 +118,34 @@ public class TextViewAdapters {
     public static void setTextListener(@NonNull final SelectableTextView textView,
                                        @Nullable final InverseBindingListener listener) {
         textView.getSelectedTextChangeStream()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(__ -> {
+                    if (listener != null) {
+                        listener.onChange();
+                    }
+                }, Throwable::printStackTrace);
+    }
+
+
+    /**
+     * SelectableTextView selection tow-way binding
+     */
+    @BindingAdapter({"android:enabled"})
+    public static void setEnabled(@NonNull final MemoEditText editText,
+                                  @NonNull final Boolean isEnabled) {
+        editText.setEnabled(isEnabled);
+    }
+
+    @InverseBindingAdapter(attribute = "android:enabled", event = "enabledChanged")
+    public static Boolean getEnabled(@NonNull final MemoEditText editText) {
+        return editText.isEnabled();
+    }
+
+    @SuppressLint({"ClickableViewAccessibility", "CheckResult"})
+    @BindingAdapter("enabledChanged")
+    public static void setEnabledListener(@NonNull final MemoEditText textView,
+                                          @Nullable final InverseBindingListener listener) {
+        textView.getEnabledChangeStream()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> {
                     if (listener != null) {
