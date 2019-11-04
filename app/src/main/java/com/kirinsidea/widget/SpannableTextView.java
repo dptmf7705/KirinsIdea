@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.kirinsidea.utils.ArrayUtil;
 
-public abstract class SpannableTextView<T extends CharacterStyle> extends SelectableTextView {
+public abstract class SpannableTextView extends SelectableTextView {
 
     public SpannableTextView(Context context) {
         super(context);
@@ -33,22 +33,18 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
     }
 
     /**
-     * span 배열을 spannable 에 추가한다.
+     * Spannable 에 적용된 HighlightSpan 배열을 리턴한다.
      */
-    public void addAllSpans(@NonNull final T[] spans) {
-        Spannable spannable = getSpannable();
-        if (spannable == null) {
-            return;
-        }
-        for (T span : spans) {
-            addSpanToSpannable(spannable, span);
-        }
+    @Nullable
+    protected <T extends CharacterStyle> T[] getSpanArray(@NonNull final Spannable spannable,
+                                                          @NonNull final Class<T> spanClass) {
+        return spannable.getSpans(0, getText().length(), spanClass);
     }
 
     /**
      * span 을 spannable 에 추가한다.
      */
-    public void addSpan(@NonNull final T span) {
+    public <T extends CharacterStyle> void addSpan(@NonNull final T span) {
         Spannable spannable = getSpannable();
         if (spannable == null) {
             return;
@@ -56,19 +52,20 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
         addSpanToSpannable(spannable, span);
     }
 
-    public void removeAllSpans(){
+    public <T extends CharacterStyle> void removeAllSpans(@NonNull final Class<T> spanClass) {
         Spannable spannable = getSpannable();
         if (spannable == null) {
             return;
         }
-        removeAllSpans(spannable);
+        removeAllSpans(spannable, spanClass);
     }
 
     /**
      * Spannable 에 적용된 span 객체를 모두 삭제한다.
      */
-    protected void removeAllSpans(@NonNull final Spannable spannable) {
-        final T[] spanList = getSpanArray(spannable);
+    protected <T extends CharacterStyle> void removeAllSpans(@NonNull final Spannable spannable,
+                                                             @NonNull final Class<T> spanClass) {
+        final T[] spanList = getSpanArray(spannable, spanClass);
         if (ArrayUtil.isEmpty(spanList)) {
             return;
         }
@@ -78,18 +75,6 @@ public abstract class SpannableTextView<T extends CharacterStyle> extends Select
         }
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        Spannable spannable = getSpannable();
-        if (spannable != null) {
-            removeAllSpans(spannable);
-        }
-        super.onDetachedFromWindow();
-    }
-
-    @Nullable
-    protected abstract T[] getSpanArray(@NonNull final Spannable spannable);
-
-    protected abstract void addSpanToSpannable(@NonNull final Spannable spannable,
-                                               @NonNull final T span);
+    protected abstract <T extends CharacterStyle> void addSpanToSpannable(@NonNull Spannable spannable,
+                                                                          @NonNull T span);
 }
