@@ -43,7 +43,6 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
     }
 
     private void initViews() {
-//        ((DefaultItemAnimator)binding.recyclerBookmark.getItemAnimator()).setSupportsChangeAnimations(false);
         binding.recyclerBookmark.setItemAnimator(null);
 
         binding.recyclerBookmark.setAdapter(new BookmarkListAdapter(

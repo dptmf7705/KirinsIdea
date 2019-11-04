@@ -39,7 +39,6 @@ public class NewBookmarkViewModel extends BaseViewModel<WebNavigator> {
                 .subscribe(integer -> {
                     if (integer == 0) {
                         addNewBookmark(url, fId);
-                        Log.d("##FolderTest","checkExistUrl: " + url + " fId: "+fId);
                     } else {
                         status.setValue("ERROR");
                     }
