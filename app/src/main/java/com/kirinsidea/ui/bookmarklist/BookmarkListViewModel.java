@@ -13,6 +13,7 @@ import com.kirinsidea.ui.BaseViewModel;
 
 public class BookmarkListViewModel extends BaseViewModel {
     private static final int PAGE_SIZE = 10;
+    private static final int allBookmark = -1;
 
     private LiveData<PagedList<BookmarkItem>> bookmarkList;
 
@@ -25,7 +26,7 @@ public class BookmarkListViewModel extends BaseViewModel {
     public BaseViewModel init(@NonNull final BaseRepository... repositories) {
         this.repository = (BookmarkRepository) repositories[0];
 
-        loadBookmarkListSelected(-1);
+        loadBookmarkListSelected(allBookmark);
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
                 new LivePagedListBuilder<>(repository.observeBookmarkList(folderId), PAGE_SIZE).build());
