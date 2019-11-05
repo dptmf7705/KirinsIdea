@@ -49,9 +49,13 @@ public class HighlightRepositoryImpl implements HighlightRepository {
 
     @NonNull
     @Override
-    public Completable observeUpdateHighlight(@NonNull Highlight highlight) {
+    public Single<Highlight> observeUpdateHighlight(@NonNull Highlight highlight) {
         return highlightLocalDataSource
                 .update(new HighlightEntity.Builder(highlight).build())
+                .toSingleDefault(true)
+                .flatMap(__ -> observeHighlight(highlight.getBookmarkId(),
+                        highlight.getSelection().first,
+                        highlight.getSelection().second))
                 .subscribeOn(Schedulers.io());
     }
 

@@ -15,15 +15,21 @@
         <variable
             name="highlightVm"
             type="com.kirinsidea.ui.highlight.HighlightViewModel" />
+
+        <variable
+            name="memoVm"
+            type="com.kirinsidea.ui.memo.MemoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,6 +41,8 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_title"
                     style="@style/TextView.Large"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_small_12dp"
@@ -55,96 +63,88 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_median_16dp"
+                    android:layout_marginBottom="@dimen/toolbar_height_56dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:nestedScrollingEnabled="false"
                     app:highlightItems="@{highlightVm.highlightList}"
                     app:html="@{bookmarkVm.bookmark.contents}"
+                    app:memoItems="@{memoVm.memoList}"
                     app:selectedText="@={highlightVm.selectedText}"
                     app:selection="@={highlightVm.selection}"
-                    app:vm="@{highlightVm}"/>
+                    app:vm="@{highlightVm}" />
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height_56dp"
             android:background="@color/colorBrown"
+            android:onTouch="@{(__, ___) -> true}"
+            android:paddingLeft="@dimen/space_xlarge_24dp"
+            android:paddingRight="@dimen/space_xlarge_24dp"
             app:behavior_hideable="true"
             app:behavior_peekHeight="@dimen/toolbar_height_56dp"
             app:behavior_stateExpanded="@{highlightVm.isSelectionMode}"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_yellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_circle"
-                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.YELLOW)}"
-                app:highlightColor="@{HighlightColor.YELLOW}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_blue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:selected="@{HighlightColor.YELLOW.equals(highlightVm.selectedItem.color)}" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_circle"
-                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.BLUE)}"
-                app:highlightColor="@{HighlightColor.BLUE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_green"
-                app:layout_constraintStart_toEndOf="@id/iv_yellow"
-                app:layout_constraintTop_toTopOf="parent"
-                app:selected="@{HighlightColor.BLUE.equals(highlightVm.selectedItem.color)}" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_green"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_circle"
-                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.GREEN)}"
-                app:highlightColor="@{HighlightColor.GREEN}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_red"
-                app:layout_constraintStart_toEndOf="@id/iv_blue"
-                app:layout_constraintTop_toTopOf="parent"
-                app:selected="@{HighlightColor.GREEN.equals(highlightVm.selectedItem.color)}" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_red"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_circle"
-                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.RED)}"
-                app:highlightColor="@{HighlightColor.RED}"
+                android:id="@+id/iv_memo"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_memo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_delete"
-                app:layout_constraintStart_toEndOf="@id/iv_green"
-                app:layout_constraintTop_toTopOf="parent"
-                app:selected="@{HighlightColor.RED.equals(highlightVm.selectedItem.color)}" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_delete"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_add"
-                android:rotation="45"
-                android:onClick="@{__ -> highlightVm.deleteHighlight()}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_memo"
-                app:layout_constraintStart_toEndOf="@id/iv_red"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_memo"
+                android:id="@+id/iv_delete"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:onClick="@{__ -> highlightVm.deleteHighlight()}"
+                android:src="@drawable/ic_trash"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_yellow"
+                app:layout_constraintStart_toEndOf="@id/iv_memo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_yellow"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_add"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.YELLOW)}"
+                android:src="@drawable/ic_highlight_yellow"
+                app:active="@{HighlightColor.YELLOW.equals(highlightVm.selectedItem.highlightColor)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_red"
+                app:layout_constraintStart_toEndOf="@id/iv_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_red"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.RED)}"
+                android:src="@drawable/ic_highlight_red"
+                app:active="@{HighlightColor.RED.equals(highlightVm.selectedItem.highlightColor)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_green"
+                app:layout_constraintStart_toEndOf="@id/iv_yellow"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_green"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:onClick="@{__ -> highlightVm.setHighlightColor(HighlightColor.GREEN)}"
+                android:src="@drawable/ic_highlight_green"
+                app:active="@{HighlightColor.GREEN.equals(highlightVm.selectedItem.highlightColor)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_delete"
+                app:layout_constraintStart_toEndOf="@id/iv_red"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

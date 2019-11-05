@@ -39,8 +39,8 @@ public class HighlightViewModel extends BaseViewModel {
     public BaseViewModel init(@NonNull BaseRepository... repositories) {
         this.repository = (HighlightRepository) repositories[0];
         this.isSelectionMode = Transformations.map(selectedText, selectedText -> {
-            boolean isEmpty = TextUtils.isEmpty(selectedText);
-            if (isEmpty) {
+            final boolean isEmpty = TextUtils.isEmpty(selectedText);
+            if (isEmpty && selectedItem.getValue() != null) {
                 selectedItem.setValue(null);
             }
             return !isEmpty;
@@ -89,14 +89,17 @@ public class HighlightViewModel extends BaseViewModel {
     private void updateHighlight(@NonNull final Highlight highlight) {
         addDisposable(repository.observeUpdateHighlight(highlight)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadHighlightList, error::setValue));
+                .subscribe(item -> {
+                    this.selectedItem.setValue(item);
+                    loadHighlightList();
+                }, error::setValue));
     }
 
     /**
      * 하이라이트 삭제 - 뷰에서 호출
      */
     public void deleteHighlight() {
-        Highlight highlight = this.selectedItem.getValue();
+        final Highlight highlight = this.selectedItem.getValue();
         if (highlight == null) {
             return;
         }
@@ -119,7 +122,7 @@ public class HighlightViewModel extends BaseViewModel {
      * 현재 선택된 하이라이트 변경
      */
     public void setSelectedItem(@NonNull final Highlight item) {
-        this.selectedText.setValue(item.getSelectedText());
+        this.selectedText.setValue(item.getHighlightText());
         this.selection.setValue(item.getSelection());
         this.selectedItem.setValue(item);
     }
@@ -129,11 +132,10 @@ public class HighlightViewModel extends BaseViewModel {
      */
     private void resetSelectedItem() {
         this.selectedText.setValue(null);
-        this.selectedItem.setValue(null);
     }
 
     /**
-     * 하이라이트 색상 선택
+     * 하이라이트 색상 선택 - 뷰에서 호출 (추가 또는 수정)
      */
     public void setHighlightColor(@NonNull final HighlightColor color) {
         setHighlightProperty(
@@ -150,16 +152,13 @@ public class HighlightViewModel extends BaseViewModel {
                                       @NonNull final HighlightColor color) {
         Highlight highlight = this.selectedItem.getValue();
         if (highlight == null) {
-            highlight = createNewHighlight(selection, selectedText, color);
-            addNewHighlight(highlight);
-        } else {
+            addNewHighlight(createNewHighlight(selection, selectedText, color));
+        } else if (highlight.getHighlightColor() != color) {
             highlight.setSelection(selection);
-            highlight.setSelectedText(selectedText);
-            highlight.setColor(color);
+            highlight.setHighlightText(selectedText);
+            highlight.setHighlightColor(color);
             updateHighlight(highlight);
         }
-
-        this.selectedItem.setValue(highlight);
     }
 
     /**
