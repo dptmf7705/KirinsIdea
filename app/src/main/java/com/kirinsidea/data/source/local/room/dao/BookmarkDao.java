@@ -30,12 +30,15 @@ public interface BookmarkDao extends BaseDao<BookmarkEntity> {
     @Query("SELECT * FROM bookmark WHERE folderId = :folderId ORDER BY storageTime DESC")
     DataSource.Factory<Integer, BookmarkEntity> selectByFolderId(final int folderId);
 
-//    @Query("SELECT * FROM bookmark  WHERE folderId = IF(:folderId <> \"\",:folderId, folderId)")
-//    DataSource.Factory<Integer, BookmarkEntity> selectByFolderId(final int folderId);
-
     /**
      * bookmark 테이블에서 originalWebUrl 기준으로 북마크 조회
      */
     @Query("SELECT COUNT(*) FROM bookmark WHERE originalWebUrl = :originalWebUrl")
     Single<Integer> selectByUrl(final String originalWebUrl);
+
+    /**
+     * folder 테이블에서 Favorite 인 폴더로 북마크 조회
+     */
+    @Query("SELECT folderId FROM bookmark, folder WHERE folder.isFavorite")
+    Single<Integer> selectByFavorite();
 }

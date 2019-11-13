@@ -17,7 +17,8 @@
             android:layout_height="35dp"
             android:src="@{item.favorite ? @drawable/ic_icon_pin_selected : @drawable/ic_icon_folder}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_folder"

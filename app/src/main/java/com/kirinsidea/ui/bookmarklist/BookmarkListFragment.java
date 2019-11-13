@@ -5,8 +5,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.kirinsidea.R;
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
@@ -40,10 +38,16 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
         binding.setFolderlistvm(Providers.getViewModel(this, FolderListViewModel.class));
         binding.getFolderlistvm().getFolderId().observe(this, Integer ->
                 binding.getFolderlistvm().loadFolderList());
+        //폴더 이름 수정
+//        binding.getFolderlistvm().getIsEdit().observe(this, isEditMode ->
+//                binding.getFolderlistvm().changeFolderName());
+
     }
 
     private void initViews() {
         binding.recyclerBookmark.setItemAnimator(null);
+//        binding.recyclerFolderList.setItemAnimator(null);
+//        binding.recyclerFolderList.scrollToPosition(0);
 
         binding.recyclerBookmark.setAdapter(new BookmarkListAdapter(
                 item -> startBookmarkActivity(item.getId())));
@@ -53,7 +57,17 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                     binding.getFolderlistvm().toggleDrawer(false);
                     binding.getFolderlistvm().setSelectedItem(item);
                 },
-                item -> binding.getFolderlistvm().clickFavorite(item)
+                item -> {
+                    binding.getFolderlistvm().clickFavorite(item);
+                    //이거 아님
+//                    binding.recyclerFolderList.scrollToPosition(0);
+                },
+                item -> {
+                    binding.getFolderlistvm().toggleDrawer(true);
+                    binding.getFolderlistvm().setLongClick(true);
+                    binding.getFolderlistvm().setIsLongClick(item);
+                    return true;
+                }
         ));
         binding.getFolderlistvm().getSelectedItem().observe(this
                 , item -> binding.getVm().loadBookmarkListSelected(item.getId()));

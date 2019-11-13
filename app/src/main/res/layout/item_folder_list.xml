@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
         <variable
             name="item"
             type="com.kirinsidea.data.source.local.room.entity.FolderEntity" />
+        <variable
+            name="vm"
+            type="com.kirinsidea.ui.folderlist.FolderListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,15 +23,34 @@
             android:layout_height="35dp"
             android:src="@drawable/ic_icon_folder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_folder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:text="@{item.name}"
+            android:text="@={item.name}"
             android:textColor="@color/black"
+            android:visibility="@{vm.isEdit ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_folder"
+            app:layout_constraintEnd_toStartOf="@id/iv_folder_pin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_folder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@{item.name}"
+            android:text="@={vm.folderName}"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:singleLine="true"
+            android:focusable="true"
+            android:visibility="@{vm.isEdit ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
             app:layout_constraintEnd_toStartOf="@id/iv_folder_pin"
@@ -47,7 +71,10 @@
             android:background="@color/silver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/tv_folder"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

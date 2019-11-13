@@ -60,7 +60,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList(final int id) {
-        if(id == allBookmark){
+        if(id == ALL_BOOKMARK){
             return bookmarkLocalDataSource.selectAll().map(entity ->
                     new BookmarkItem.Builder().fromEntity(entity).build());
         }else{
@@ -90,5 +90,14 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
                                                 .build())))
                 .subscribeOn(Schedulers.io());
 
+    }
+
+    @Override
+    public Single<Integer> observeBookmarkByFavorite() {
+        if(bookmarkLocalDataSource.selectByFavorite()==null){
+            return null;
+        }else {
+            return bookmarkLocalDataSource.selectByFavorite().subscribeOn(Schedulers.io());
+        }
     }
 }
