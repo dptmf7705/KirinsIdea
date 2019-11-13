@@ -34,35 +34,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_median_16dp"
+                android:layout_margin="@dimen/space_16dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_title"
-                    style="@style/TextView.Large"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_small_12dp"
-                    android:layout_marginBottom="@dimen/space_xsmall_8dp"
+                    android:layout_marginTop="@dimen/space_12dp"
+                    android:layout_marginBottom="@dimen/space_12dp"
                     android:text="@{bookmarkVm.bookmark.title}"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextView.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{bookmarkVm.bookmark.simpleWebUrl}"
-                    android:textColor="@color/colorGray" />
+                    android:textColor="@color/text_grey" />
 
                 <com.kirinsidea.widget.HighlightTextView
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_median_16dp"
+                    android:layout_marginTop="@dimen/space_16dp"
                     android:layout_marginBottom="@dimen/toolbar_height_56dp"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -80,10 +78,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height_56dp"
-            android:background="@color/colorBrown"
+            android:background="@color/bg_brown_light"
             android:onTouch="@{(__, ___) -> true}"
-            android:paddingLeft="@dimen/space_xlarge_24dp"
-            android:paddingRight="@dimen/space_xlarge_24dp"
+            android:paddingLeft="@dimen/space_24dp"
+            android:paddingRight="@dimen/space_24dp"
             app:behavior_hideable="true"
             app:behavior_peekHeight="@dimen/toolbar_height_56dp"
             app:behavior_stateExpanded="@{highlightVm.isSelectionMode}"

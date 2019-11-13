@@ -10,32 +10,24 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="@dimen/space_small_12dp"
-        android:layout_marginTop="@dimen/space_small_12dp"
-        android:layout_marginEnd="@dimen/space_small_12dp">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginEnd="@dimen/space_small_12dp"
             android:src="@drawable/ic_icon_folder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_folder"
-            style="@style/TextView.XLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_small_12dp"
             android:ellipsize="end"
             android:text="전체"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +36,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorSilver"
+            android:background="@color/silver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

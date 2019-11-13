@@ -1,9 +1,36 @@
 <resources>
     <string name="app_name">책가방</string>
 
-    <!-- 메인 탭 메뉴 -->
+    <!-- 스플래시 -->
+    <string name="splash_loading">들어가는 중…</string>
+
+    <!-- 이용약관 -->
+    <string name="login_terms_html">
+        <p><span style="color: #ffdb93;">계정을 만들면 책가방의<span style="color: #ffffff;">서비스 약관</span>
+            및 <span style="color: #ffffff;">개인정보 보호 정책</span>에 동의하는 것으로 간주합니다.</span>
+        </p>
+    </string>
+
+    <!-- 이용약관 동의 체크박스 -->
+    <string name="terms_of_use">이용약관</string>
+    <string name="terms_agree_all">아래 항목에 전부 동의합니다.</string>
+    <string name="terms_1">(필수) 개인정보 수집 및 이용에 동의합니다.</string>
+    <string name="terms_2">(필수) 이용약관에 동의합니다.</string>
+    <string name="terms_3">(필수) 개인정보 제3자 제공에 동의합니다.</string>
+
+    <string name="start">시작하기</string>
+
+    <!-- 메인 탭 -->
     <string name="main_navigation_bookmark">책가방</string>
     <string name="main_navigation_profile">프로필</string>
     <string name="main_navigation_history">히스토리</string>
     <string name="main_navigation_setting">설정</string>
+
+    <!-- 새 폴더 -->
+    <string name="new_folder">새 폴더</string>
+    <string name="save">저장</string>
+
+    <!-- 메모 타이틀 -->
+    <string name="memo_title">메모 : </string>
+
 </resources>

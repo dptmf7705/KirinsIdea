@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorYellow"
+    <item android:drawable="@color/navigation_yellow"
         android:state_activated="true"/>
-    <item android:drawable="@color/colorGrayLight"
+    <item android:drawable="@color/navigation_white"
         android:state_activated="false"/>
 </selector>
