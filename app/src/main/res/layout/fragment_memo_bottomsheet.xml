@@ -48,7 +48,7 @@
                     android:id="@+id/iv_private"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:src="@drawable/icon_private"
+                    android:src="@drawable/ic_private"
                     android:visibility="@{memoVm.selectedItem == null ? false : memoVm.selectedItem.private}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_margin="@dimen/space_xsmall_8dp"
-                    android:src="@drawable/icon_menu"
+                    android:src="@drawable/ic_menu"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

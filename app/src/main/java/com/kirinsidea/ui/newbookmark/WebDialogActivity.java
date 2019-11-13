@@ -33,7 +33,6 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         super.onCreate(savedInstanceState);
 
         checkPermission();
-
     }
 
     public void checkPermission(){
@@ -42,7 +41,8 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
                 .setRationaleMessage("파일 저장소 접근권한이 필요합니다")
                 .setDeniedMessage("저장소 권한이 거부되었습니다.\n[설정] > [권한] 에서 권한을 허용하셔야합니다.")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW)
                 .request()
                 .subscribe(tedPermissionResult -> {
                     if (tedPermissionResult.isGranted()) {
