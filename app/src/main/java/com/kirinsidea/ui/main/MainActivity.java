@@ -57,15 +57,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements
                 binding.navigation.setSelectedItemId(R.id.navigation_bookmark);
                 break;
             case 1:
-                binding.navigation.setSelectedItemId(R.id.navigation_recommend);
-                break;
-            case 2:
                 binding.navigation.setSelectedItemId(R.id.navigation_profile);
                 break;
-            case 3:
+            case 2:
                 binding.navigation.setSelectedItemId(R.id.navigation_history);
                 break;
-            case 4:
+            case 3:
                 binding.navigation.setSelectedItemId(R.id.navigation_setting);
                 break;
         }
@@ -82,17 +79,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements
             case R.id.navigation_bookmark:
                 binding.viewPager.setCurrentItem(0);
                 return true;
-            case R.id.navigation_recommend:
+            case R.id.navigation_profile:
                 binding.viewPager.setCurrentItem(1);
                 return true;
-            case R.id.navigation_profile:
+            case R.id.navigation_history:
                 binding.viewPager.setCurrentItem(2);
                 return true;
-            case R.id.navigation_history:
-                binding.viewPager.setCurrentItem(3);
-                return true;
             case R.id.navigation_setting:
-                binding.viewPager.setCurrentItem(4);
+                binding.viewPager.setCurrentItem(3);
                 return true;
         }
         return false;
@@ -111,8 +105,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements
             switch (position) {
                 case 0:
                     return BookmarkListFragment.newInstance();
-                case 1:
-                    return BookmarkListFragment.newInstance();
                 case 2:
                     return BookmarkListFragment.newInstance();
                 case 3:
@@ -125,7 +117,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
     }
 }
