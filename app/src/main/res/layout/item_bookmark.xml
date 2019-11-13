@@ -12,45 +12,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_large_18dp"
-        android:layout_marginTop="@dimen/space_large_18dp"
-        android:layout_marginEnd="@dimen/space_large_18dp">
+        android:layout_margin="@dimen/space_16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
-            style="@style/TextView.Large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_small_12dp"
             android:ellipsize="end"
             android:text="@{item.title}"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_simple_url"
-            style="@style/TextView.XXSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xxsmall_4dp"
-            android:layout_marginEnd="@dimen/space_small_12dp"
             android:text="@{item.simpleWebUrl}"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/text_grey"
             app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_time"
-            style="@style/TextView.XXSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_small_12dp"
-            android:layout_marginBottom="@dimen/space_large_18dp"
             android:text="@{item.storageTime}"
-            android:textColor="@color/colorGrayLight"
+            android:textColor="@color/text_grey_light"
             app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintStart_toStartOf="parent" />
@@ -60,7 +50,6 @@
             image="@{item.mainImageUrl}"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_marginBottom="@dimen/space_large_18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +58,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorSilver"
+            android:background="@color/silver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

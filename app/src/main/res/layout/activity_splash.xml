@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                style="@style/ImageView"
-                android:layout_width="108dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_kirin" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/typer_loading"
-                style="@style/TextView.XLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_median_16dp"
-                android:text="들어가는 중..."
-                android:textColor="@color/colorCream" />
-        </LinearLayout>
-
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/typer_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16dp"
+            android:text="들어가는 중.."
+            android:textColor="@color/yellow_light" />
+    </LinearLayout>
 </layout>

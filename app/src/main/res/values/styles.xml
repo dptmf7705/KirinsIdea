@@ -13,99 +13,13 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorBrown</item>
-        <item name="colorPrimaryDark">@color/colorBrownDark</item>
-        <item name="colorAccent">@color/colorYellow</item>
-        <item name="android:windowBackground">@color/colorBrown</item>
+        <item name="colorPrimary">@color/bg_brown</item>
+        <item name="colorPrimaryDark">@color/bg_brown</item>
+        <item name="colorAccent">@color/yellow</item>
+        <item name="android:windowBackground">@color/bg_brown</item>
     </style>
 
-    <!-- 이미지 뷰 기본 스타일 -->
-    <style name="ImageView" parent="Widget.AppCompat.ImageButton">
-        <item name="android:adjustViewBounds">true</item>
-        <item name="android:scaleType">centerInside</item>
-        <item name="android:background">@null</item>
-    </style>
-
-    <!-- 이미지 버튼 기본 스타일 -->
-    <style name="ImageButton" parent="ImageView">
-        <item name="android:scaleType">centerCrop</item>
-        <item name="android:background">
-            ?attr/selectableItemBackgroundBorderless
-        </item>
-    </style>
-
-    <style name="ImageButton.Small" parent="ImageButton">
-        <item name="android:layout_width">@dimen/button_small_20dp</item>
-        <item name="android:layout_height">@dimen/button_small_20dp</item>
-    </style>
-
-    <style name="ImageButton.Median" parent="ImageButton">
-        <item name="android:layout_width">@dimen/button_median_24dp</item>
-        <item name="android:layout_height">@dimen/button_median_24dp</item>
-    </style>
-
-    <style name="ImageButton.Large" parent="ImageButton">
-        <item name="android:layout_width">@dimen/button_large_28dp</item>
-        <item name="android:layout_height">@dimen/button_large_28dp</item>
-    </style>
-
-    <!-- 텍스트뷰 기본 스타일 -->
-    <style name="TextView" parent="Widget.AppCompat.TextView">
-        <item name="android:background">@null</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:maxLines">1</item>
-    </style>
-
-    <style name="TextView.XXSmall" parent="TextView">
-        <item name="android:textSize">@dimen/text_xxsmall_10sp</item>
-        <item name="android:lineSpacingExtra">1.5sp</item>
-    </style>
-
-    <style name="TextView.XSmall" parent="TextView">
-        <item name="android:textSize">@dimen/text_xsmall_12sp</item>
-        <item name="android:lineSpacingExtra">2dp</item>
-    </style>
-
-    <style name="TextView.Small" parent="TextView">
-        <item name="android:textSize">@dimen/text_small_13sp</item>
-        <item name="android:lineSpacingExtra">2dp</item>
-    </style>
-
-    <style name="TextView.Median" parent="TextView">
-        <item name="android:textSize">@dimen/text_median_15sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
-    </style>
-
-    <style name="TextView.Large" parent="TextView">
-        <item name="android:textSize">@dimen/text_large_16sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
-    </style>
-
-    <style name="TextView.XLarge" parent="TextView">
-        <item name="android:textSize">@dimen/text_xlarge_19sp</item>
-        <item name="android:lineSpacingExtra">3.5dp</item>
-    </style>
-
-    <!-- EditText 기본 스타일 -->
-    <style name="EditText" parent="TextView">
-        <item name="android:background">@null</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="EditText.Median" parent="EditText">
-        <item name="android:textSize">@dimen/text_median_15sp</item>
-    </style>
-
-    <style name="EditText.XLarge" parent="EditText">
-        <item name="android:textSize">@dimen/text_xlarge_19sp</item>
-        <item name="android:lineSpacingExtra">3.5dp</item>
-    </style>
-
-
-    <!-- Bottom Navigation 텍스트 스타일 -->
+    <!-- Bottom Navigation 스타일 -->
     <style name="BottomNavigation.InActive" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">9sp</item>
         <item name="android:textAllCaps">false</item>

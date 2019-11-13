@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DDDDDD</color>
-    <color name="colorPrimaryDark">#CCCCCC</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#CCCDCF</color>
     <color name="colorAccent">#ff808080</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorYellow">#edbc1c</color>
-    <color name="colorCream">#ffdb93</color>
-    <color name="colorBrown">#653515</color>
-    <color name="colorBrownDark">#6B3D2A</color>
-    <color name="colorSilver">#e0e1e3</color>
-    <color name="colorGray">#6d6f72</color>
-    <color name="colorGrayLight">#aeb0b3</color>
+    <!-- 공통으로 쓰이는 색 -->
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#edbc1c</color>
+    <color name="yellow_light">#ffdb93</color>
+    <color name="silver">#e0e1e3</color>
+
+    <!-- 텍스트 색상 -->
+    <color name="text_black">#1a1818</color>
+    <color name="text_grey">#6d6f72</color>
+    <color name="text_grey_light">#aeb0b3</color>
+
+    <!-- 스플래시 배경 -->
+    <color name="bg_brown_light">#622F15</color>
+    <color name="bg_brown">#53270f</color>
+
+    <!-- 바텀 내비게이션 -->
+    <color name="navigation_bg_black">#190800</color>
+    <color name="navigation_yellow">#F0AD00</color>
+    <color name="navigation_white">#FEFEFE</color>
+
+    <!-- 하이라이트 색상 -->
+    <color name="highlight_yellow">#ADF0AD00</color>
+    <color name="highlight_green">#AD8abb2a</color>
+    <color name="highlight_red">#8BE50019</color>
+
 </resources>

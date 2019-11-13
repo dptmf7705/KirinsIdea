@@ -15,12 +15,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_login"
-            style="@style/TextView.XLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="아이디"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +32,6 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_login"
-            style="@style/EditText.XLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="아이디를 입력하세요."
@@ -41,8 +39,8 @@
             android:padding="2dp"
             android:singleLine="true"
             android:text="@={vm.inputEmail}"
-            android:textColor="@color/colorCream"
-            android:textColorHint="@color/colorCream"
+            android:textColor="@color/yellow_light"
+            android:textColorHint="@color/yellow_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guide_input"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,36 +49,31 @@
             android:id="@+id/line_input"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorCream"
+            android:background="@color/yellow_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_next"
-            style="@style/TextView.XLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xxlarge_28dp"
             android:background="@drawable/shape_square_border"
             android:gravity="center"
             android:onClick="@{__ -> vm.startLoginWithEmail()}"
-            android:padding="@dimen/space_small_12dp"
             android:text="들어가기"
-            android:textColor="@color/colorCream"
+            android:textColor="@color/yellow_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_input" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_others"
-            style="@style/TextView.Median"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_median_16dp"
             android:gravity="center"
             android:text="또는"
-            android:textColor="@color/colorCream"
+            android:textColor="@color/yellow_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_next" />
@@ -90,7 +83,6 @@
             style="@style/ImageButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="@dimen/space_median_16dp"
             android:background="@drawable/bg_circle_google"
             android:onClick="@{__ -> vm.startLoginWithGoogle()}"
             android:padding="12dp"
@@ -105,7 +97,6 @@
             style="@style/ImageButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="@dimen/space_median_16dp"
             android:background="@drawable/bg_circle_kakao"
             android:padding="12dp"
             android:src="@drawable/ic_sign_up_kakao"
@@ -118,7 +109,6 @@
             style="@style/ImageButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="@dimen/space_median_16dp"
             android:background="@drawable/bg_circle_fb"
             android:padding="12dp"
             android:src="@drawable/ic_sign_up_fb"

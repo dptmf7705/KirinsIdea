@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 이미지 버튼 -->
+    <style name="ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_width">@dimen/button_size_48dp</item>
+        <item name="android:layout_height">@dimen/button_size_48dp</item>
+        <item name="android:padding">@dimen/space_12dp</item>
+    </style>
+
+</resources>

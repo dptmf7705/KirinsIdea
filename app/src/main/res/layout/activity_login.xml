@@ -13,7 +13,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/space_xlarge_24dp">
+        android:padding="@dimen/space_24dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             style="@style/ImageButton"

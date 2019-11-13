@@ -10,32 +10,25 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_small_12dp">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="@dimen/space_small_12dp"
-            android:src="@drawable/ic_addfolder"
-            android:layout_marginStart="@dimen/space_small_12dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/ic_addfolder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/tv_folder"
-            style="@style/EditText.XLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_small_12dp"
-            android:layout_marginEnd="@dimen/space_small_12dp"
             android:hint="새폴더"
             android:inputType="text"
             android:singleLine="true"
             android:text="@={vm.folderName}"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_keep"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
@@ -43,26 +36,25 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_keep"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="35dp"
-            android:background="@drawable/selector_bottomsheet"
-            android:gravity="center"
-            android:onClick="@{__->vm.addNewFolder()}"
             android:text="저장"
-            android:textColor="@color/colorWhite"
             android:textSize="18sp"
+            android:gravity="center"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:active="@{!TextUtils.isEmpty(vm.folderName)}"
-            android:layout_marginEnd="@dimen/space_small_12dp"
+            android:background="@drawable/selector_bottomsheet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{__->vm.addNewFolder()}" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorSilver"
+            android:background="@color/silver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
