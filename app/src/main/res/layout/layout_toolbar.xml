@@ -14,53 +14,38 @@
         android:background="@color/colorSilver"
         app:layout_scrollFlags="scroll|enterAlways">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_left"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/et_folderName"
+            style="@style/TextView.XLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="60dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="60dp" />
-
-        <EditText
-            android:id="@+id/et_search"
-            style="@style/EditText.Median"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/space_small_12dp"
-            android:layout_marginBottom="@dimen/space_small_12dp"
-            android:background="@drawable/shape_search_box"
-            android:paddingStart="@dimen/space_small_12dp"
-            android:paddingEnd="@dimen/space_small_12dp"
-            android:singleLine="true"
+            android:layout_marginStart="@dimen/space_large_18dp"
+            android:layout_marginTop="@dimen/space_xsmall_8dp"
+            android:layout_marginBottom="@dimen/space_xsmall_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guide_right"
-            app:layout_constraintStart_toEndOf="@id/guide_left"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@{vm.selectedItem.name}"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btn_search"
             style="@style/ImageButton.Median"
-            android:layout_margin="@dimen/space_small_12dp"
-            android:src="@drawable/icon_search"
-            app:layout_constraintBottom_toBottomOf="@id/et_search"
-            app:layout_constraintEnd_toEndOf="@id/et_search"
-            app:layout_constraintTop_toTopOf="@id/et_search" />
+            android:layout_margin="@dimen/space_xlarge_24dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_folder"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_folder"
             style="@style/ImageButton.Median"
-            android:src="@drawable/icon_bookmark"
+            android:src="@drawable/ic_icon_bm_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guide_right"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="@dimen/space_large_18dp"
             android:onClick="@{()->vm.toggleDrawer(true)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,18 +11,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_small_12dp"
-        android:layout_marginTop="@dimen/space_small_12dp"
-        android:layout_marginEnd="@dimen/space_small_12dp">
+        android:layout_marginTop="@dimen/space_small_12dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="@dimen/space_small_12dp"
-            app:srcCompat="@drawable/ic_icon_addfolder"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/space_small_12dp"
+            android:src="@drawable/ic_addfolder"
+            android:layout_marginStart="@dimen/space_small_12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/tv_folder"
@@ -43,19 +43,20 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btn_keep"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="35dp"
-            android:text="저장"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            app:active="@{!TextUtils.isEmpty(vm.folderName)}"
             android:background="@drawable/selector_bottomsheet"
+            android:gravity="center"
+            android:onClick="@{__->vm.addNewFolder()}"
+            android:text="저장"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:active="@{!TextUtils.isEmpty(vm.folderName)}"
+            android:layout_marginEnd="@dimen/space_small_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{__->vm.addNewFolder()}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/divider"

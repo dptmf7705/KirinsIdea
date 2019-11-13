@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="com.kirinsidea.ui.bookmarklist.BookmarkListViewModel" />
+
         <variable
             name="folderlistvm"
             type="com.kirinsidea.ui.folderlist.FolderListViewModel" />
+
         <variable
             name="item"
             type="com.kirinsidea.data.source.local.room.entity.FolderEntity" />
 
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:drawer_open="@{folderlistvm.isClick}"
-        tools:openDrawer="end">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -40,94 +41,87 @@
                 <include
                     android:id="@+id/toolbar"
                     layout="@layout/layout_toolbar"
-                    bind:vm="@{folderlistvm}"/>
+                    android:visibility="@{folderlistvm.isClick ? View.GONE : View.VISIBLE}"
+                    bind:vm="@{folderlistvm}" />
+
+                <include
+                    android:id="@+id/drawer_toolbar"
+                    layout="@layout/layout_drawer_toolbar"
+                    android:visibility="@{!folderlistvm.isClick ? View.GONE : View.VISIBLE}"
+                    bind:vm="@{folderlistvm}" />
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
+            <androidx.drawerlayout.widget.DrawerLayout
+                android:id="@+id/drawer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:overScrollMode="never"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                app:drawer_open="@{folderlistvm.isClick}"
+                tools:openDrawer="end">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_folderName"
-                        style="@style/TextView.XLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/space_median_16dp"
-                        android:text="@{folderlistvm.selectedItem.name}"
-                        android:textColor="@color/colorBlack"
-                        android:textStyle="bold" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_bookmark"
-                        items="@{vm.bookmarkList}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                        tools:listitem="@layout/item_bookmark" />
-
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_folder"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end">
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusableInTouchMode="true"
-                android:focusable="true">
-
-                <androidx.core.widget.NestedScrollView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_bookmark"
+                    items="@{vm.bookmarkList}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:listitem="@layout/item_bookmark" />
 
-                    <LinearLayout
+                <com.google.android.material.navigation.NavigationView
+                    android:id="@+id/navigation_folder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end">
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
 
-                        <include
-                            android:id="@+id/new_folder"
-                            layout="@layout/item_new_folder"
-                            bind:vm="@{folderlistvm}"/>
-
-                        <include
-                            android:id="@+id/folder_default"
-                            layout="@layout/item_folder_list_default"
-                            bind:vm="@{vm}"/>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_folder_list"
-                            items="@{folderlistvm.folderList}"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:overScrollMode="never"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                            tools:listitem="@layout/item_folder_list" />
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
+                            android:background="@color/colorWhite"
+                            android:orientation="vertical">
 
+                            <include
+                                android:id="@+id/new_folder"
+                                layout="@layout/item_new_folder"
+                                bind:vm="@{folderlistvm}" />
 
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                            <include
+                                android:id="@+id/folder_default"
+                                layout="@layout/item_folder_list_default"
+                                bind:vm="@{vm}" />
 
-        </com.google.android.material.navigation.NavigationView>
-    </androidx.drawerlayout.widget.DrawerLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_folder_list"
+                                items="@{folderlistvm.folderList}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:overScrollMode="never"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                tools:listitem="@layout/item_folder_list" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorSilver"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </LinearLayout>
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                </com.google.android.material.navigation.NavigationView>
+
+            </androidx.drawerlayout.widget.DrawerLayout>
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
