@@ -11,9 +11,12 @@ import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
 import com.kirinsidea.ui.BaseViewModel;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 public class BookmarkListViewModel extends BaseViewModel {
     private static final int PAGE_SIZE = 10;
-    private static final int allBookmark = -1;
+    private static final int ALL_BOOKMARK = -1;
 
     private LiveData<PagedList<BookmarkItem>> bookmarkList;
 
@@ -26,11 +29,22 @@ public class BookmarkListViewModel extends BaseViewModel {
     public BaseViewModel init(@NonNull final BaseRepository... repositories) {
         this.repository = (BookmarkRepository) repositories[0];
 
-        loadBookmarkListSelected(allBookmark);
+//        SelectBookmarkList();
+        loadBookmarkListSelected(ALL_BOOKMARK);
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
                 new LivePagedListBuilder<>(repository.observeBookmarkList(folderId), PAGE_SIZE).build());
         return this;
+    }
+
+    public void SelectBookmarkList() {
+        if (repository.observeBookmarkByFavorite() == null) {
+            loadBookmarkListSelected(ALL_BOOKMARK);
+        } else {
+            addDisposable(repository.observeBookmarkByFavorite()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::loadBookmarkListSelected));
+        }
     }
 
     public void loadBookmarkListSelected(int id) {

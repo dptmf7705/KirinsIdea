@@ -26,5 +26,7 @@ public interface BookmarkRepository extends BaseRepository {
     @NonNull
     Completable observeAddNewBookmark(@NonNull NewBookmarkRequest request);
 
-    int allBookmark = -1;
+    int ALL_BOOKMARK = -1;
+
+    Single<Integer> observeBookmarkByFavorite();
 }

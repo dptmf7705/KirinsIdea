@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
-import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
+import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 
 import java.util.List;
 
@@ -23,4 +23,7 @@ public interface FolderRepository extends BaseRepository {
 
     @NonNull
     Completable observeChangeFavorite(@NonNull FolderEntity entity);
+
+    @NonNull
+    Single<Integer> observeChangeFolderName(@NonNull ChangeFolderRequest request, @NonNull FolderEntity entity);
 }

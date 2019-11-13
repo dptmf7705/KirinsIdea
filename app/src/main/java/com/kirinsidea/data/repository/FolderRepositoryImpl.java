@@ -7,6 +7,7 @@ import com.kirinsidea.data.source.local.room.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.mock.FolderMockApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
+import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 
 import java.util.List;
 
@@ -64,5 +65,14 @@ public class FolderRepositoryImpl implements FolderRepository {
     @Override
     public Completable observeChangeFavorite(@NonNull FolderEntity entity) {
         return folderLocalDataSource.update(entity).subscribeOn(Schedulers.io());
+    }
+
+    @NonNull
+    @Override
+    public Single<Integer> observeChangeFolderName(@NonNull ChangeFolderRequest request
+            , @NonNull FolderEntity entity) {
+        return folderRemoteDataSource.changeFolderName(request)
+                .andThen(folderLocalDataSource.update(entity).toSingleDefault(entity.getId()))
+                .subscribeOn(Schedulers.io());
     }
 }

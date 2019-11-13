@@ -18,7 +18,7 @@ import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.ui.memo.MemoFragment;
 import com.kirinsidea.ui.memo.MemoViewModel;
 
-import gun0912.tedkeyboardobserver.TedRxKeyboardObserver;
+//import gun0912.tedkeyboardobserver.TedRxKeyboardObserver;
 
 @SuppressLint("CheckResult")
 public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
@@ -58,9 +58,9 @@ public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
             }
             binding.getMemoVm().setIsMemoOpen(Boolean.TRUE);
         });
-        new TedRxKeyboardObserver(this)
-                .listen()
-                .subscribe(binding.getMemoVm()::setIsEditMode, Throwable::printStackTrace);
+//        new TedRxKeyboardObserver(this)
+//                .listen()
+//                .subscribe(binding.getMemoVm()::setIsEditMode, Throwable::printStackTrace);
     }
 
     private void initViewModels() {

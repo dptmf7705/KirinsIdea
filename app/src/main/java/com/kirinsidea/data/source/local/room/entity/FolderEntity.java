@@ -13,9 +13,10 @@ import java.util.Objects;
  * 폴더
  *
  * @member folderId     폴더 아이디(PK)
- * @member folderName    북마크 폴더 이름
- * @member storeTime     폴더 생성시간
+ * @member folderName   북마크 폴더 이름
+ * @member storeTime    폴더 생성시간
  * @member isFavorite   즐겨찾기(핀) 여부
+ * @member isSelected   아이템 클릭여부
  */
 @Entity(tableName = "folder")
 public class FolderEntity {
@@ -24,6 +25,8 @@ public class FolderEntity {
     private String name;
     private String storeTime;
     private boolean isFavorite;
+
+    private boolean isSelected;
 
     public FolderEntity() {
     }
@@ -34,11 +37,12 @@ public class FolderEntity {
     }
 
     @Ignore
-    public FolderEntity(int id, String name, String storeTime, boolean isFavorite) {
+    public FolderEntity(int id, String name, String storeTime, boolean isFavorite, boolean isSelected) {
         this.id = id;
         this.name = name;
         this.storeTime = storeTime;
         this.isFavorite = isFavorite;
+        this.isSelected = isSelected;
     }
 
     private FolderEntity(Builder builder) {
@@ -46,6 +50,7 @@ public class FolderEntity {
         this.name = builder.name;
         this.storeTime = builder.storeTime;
         this.isFavorite = builder.isFavorite;
+        this.isSelected = builder.isSelected;
     }
 
     public int getId() {
@@ -80,6 +85,14 @@ public class FolderEntity {
         isFavorite = favorite;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,13 +100,14 @@ public class FolderEntity {
         FolderEntity that = (FolderEntity) o;
         return id == that.id &&
                 isFavorite == that.isFavorite &&
+                isSelected == that.isSelected &&
                 name.equals(that.name) &&
                 storeTime.equals(that.storeTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, storeTime, isFavorite);
+        return Objects.hash(id, name, storeTime, isFavorite, isSelected);
     }
 
     public static class Builder {
@@ -101,6 +115,7 @@ public class FolderEntity {
         private final String name;
         private final String storeTime;
         private boolean isFavorite = false;
+        private boolean isSelected = false;
 
         public Builder(@NonNull final NewFolderResponse response) {
             this.id = response.getId();
@@ -110,6 +125,11 @@ public class FolderEntity {
 
         public Builder setFavorite(boolean favorite) {
             isFavorite = favorite;
+            return this;
+        }
+
+        public Builder setSelected(boolean selected) {
+            isSelected = selected;
             return this;
         }
 
