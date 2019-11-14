@@ -8,7 +8,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.BookmarkRepository;
+import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
 import com.kirinsidea.ui.base.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

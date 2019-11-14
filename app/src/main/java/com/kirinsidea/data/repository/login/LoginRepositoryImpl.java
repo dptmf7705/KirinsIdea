@@ -1,10 +1,11 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.login;
 
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.AuthCredential;
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
 

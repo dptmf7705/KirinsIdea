@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.BookmarkRepository;
+import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.base.BaseViewModel;
 

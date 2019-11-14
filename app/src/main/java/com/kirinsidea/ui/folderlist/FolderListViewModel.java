@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.FolderRepository;
+import com.kirinsidea.data.repository.folder.FolderRepository;
 import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;

@@ -3,11 +3,11 @@ package com.kirinsidea.extension.injection;
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.repository.HighlightRepository;
-import com.kirinsidea.data.repository.LoginRepository;
-import com.kirinsidea.data.repository.MemoRepository;
+import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
+import com.kirinsidea.data.repository.folder.FolderRepository;
+import com.kirinsidea.data.repository.highlight.HighlightRepository;
+import com.kirinsidea.data.repository.login.LoginRepository;
+import com.kirinsidea.data.repository.memo.MemoRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;

@@ -1,7 +1,8 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.memo;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.ui.memo.Memo;
 import com.kirinsidea.ui.memo.NewMemo;
 

@@ -1,4 +1,4 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.user;
 
 import androidx.annotation.NonNull;
 

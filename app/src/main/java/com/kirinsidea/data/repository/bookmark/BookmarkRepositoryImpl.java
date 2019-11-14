@@ -1,9 +1,10 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.bookmark;
 
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
 
 import com.kirinsidea.App;
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.entity.BookmarkEntity;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;

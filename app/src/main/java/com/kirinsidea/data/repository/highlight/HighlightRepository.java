@@ -1,7 +1,8 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.highlight;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.ui.highlight.Highlight;
 
 import java.util.List;

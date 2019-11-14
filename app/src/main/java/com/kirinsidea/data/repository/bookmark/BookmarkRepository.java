@@ -1,8 +1,9 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.bookmark;
 
 import androidx.annotation.NonNull;
 import androidx.paging.DataSource;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.bookmark.Bookmark;
