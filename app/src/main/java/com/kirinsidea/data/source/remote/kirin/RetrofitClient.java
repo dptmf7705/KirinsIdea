@@ -2,9 +2,20 @@ package com.kirinsidea.data.source.remote.kirin;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kirinsidea.BuildConfig;
+import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
 
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -35,12 +46,45 @@ public class RetrofitClient {
         setErrorHandler(httpClientBuilder);
         setTimeout(httpClientBuilder);
 
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .registerTypeAdapter(Boolean.class, new BooleanTypeAdapter())
+                .registerTypeAdapter(RetrofitResultCode.class, new RetrofitResultCodeAdapter())
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .serializeNulls()
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClientBuilder.build())
                 .build();
+    }
+
+    /**
+     * Boolean type Adapter
+     */
+    private static class BooleanTypeAdapter implements JsonSerializer<Boolean>, JsonDeserializer<Boolean> {
+        public Boolean deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return "true".equals(json.getAsString());
+        }
+
+        @Override
+        public JsonElement serialize(Boolean src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(Boolean.TRUE.equals(src) ? "true" : "false");
+        }
+    }
+
+    /**
+     * Boolean type Adapter
+     */
+    private static class RetrofitResultCodeAdapter implements JsonDeserializer<RetrofitResultCode> {
+        @Override
+        public RetrofitResultCode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return RetrofitResultCode.get(json.getAsInt());
+        }
     }
 
     /**

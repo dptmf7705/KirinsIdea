@@ -24,7 +24,7 @@ import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 
 public abstract class Providers {
 

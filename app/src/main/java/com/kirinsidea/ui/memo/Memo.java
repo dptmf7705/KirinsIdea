@@ -2,7 +2,7 @@ package com.kirinsidea.ui.memo;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.data.source.local.room.entity.MemoDetailEntity;
+import com.kirinsidea.data.source.entity.MemoDetailEntity;
 
 public class Memo {
     private static final int NEW_MEMO_ID = 0;

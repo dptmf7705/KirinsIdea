@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityWebDialogBinding;
 import com.kirinsidea.extension.injection.Providers;
-import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.folderlist.FolderListAdapter;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
 import com.kirinsidea.utils.WebUrlUtil;

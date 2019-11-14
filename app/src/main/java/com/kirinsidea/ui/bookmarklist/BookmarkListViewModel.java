@@ -9,9 +9,8 @@ import androidx.paging.PagedList;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BookmarkListViewModel extends BaseViewModel {

@@ -1,7 +1,6 @@
 package com.kirinsidea.ui.folderlist;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.ui.listener.ItemClickListener;
 import com.kirinsidea.ui.listener.ItemLongClickListener;
 

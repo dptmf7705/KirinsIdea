@@ -1,8 +1,9 @@
 package com.kirinsidea.ui.bookmarklist;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
+import com.kirinsidea.data.source.entity.BookmarkEntity;
 
 import java.util.Objects;
 
@@ -107,4 +108,17 @@ public class BookmarkItem {
                     folderId);
         }
     }
+
+    public static final DiffUtil.ItemCallback<BookmarkItem> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<BookmarkItem>() {
+                @Override
+                public boolean areItemsTheSame(@NonNull BookmarkItem oldItem, @NonNull BookmarkItem newItem) {
+                    return oldItem.id == newItem.id;
+                }
+
+                @Override
+                public boolean areContentsTheSame(@NonNull BookmarkItem oldItem, @NonNull BookmarkItem newItem) {
+                    return oldItem.equals(newItem);
+                }
+            };
 }

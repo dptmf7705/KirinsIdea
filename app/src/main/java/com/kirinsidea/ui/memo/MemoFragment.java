@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.FragmentMemoBottomsheetBinding;
 import com.kirinsidea.extension.injection.Providers;
-import com.kirinsidea.ui.BottomSheetFragment;
+import com.kirinsidea.ui.base.BottomSheetFragment;
 
 public class MemoFragment extends BottomSheetFragment<FragmentMemoBottomsheetBinding> {
 

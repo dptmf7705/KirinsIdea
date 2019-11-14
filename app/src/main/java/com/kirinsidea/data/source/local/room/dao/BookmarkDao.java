@@ -4,8 +4,8 @@ import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.BookmarkEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 
 import io.reactivex.Single;
 

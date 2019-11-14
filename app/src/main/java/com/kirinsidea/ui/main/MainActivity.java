@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityMainBinding;
-import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.bookmarklist.BookmarkListFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements

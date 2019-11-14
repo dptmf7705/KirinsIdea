@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.ui.listener.ItemClickListener;
 
 public class FolderListAdapter extends ListAdapter<FolderEntity, FolderItemViewHolder> {

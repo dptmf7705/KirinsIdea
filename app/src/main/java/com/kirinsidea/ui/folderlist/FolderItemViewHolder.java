@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.databinding.ItemWebBottomsheetBinding;
 
 public class FolderItemViewHolder extends RecyclerView.ViewHolder {

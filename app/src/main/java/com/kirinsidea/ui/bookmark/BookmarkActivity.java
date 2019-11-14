@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityBookmarkBinding;
 import com.kirinsidea.extension.injection.Providers;
-import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.highlight.Highlight;
 import com.kirinsidea.ui.highlight.HighlightColor;
 import com.kirinsidea.ui.highlight.HighlightViewModel;

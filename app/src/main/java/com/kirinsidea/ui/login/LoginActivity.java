@@ -11,7 +11,7 @@ import com.gun0912.tedonactivityresult.model.ActivityResult;
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivityLoginBinding;
 import com.kirinsidea.extension.injection.Providers;
-import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.main.MainActivity;
 import com.tedpark.tedonactivityresult.rx2.TedRxOnActivityResult;
 

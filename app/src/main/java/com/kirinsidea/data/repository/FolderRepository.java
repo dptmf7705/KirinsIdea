@@ -2,7 +2,7 @@ package com.kirinsidea.data.repository;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 

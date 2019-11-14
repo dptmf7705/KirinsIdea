@@ -15,7 +15,7 @@ import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
 import com.kirinsidea.data.source.remote.kirin.api.FileApi;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
 import com.kirinsidea.ui.highlight.HighlightViewModel;

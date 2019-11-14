@@ -3,8 +3,8 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
-import com.kirinsidea.data.source.local.room.entity.MemoDetailEntity;
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
+import com.kirinsidea.data.source.entity.MemoDetailEntity;
+import com.kirinsidea.data.source.entity.MemoEntity;
 import com.kirinsidea.ui.memo.Memo;
 import com.kirinsidea.ui.memo.NewMemo;
 

@@ -3,7 +3,7 @@ package com.kirinsidea.data.repository;
 import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
-import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
+import com.kirinsidea.data.source.entity.HighlightEntity;
 import com.kirinsidea.ui.highlight.Highlight;
 
 import java.util.ArrayList;

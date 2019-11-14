@@ -12,7 +12,7 @@ import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.HighlightRepository;
 import com.kirinsidea.extension.livedata.LiveDataCompat;
 import com.kirinsidea.extension.livedata.SingleLiveEvent;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 
 import java.util.List;
 
