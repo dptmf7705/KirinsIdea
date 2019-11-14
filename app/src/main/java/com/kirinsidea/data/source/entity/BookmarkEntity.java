@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.local.room.entity;
+package com.kirinsidea.data.source.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Entity(tableName = "bookmark")
 public class BookmarkEntity {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
     private String originalWebUrl;
     private String simpleWebUrl;

@@ -1,9 +1,10 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.folder;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.mock.FolderMockApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;

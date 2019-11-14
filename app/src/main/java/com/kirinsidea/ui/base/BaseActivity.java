@@ -1,4 +1,4 @@
-package com.kirinsidea.ui;
+package com.kirinsidea.ui.base;
 
 import android.os.Bundle;
 

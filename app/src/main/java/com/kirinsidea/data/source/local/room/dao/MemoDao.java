@@ -3,12 +3,11 @@ package com.kirinsidea.data.source.local.room.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.kirinsidea.data.source.local.room.entity.MemoDetailEntity;
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
+import com.kirinsidea.data.source.entity.MemoDetailEntity;
+import com.kirinsidea.data.source.entity.MemoEntity;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Single;
 
 @Dao

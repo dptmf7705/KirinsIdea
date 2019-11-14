@@ -1,13 +1,13 @@
 package com.kirinsidea.ui.login;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.LoginRepository;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.data.repository.login.LoginRepository;
+import com.kirinsidea.extension.livedata.SingleLiveEvent;
+import com.kirinsidea.ui.base.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -53,4 +53,5 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     public MutableLiveData<String> getInputPassword() {
         return inputPassword;
     }
+
 }

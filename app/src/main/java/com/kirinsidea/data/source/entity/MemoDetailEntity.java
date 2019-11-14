@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.local.room.entity;
+package com.kirinsidea.data.source.entity;
 
 /**
  * 메모 + 하이라이트 조인 엔티티

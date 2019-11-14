@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.BookmarkRepository;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
+import com.kirinsidea.ui.base.BaseViewModel;
 import com.kirinsidea.utils.DateUtil;
 
 public class BookmarkViewModel extends BaseViewModel {

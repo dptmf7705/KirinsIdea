@@ -1,7 +1,8 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.memo;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.ui.memo.Memo;
 import com.kirinsidea.ui.memo.NewMemo;
 
@@ -16,9 +17,6 @@ public interface MemoRepository extends BaseRepository {
     Single<List<Memo>> observeMemoListByBookmarkId(final int bookmarkId);
 
     @NonNull
-    Single<Memo> observeAddNewMemo(@NonNull final NewMemo memo);
-
-    @NonNull
     Single<Memo> observeUpdateMemo(@NonNull final Memo memo);
 
     @NonNull
@@ -27,4 +25,8 @@ public interface MemoRepository extends BaseRepository {
     // TODO 서버 완료될 때까지 임시
     @NonNull
     Single<Memo> observeMemo(final int bookmarkId, final int highlightId);
+
+    @NonNull
+    Single<Memo> observeAddNewMemo(@NonNull final NewMemo memo);
+
 }

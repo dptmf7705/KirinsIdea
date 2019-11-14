@@ -1,4 +1,4 @@
-package com.kirinsidea.data.source.local.room.entity;
+package com.kirinsidea.data.source.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

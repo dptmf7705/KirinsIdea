@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.FolderRepository;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
+import com.kirinsidea.data.repository.folder.FolderRepository;
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.extension.livedata.SingleLiveEvent;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 import com.kirinsidea.utils.DateUtil;
 
 import java.util.List;

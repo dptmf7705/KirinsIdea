@@ -1,8 +1,10 @@
-package com.kirinsidea.data.repository;
+package com.kirinsidea.data.repository.login;
 
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+
+import com.kirinsidea.data.repository.BaseRepository;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

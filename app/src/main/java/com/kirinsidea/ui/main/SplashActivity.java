@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
 import com.kirinsidea.databinding.ActivitySplashBinding;
-import com.kirinsidea.ui.BaseActivity;
+import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.login.LoginActivity;
 
 import java.util.concurrent.TimeUnit;

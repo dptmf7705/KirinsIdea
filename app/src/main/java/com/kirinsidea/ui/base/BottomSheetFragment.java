@@ -1,4 +1,4 @@
-package com.kirinsidea.ui;
+package com.kirinsidea.ui.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment {
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+public abstract class BottomSheetFragment<B extends ViewDataBinding> extends BottomSheetDialogFragment {
 
     protected B binding;
     protected FragmentActivity activity;

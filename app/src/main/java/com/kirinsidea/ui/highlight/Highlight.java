@@ -4,7 +4,7 @@ import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
-import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
+import com.kirinsidea.data.source.entity.HighlightEntity;
 
 public class Highlight {
     private static final int NEW_HIGHLIGHT_ID = 0;

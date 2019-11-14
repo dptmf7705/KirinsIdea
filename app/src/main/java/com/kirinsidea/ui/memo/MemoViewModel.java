@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
-import com.kirinsidea.data.repository.MemoRepository;
+import com.kirinsidea.data.repository.memo.MemoRepository;
 import com.kirinsidea.extension.livedata.LiveDataCompat;
 import com.kirinsidea.extension.livedata.SingleLiveEvent;
-import com.kirinsidea.ui.BaseViewModel;
+import com.kirinsidea.ui.base.BaseViewModel;
 import com.kirinsidea.ui.highlight.Highlight;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MemoViewModel extends BaseViewModel {
     @NonNull
-    private final SingleLiveEvent<Integer> bookmarkId = new SingleLiveEvent<>();
+    private final MutableLiveData<Integer> bookmarkId = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<List<Memo>> memoList = new MutableLiveData<>();
 

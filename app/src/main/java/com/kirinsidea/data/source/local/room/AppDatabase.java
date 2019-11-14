@@ -12,10 +12,10 @@ import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
-import com.kirinsidea.data.source.local.room.entity.FolderEntity;
-import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
-import com.kirinsidea.data.source.local.room.entity.MemoEntity;
+import com.kirinsidea.data.source.entity.BookmarkEntity;
+import com.kirinsidea.data.source.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.HighlightEntity;
+import com.kirinsidea.data.source.entity.MemoEntity;
 import com.kirinsidea.extension.room.Converters;
 
 @TypeConverters({Converters.class})

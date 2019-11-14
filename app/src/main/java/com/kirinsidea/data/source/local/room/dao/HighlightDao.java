@@ -3,7 +3,7 @@ package com.kirinsidea.data.source.local.room.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.kirinsidea.data.source.local.room.entity.HighlightEntity;
+import com.kirinsidea.data.source.entity.HighlightEntity;
 
 import java.util.List;
 

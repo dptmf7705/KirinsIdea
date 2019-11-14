@@ -3,7 +3,7 @@ package com.kirinsidea.ui.bookmark;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kirinsidea.data.source.local.room.entity.BookmarkEntity;
+import com.kirinsidea.data.source.entity.BookmarkEntity;
 
 public class Bookmark {
     private final int id;
