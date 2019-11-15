@@ -6,10 +6,12 @@
 
     <!-- 이용약관 -->
     <string name="login_terms_html">
-        <p><span style="color: #ffdb93;">계정을 만들면 책가방의<span style="color: #ffffff;">서비스 약관</span>
-            및 <span style="color: #ffffff;">개인정보 보호 정책</span>에 동의하는 것으로 간주합니다.</span>
-        </p>
+        계정을 만들면 책가방의 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.
     </string>
+    <string name="login_terms_of_use_string">서비스 약관</string>
+    <string name="login_terms_of_use_url">https://naver.com</string>
+    <string name="login_privacy_policy_string">개인정보 보호 정책</string>
+    <string name="login_privacy_policy_url">https://google.com</string>
 
     <!-- 이용약관 동의 체크박스 -->
     <string name="terms_of_use">이용약관</string>

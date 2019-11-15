@@ -11,4 +11,18 @@
         <item name="android:padding">@dimen/space_12dp</item>
     </style>
 
+    <style name="ImageButton.Login" parent="ImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">@dimen/button_size_64dp</item>
+        <item name="android:layout_height">@dimen/button_size_64dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="ImageButton.Splash" parent="ImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">@dimen/button_size_120dp</item>
+        <item name="android:layout_height">@dimen/button_size_120dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
 </resources>
