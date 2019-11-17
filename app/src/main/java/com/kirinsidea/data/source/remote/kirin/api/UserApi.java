@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface UserApi {
 
-    @POST("folder")
+    @POST("UserEntity")
     Single<SingleResponse<UserEntity>> addNewUser(@Body String name);
 
 }

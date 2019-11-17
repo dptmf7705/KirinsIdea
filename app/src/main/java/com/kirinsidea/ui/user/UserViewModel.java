@@ -12,17 +12,16 @@ import com.kirinsidea.data.source.local.room.error.RoomException;
 import com.kirinsidea.data.source.local.room.error.RoomResult;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitException;
+import com.kirinsidea.extension.livedata.SingleLiveEvent;
 import com.kirinsidea.ui.base.BaseViewModel;
-import com.kirinsidea.ui.memo.Memo;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class UserViewModel extends BaseViewModel {
     private UserRepository repository;
+
     @NonNull
-    private final MutableLiveData<String> message = new MutableLiveData<>();
+    private final SingleLiveEvent<String> message = new SingleLiveEvent<>();
 
     /**
      * 새 메모 추가
