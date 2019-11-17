@@ -1,17 +1,20 @@
 package com.kirinsidea.data.source.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.kirinsidea.data.source.remote.kirin.response.NewBookmarkResponse;
-
-import java.util.Objects;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.kirinsidea.ui.bookmark.Bookmark;
+import com.kirinsidea.ui.bookmarklist.BookmarkItem;
 
 /**
  * 북마크
  *
  * @member id               북마크 ID (PK)
+ * @member html             웹클리핑
  * @member originalWebUrl   웹 페이지 URL
  * @member simpleWebUrl     웹 페이지 URL 중 플랫폼 이름까지
  * @member mainImageUrl     메인 이미지 URL
@@ -25,21 +28,60 @@ import java.util.Objects;
 @Entity(tableName = "bookmark")
 public class BookmarkEntity {
     @PrimaryKey
-    private int id;
+    @NonNull
+    private String id;
+
+    @SerializedName("html")
+    @Expose
+    @Nullable
+    private String html;
+
+    @SerializedName("originalweburl")
+    @Expose
+    @Nullable
     private String originalWebUrl;
+
+    @SerializedName("hosturl")
+    @Expose
+    @Nullable
     private String simpleWebUrl;
+
+    @SerializedName("mainimage")
+    @Expose
+    @Nullable
     private String mainImageUrl;
+
+    @SerializedName("title")
+    @Expose
+    @Nullable
     private String title;
+
+    @SerializedName("author")
+    @Expose
+    @Nullable
     private String author;
+
+    @SerializedName("writetime")
+    @Expose
+    @Nullable
     private String writeTime;
+
     private String path;
+
+    @SerializedName("storetime")
+    @Expose
+    @Nullable
     private String storageTime;
-    private int folderId;
+
+    @SerializedName("folderId")
+    @Expose
+    @Nullable
+    private String folderId;
 
     public BookmarkEntity() {
     }
 
-    private BookmarkEntity(Builder builder) {
+    public BookmarkEntity(Builder builder) {
         this.id = builder.id;
         this.originalWebUrl = builder.originalWebUrl;
         this.simpleWebUrl = builder.simpleWebUrl;
@@ -52,129 +94,131 @@ public class BookmarkEntity {
         this.folderId = builder.folderId;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Nullable
+    public String getHtml() {
+        return html;
     }
 
+    @Nullable
     public String getOriginalWebUrl() {
         return originalWebUrl;
     }
 
-    public void setOriginalWebUrl(String originalWebUrl) {
-        this.originalWebUrl = originalWebUrl;
-    }
-
+    @Nullable
     public String getSimpleWebUrl() {
         return simpleWebUrl;
     }
 
-    public void setSimpleWebUrl(String simpleWebUrl) {
-        this.simpleWebUrl = simpleWebUrl;
-    }
-
+    @Nullable
     public String getMainImageUrl() {
         return mainImageUrl;
     }
 
-    public void setMainImageUrl(String mainImageUrl) {
-        this.mainImageUrl = mainImageUrl;
-    }
-
+    @Nullable
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    @Nullable
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
+    @Nullable
     public String getWriteTime() {
         return writeTime;
-    }
-
-    public void setWriteTime(String writeTime) {
-        this.writeTime = writeTime;
     }
 
     public String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
+    @Nullable
     public String getStorageTime() {
         return storageTime;
     }
 
-    public void setStorageTime(String storageTime) {
-        this.storageTime = storageTime;
-    }
-
-    public int getFolderId() {
+    @Nullable
+    public String getFolderId() {
         return folderId;
     }
 
-    public void setFolderId(int folderId) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setHtml(@Nullable String html) {
+        this.html = html;
+    }
+
+    public void setOriginalWebUrl(@Nullable String originalWebUrl) {
+        this.originalWebUrl = originalWebUrl;
+    }
+
+    public void setSimpleWebUrl(@Nullable String simpleWebUrl) {
+        this.simpleWebUrl = simpleWebUrl;
+    }
+
+    public void setMainImageUrl(@Nullable String mainImageUrl) {
+        this.mainImageUrl = mainImageUrl;
+    }
+
+    public void setTitle(@Nullable String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(@Nullable String author) {
+        this.author = author;
+    }
+
+    public void setWriteTime(@Nullable String writeTime) {
+        this.writeTime = writeTime;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setStorageTime(@Nullable String storageTime) {
+        this.storageTime = storageTime;
+    }
+
+    public void setFolderId(@Nullable String folderId) {
         this.folderId = folderId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookmarkEntity that = (BookmarkEntity) o;
-        return id == that.id &&
-                folderId == that.folderId &&
-                Objects.equals(originalWebUrl, that.originalWebUrl) &&
-                Objects.equals(simpleWebUrl, that.simpleWebUrl) &&
-                Objects.equals(mainImageUrl, that.mainImageUrl) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(author, that.author) &&
-                Objects.equals(writeTime, that.writeTime) &&
-                Objects.equals(path, that.path) &&
-                Objects.equals(storageTime, that.storageTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, originalWebUrl, simpleWebUrl, mainImageUrl, title, author, writeTime, path, storageTime, folderId);
-    }
-
     public static class Builder {
-        private final int id = 0;
-        private final String originalWebUrl;
+        private final String id;
+        private String originalWebUrl;
         private final String simpleWebUrl;
-        private final String mainImageUrl;
         private final String title;
-        private final String author;
-        private final String writeTime;
-        private final String storageTime;
-        private final int folderId;
+        private String author;
+        private String writeTime;
+        private String mainImageUrl;
+        private String storageTime;
+        private String folderId;
         private String path = "";
 
-        public Builder(@NonNull final NewBookmarkResponse response) {
-            this.originalWebUrl = response.getOriginalweburl();
-            this.simpleWebUrl = response.getHosturl();
-            this.mainImageUrl = response.getMainimage();
-            this.title = response.getTitle();
-            this.author = response.getAuthor();
-            this.writeTime = response.getWritetime();
-            this.storageTime = response.getStoretime();
-            this.folderId = response.getFolderId();
+        public Builder(@NonNull final Bookmark model) {
+            this.id = model.getId();
+            this.originalWebUrl = model.getOriginalWebUrl();
+            this.simpleWebUrl = model.getSimpleWebUrl();
+            this.title = model.getTitle();
+            this.author = model.getAuthor();
+            this.writeTime = model.getWriteTime();
+        }
+
+        public Builder(@NonNull final BookmarkItem model) {
+            this.id = model.getId();
+            this.simpleWebUrl = model.getSimpleWebUrl();
+            this.mainImageUrl = model.getMainImageUrl();
+            this.title = model.getTitle();
+            this.storageTime = model.getStorageTime();
+            this.folderId = model.getFolderId();
         }
 
         public Builder setPath(String path) {

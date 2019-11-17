@@ -1,13 +1,14 @@
 package com.kirinsidea.data.source.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.kirinsidea.data.source.remote.kirin.response.NewFolderResponse;
-
-import java.util.Objects;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.kirinsidea.ui.folderlist.Folder;
 
 /**
  * 폴더
@@ -16,17 +17,26 @@ import java.util.Objects;
  * @member folderName   북마크 폴더 이름
  * @member storeTime    폴더 생성시간
  * @member isFavorite   즐겨찾기(핀) 여부
- * @member isSelected   아이템 클릭여부
  */
-@Entity(tableName = "folder")
+@Entity(tableName = "FolderEntity")
 public class FolderEntity {
     @PrimaryKey
-    private int id;
-    private String name;
-    private String storeTime;
-    private boolean isFavorite;
+    @SerializedName("folderId")
+    @Expose
+    @NonNull
+    private String id;
 
-    private boolean isSelected;
+    @SerializedName("name")
+    @Expose
+    @Nullable
+    private String name;
+
+    @SerializedName("storeTiime")
+    @Expose
+    @Nullable
+    private String storeTime;
+
+    private boolean isFavorite;
 
     public FolderEntity() {
     }
@@ -37,27 +47,30 @@ public class FolderEntity {
     }
 
     @Ignore
-    public FolderEntity(int id, String name, String storeTime, boolean isFavorite, boolean isSelected) {
+    public FolderEntity(String id, String name, String storeTime, boolean isFavorite) {
         this.id = id;
         this.name = name;
         this.storeTime = storeTime;
         this.isFavorite = isFavorite;
-        this.isSelected = isSelected;
     }
 
     private FolderEntity(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
-        this.storeTime = builder.storeTime;
         this.isFavorite = builder.isFavorite;
-        this.isSelected = builder.isSelected;
     }
 
-    public int getId() {
+    @Ignore
+    public FolderEntity(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,42 +98,14 @@ public class FolderEntity {
         isFavorite = favorite;
     }
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FolderEntity that = (FolderEntity) o;
-        return id == that.id &&
-                isFavorite == that.isFavorite &&
-                isSelected == that.isSelected &&
-                name.equals(that.name) &&
-                storeTime.equals(that.storeTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, storeTime, isFavorite, isSelected);
-    }
-
     public static class Builder {
-        private final int id;
+        private final String id;
         private final String name;
-        private final String storeTime;
         private boolean isFavorite = false;
-        private boolean isSelected = false;
 
-        public Builder(@NonNull final NewFolderResponse response) {
-            this.id = response.getId();
-            this.name = response.getName();
-            this.storeTime = response.getStoreTime();
+        public Builder(@NonNull final Folder model) {
+            this.id = model.getId();
+            this.name = model.getName();
         }
 
         public Builder setFavorite(boolean favorite) {
@@ -128,9 +113,8 @@ public class FolderEntity {
             return this;
         }
 
-        public Builder setSelected(boolean selected) {
-            isSelected = selected;
-            return this;
+        public static Builder with(@NonNull final Folder model) {
+            return new Builder(model);
         }
 
         public FolderEntity build() {

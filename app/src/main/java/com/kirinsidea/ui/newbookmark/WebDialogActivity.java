@@ -71,12 +71,15 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         binding.getVm().setNavigator(this);
         binding.getFolderlistvm().getFolderId().observe(this
                 , id -> binding.getVm().checkExistUrl(id));
-        binding.getVm().getStatus().observe(this, status -> {
-            if(status.equals("ERROR")){
-                Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+//        binding.getVm().getStatus().observe(this, status -> {
+//            if(status.equals("ERROR")){
+//                Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        });
+        //에러 메세지 출력
+        binding.getVm().getMessage().observe(this, message ->
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show());
     }
 
     private void initViews() {

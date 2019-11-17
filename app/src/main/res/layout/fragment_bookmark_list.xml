@@ -15,7 +15,7 @@
             type="com.kirinsidea.ui.folderlist.FolderListViewModel" />
         <variable
             name="item"
-            type="com.kirinsidea.data.source.entity.FolderEntity" />
+            type="com.kirinsidea.ui.folderlist.Folder" />
 
     </data>
 
