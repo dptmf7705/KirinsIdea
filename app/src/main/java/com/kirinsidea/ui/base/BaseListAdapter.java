@@ -10,12 +10,19 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kirinsidea.R;
+import com.kirinsidea.ui.folderlist.Folder;
 import com.kirinsidea.ui.listener.ItemClickListener;
+import com.kirinsidea.ui.listener.ItemLongClickListener;
 
 public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> extends ListAdapter<T, VH> {
 
     @Nullable
     protected ItemClickListener<T> itemClickListener;
+    @Nullable
+    protected ItemClickListener<T> favoriteClickListener;
+    @Nullable
+    protected ItemLongClickListener<T> itemLongClickListener;
 
     public BaseListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         this(diffCallback, null);
@@ -25,6 +32,16 @@ public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> ext
                            @Nullable ItemClickListener<T> itemClickListener) {
         super(diffCallback);
         this.itemClickListener = itemClickListener;
+    }
+
+    public BaseListAdapter(DiffUtil.ItemCallback<T> diffCallback,
+                           ItemClickListener<T> itemClickListener,
+                           ItemClickListener<T> favoriteClickListener,
+                           ItemLongClickListener<T> itemLongClickListener) {
+        super(diffCallback);
+        this.itemClickListener = itemClickListener;
+        this.favoriteClickListener = favoriteClickListener;
+        this.itemLongClickListener = itemLongClickListener;
     }
 
     private View inflateItemView(@NonNull ViewGroup parent, int layoutId) {
@@ -46,12 +63,31 @@ public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> ext
             holder.itemView.setOnClickListener(__ ->
                     itemClickListener.onItemClick(item));
         }
+        if (favoriteClickListener != null) {
+            holder.itemView.setOnClickListener(__->
+                    favoriteClickListener.onItemClick(item));
+        }
+        if (itemLongClickListener != null){
+            holder.itemView.setOnLongClickListener(v -> {
+                itemLongClickListener.onItemLongClick(item);
+//                item.Builder.setSelected(!item.isSelected());
+//                holder.itemView.setBackgroundResource(item.isSelected() ? R.color.silver : R.color.white);
+                return true;
+            });
+            //test
+            holder.itemView.setOnClickListener(__ ->
+                    itemClickListener.onItemClick(item));
+        }
 
         onBindViewHolder(holder, item, position);
     }
 
-    public void setItemClickListener(@Nullable ItemClickListener<T> itemClickListener) {
+    public void setItemClickListener(@Nullable ItemClickListener<T> itemClickListener,
+                                     @Nullable ItemClickListener<T> favoriteClickListener,
+                                     @Nullable ItemLongClickListener<T> itemLongClickListener) {
         this.itemClickListener = itemClickListener;
+        this.favoriteClickListener = favoriteClickListener;
+        this.itemLongClickListener = itemLongClickListener;
     }
 
     protected abstract int getLayoutId();
