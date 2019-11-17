@@ -12,6 +12,7 @@ import com.kirinsidea.databinding.FragmentBookmarkListBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.base.BaseFragment;
 import com.kirinsidea.ui.bookmark.BookmarkActivity;
+import com.kirinsidea.ui.folderlist.Folder;
 import com.kirinsidea.ui.folderlist.FolderListDrawerAdapter;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
 
@@ -74,13 +75,13 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
         //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);
-            FolderEntity allBookmark = new FolderEntity("전체");
+            Folder allBookmark = new Folder("전체");
             binding.getFolderlistvm().setSelectedItem(allBookmark);
-            binding.getVm().loadBookmarkListSelected(-1);
+            binding.getVm().loadBookmarkListSelected("-1");
         });
     }
 
-    private void startBookmarkActivity(int id) {
+    private void startBookmarkActivity(String id) {
         startActivity(BookmarkActivity.getLaunchIntent(getContext(), id));
     }
 }

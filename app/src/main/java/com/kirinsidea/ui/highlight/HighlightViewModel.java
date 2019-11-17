@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HighlightViewModel extends BaseViewModel {
     @NonNull
-    private final SingleLiveEvent<Integer> bookmarkId = new SingleLiveEvent<>();
+    private final SingleLiveEvent<String> bookmarkId = new SingleLiveEvent<>();
     @NonNull
     private final MutableLiveData<List<Highlight>> highlightList = new MutableLiveData<>();
     @NonNull
@@ -51,7 +51,7 @@ public class HighlightViewModel extends BaseViewModel {
     /**
      * 하이라이트 리스트 로딩 - 뷰에서 호출
      */
-    public void loadHighlightList(final int bookmarkId) {
+    public void loadHighlightList(final String bookmarkId) {
         if (this.bookmarkId.getValue() == null) {
             this.bookmarkId.setValue(bookmarkId);
         }
@@ -62,7 +62,7 @@ public class HighlightViewModel extends BaseViewModel {
      * 하이라이트 리스트 로딩
      */
     private void loadHighlightList() {
-        final Integer id = this.bookmarkId.getValue();
+        final String id = this.bookmarkId.getValue();
         if (id == null) {
             return;
         }
@@ -167,7 +167,7 @@ public class HighlightViewModel extends BaseViewModel {
     private Highlight createNewHighlight(@NonNull final Pair<Integer, Integer> selection,
                                          @NonNull final String selectedText,
                                          @NonNull final HighlightColor color) {
-        final Integer bookmarkId = this.bookmarkId.getValue();
+        final String bookmarkId = this.bookmarkId.getValue();
         if (bookmarkId == null) {
             throw new IllegalStateException("bookmarkId cannot be NULL");
         }

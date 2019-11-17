@@ -22,8 +22,8 @@ public class BookmarkViewModel extends BaseViewModel {
         return this;
     }
 
-    void loadBookmark(final int bookmarkId) {
-        bookmark.setValue(new Bookmark(0,
+    void loadBookmark(final String bookmarkId) {
+        bookmark.setValue(new Bookmark("0",
                 "https://publy.co/",
                 "https://publy.co/",
                 "러쉬(Lush), 진정성의 가치를 고수하다",

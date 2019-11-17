@@ -20,7 +20,7 @@ import com.kirinsidea.ui.highlight.Highlight;
 public class HighlightEntity {
     @PrimaryKey(autoGenerate = true)
     private int highlightId;
-    private int bookmarkId;
+    private String bookmarkId;
     private int startIndex;
     private int endIndex;
     private String highlightText;
@@ -46,11 +46,11 @@ public class HighlightEntity {
         this.highlightId = highlightId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
-    public void setBookmarkId(int bookmarkId) {
+    public void setBookmarkId(String bookmarkId) {
         this.bookmarkId = bookmarkId;
     }
 
@@ -88,7 +88,7 @@ public class HighlightEntity {
 
     public static class Builder {
         private final int highlightId;
-        private final int bookmarkId;
+        private final String bookmarkId;
         private final int startIndex;
         private final int endIndex;
         private final String highlightText;

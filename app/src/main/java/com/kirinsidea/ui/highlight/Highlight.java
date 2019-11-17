@@ -6,10 +6,12 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.entity.HighlightEntity;
 
+import java.util.Objects;
+
 public class Highlight {
     private static final int NEW_HIGHLIGHT_ID = 0;
     private final int highlightId;
-    private final int bookmarkId;
+    private final String bookmarkId;
     @NonNull
     private Pair<Integer, Integer> selection;
     @NonNull
@@ -17,7 +19,7 @@ public class Highlight {
     @NonNull
     private HighlightColor highlightColor;
 
-    public Highlight(final int bookmarkId,
+    public Highlight(final String bookmarkId,
                      @NonNull final Pair<Integer, Integer> selection,
                      @NonNull final String highlightText,
                      @NonNull final HighlightColor highlightColor) {
@@ -40,7 +42,7 @@ public class Highlight {
         return highlightId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
@@ -77,17 +79,22 @@ public class Highlight {
         if (o == null || getClass() != o.getClass()) return false;
         Highlight highlight = (Highlight) o;
         return highlightId == highlight.highlightId &&
-                bookmarkId == highlight.bookmarkId &&
+                Objects.equals(bookmarkId, highlight.bookmarkId) &&
                 selection.equals(highlight.selection) &&
                 highlightText.equals(highlight.highlightText) &&
                 highlightColor == highlight.highlightColor;
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(highlightId, bookmarkId, selection, highlightText, highlightColor);
+    }
+
+    @Override
     public String toString() {
         return "Highlight{" +
                 "highlightId=" + highlightId +
-                ", bookmarkId=" + bookmarkId +
+                ", bookmarkId='" + bookmarkId + '\'' +
                 ", selection=" + selection +
                 ", highlightText='" + highlightText + '\'' +
                 ", highlightColor=" + highlightColor +
@@ -96,7 +103,7 @@ public class Highlight {
 
     public static class Builder {
         private final int highlightId;
-        private final int bookmarkId;
+        private final String bookmarkId;
         @NonNull
         private final Pair<Integer, Integer> selection;
         @NonNull

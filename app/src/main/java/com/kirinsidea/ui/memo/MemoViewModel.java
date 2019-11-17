@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MemoViewModel extends BaseViewModel {
     @NonNull
-    private final MutableLiveData<Integer> bookmarkId = new MutableLiveData<>();
+    private final MutableLiveData<String> bookmarkId = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<List<Memo>> memoList = new MutableLiveData<>();
 
@@ -48,7 +48,7 @@ public class MemoViewModel extends BaseViewModel {
     /**
      * 메모 로딩 - 뷰에서 호출
      */
-    public void loadMemoList(final int bookmarkId) {
+    public void loadMemoList(final String bookmarkId) {
         if (this.bookmarkId.getValue() == null) {
             this.bookmarkId.setValue(bookmarkId);
         }
@@ -59,7 +59,7 @@ public class MemoViewModel extends BaseViewModel {
      * 메모 로딩
      */
     private void loadMemoList() {
-        final Integer bookmarkId = this.bookmarkId.getValue();
+        final String bookmarkId = this.bookmarkId.getValue();
         if (bookmarkId == null) {
             return;
         }
@@ -131,7 +131,7 @@ public class MemoViewModel extends BaseViewModel {
      */
     @NonNull
     private NewMemo createNewMemo(@NonNull final String memoContent) {
-        final Integer bookmarkId = this.bookmarkId.getValue();
+        final String bookmarkId = this.bookmarkId.getValue();
         final Highlight highlight = this.highlight.getValue();
         if (bookmarkId == null || highlight == null) {
             throw new IllegalStateException("bookmarkId or highlight cannot be NULL");

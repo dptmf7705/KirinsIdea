@@ -9,44 +9,48 @@ import androidx.paging.PagedList;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
+import com.kirinsidea.data.repository.folder.FolderRepository;
 import com.kirinsidea.ui.base.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BookmarkListViewModel extends BaseViewModel {
     private static final int PAGE_SIZE = 10;
-    private static final int ALL_BOOKMARK = -1;
+    private static final String ALL_BOOKMARK = "-1";
 
     private LiveData<PagedList<BookmarkItem>> bookmarkList;
 
-    public MutableLiveData<Integer> filterFolderId = new MutableLiveData<>();
+    public MutableLiveData<String> filterFolderId = new MutableLiveData<>();
 
-    private BookmarkRepository repository;
+    private BookmarkRepository bookmarkRepository;
+
+    private FolderRepository folderRepository;
 
     @NonNull
     @Override
     public BaseViewModel init(@NonNull final BaseRepository... repositories) {
-        this.repository = (BookmarkRepository) repositories[0];
+        this.bookmarkRepository = (BookmarkRepository) repositories[0];
+        this.folderRepository = (FolderRepository) repositories[1];
 
 //        SelectBookmarkList();
         loadBookmarkListSelected(ALL_BOOKMARK);
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
-                new LivePagedListBuilder<>(repository.observeBookmarkList(folderId), PAGE_SIZE).build());
+                new LivePagedListBuilder<>(bookmarkRepository.observeBookmarkList(folderId), PAGE_SIZE).build());
         return this;
     }
 
     public void SelectBookmarkList() {
-        if (repository.observeBookmarkByFavorite() == null) {
+        if (folderRepository.observeBookmarkByFavorite() == null) {
             loadBookmarkListSelected(ALL_BOOKMARK);
         } else {
-            addDisposable(repository.observeBookmarkByFavorite()
+            addDisposable(folderRepository.observeBookmarkByFavorite()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::loadBookmarkListSelected));
         }
     }
 
-    public void loadBookmarkListSelected(int id) {
+    public void loadBookmarkListSelected(String id) {
         filterFolderId.setValue(id);
     }
 
@@ -55,7 +59,7 @@ public class BookmarkListViewModel extends BaseViewModel {
         return bookmarkList;
     }
 
-    public LiveData<Integer> getFilterFolderId() {
+    public LiveData<String> getFilterFolderId() {
         return filterFolderId;
     }
 }
