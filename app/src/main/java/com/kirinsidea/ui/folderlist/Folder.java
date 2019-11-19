@@ -83,18 +83,14 @@ public class Folder {
     public static class Builder {
         private String id;
         private String name;
-        private boolean isFavorite = false;
-        private boolean isSelected = false;
+        private boolean isFavorite ;
+        private boolean isSelected =false;
 
         @NonNull
         public Builder fromEntity(@NonNull final FolderEntity entity) {
             this.id = entity.getId();
             this.name = entity.getName();
-            return this;
-        }
-        @NonNull
-        public Builder setFavorite(@NonNull final boolean isFavorite){
-            this.isFavorite = isFavorite;
+            this.isFavorite = entity.isFavorite();
             return this;
         }
 

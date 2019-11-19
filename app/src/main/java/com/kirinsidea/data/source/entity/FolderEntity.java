@@ -101,16 +101,12 @@ public class FolderEntity {
     public static class Builder {
         private final String id;
         private final String name;
-        private boolean isFavorite = false;
+        private boolean isFavorite;
 
         public Builder(@NonNull final Folder model) {
             this.id = model.getId();
             this.name = model.getName();
-        }
-
-        public Builder setFavorite(boolean favorite) {
-            isFavorite = favorite;
-            return this;
+            this.isFavorite = model.isFavorite();
         }
 
         public static Builder with(@NonNull final Folder model) {

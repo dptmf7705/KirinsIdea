@@ -92,10 +92,12 @@ public class FolderListViewModel extends BaseViewModel {
         if (firstItem.isFavorite()) {
             Folder falseItem = new Folder(firstItem.getId(), firstItem.getName(), false, false);
             addDisposable(folderRepository.observeChangeFavorite(trueItem)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .mergeWith(folderRepository.observeChangeFavorite(falseItem))
                     .subscribe(this::loadFolderList));
         } else {
             addDisposable(folderRepository.observeChangeFavorite(trueItem)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::loadFolderList));
         }
     }
