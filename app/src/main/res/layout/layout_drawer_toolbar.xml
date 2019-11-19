@@ -18,18 +18,18 @@
 
         <ImageButton
             android:id="@+id/btn_trash"
-
+            style="@style/ImageButton"
             android:scaleType="centerInside"
             android:src="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_drawer_edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{vm.isLongClick}"/>
+            android:visibility="@{vm.isLongClick}" />
 
         <ImageButton
             android:id="@+id/btn_drawer_edit"
-
+            style="@style/ImageButton"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_trash"
@@ -40,6 +40,7 @@
 
         <ImageButton
             android:id="@+id/btn_folder"
+            style="@style/ImageButton"
             android:src="@drawable/ic_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +51,7 @@
 
         <ImageButton
             android:id="@+id/btn_check"
+            style="@style/ImageButton"
             android:src="@drawable/ic_check"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

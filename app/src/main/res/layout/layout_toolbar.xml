@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/silver"
         app:layout_scrollFlags="scroll|enterAlways">
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/et_folderName"
@@ -23,15 +23,15 @@
             android:textStyle="bold" />
         <ImageButton
             android:id="@+id/btn_search"
-            android:layout_width="@dimen/button_size_24dp"
-            android:layout_height="@dimen/button_size_24dp"
+            style="@style/ImageButton"
+            android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_folder"
             app:layout_constraintTop_toTopOf="parent" />
         <ImageButton
             android:id="@+id/btn_folder"
-            android:layout_width="@dimen/button_size_24dp"
-            android:layout_height="@dimen/button_size_24dp"
+            style="@style/ImageButton"
+            android:src="@drawable/ic_icon_bm_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

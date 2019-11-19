@@ -11,13 +11,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_16dp">
+        android:layout_height="@dimen/list_item_height_88dp"
+        android:layout_marginStart="@dimen/space_16dp"
+        android:layout_marginEnd="@dimen/space_16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
+            style="@style/SingleLineText.16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
             android:ellipsize="end"
             android:text="@{item.title}"
             android:textColor="@color/black"
@@ -27,6 +30,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_simple_url"
+            style="@style/SingleLineText.10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{item.simpleWebUrl}"
@@ -37,19 +41,22 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_time"
+            style="@style/SingleLineText.10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{item.storageTime}"
             android:textColor="@color/text_grey_light"
             app:layout_constraintBottom_toTopOf="@id/divider"
             app:layout_constraintEnd_toStartOf="@id/iv_image"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_simple_url"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_image"
             image="@{item.mainImageUrl}"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="@dimen/image_size_72dp"
+            android:layout_height="@dimen/image_size_72dp"
+            android:layout_margin="@dimen/space_8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +64,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height_1dp"
             android:background="@color/silver"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
