@@ -20,5 +20,5 @@ public interface MemoDao extends BaseDao<MemoEntity> {
     Single<List<MemoDetailEntity>> selectAllByBookmarkId(String bookmarkId);
 
     @Query("SELECT * FROM memo LEFT JOIN highlight USING (highlightId) WHERE bookmarkId = :bookmarkId AND highlightId = :highlightId")
-    Single<MemoDetailEntity> selectByBookmarkIdAndHighlightId(String bookmarkId, int highlightId);
+    Single<MemoDetailEntity> selectByBookmarkIdAndHighlightId(String bookmarkId, String highlightId);
 }

@@ -78,7 +78,7 @@ public class MemoRepositoryImpl implements MemoRepository {
 
     @NonNull
     @Override
-    public Single<Memo> observeMemo(String bookmarkId, int highlightId) {
+    public Single<Memo> observeMemo(String bookmarkId, String highlightId) {
         return memoLocalDataSource.selectByBookmarkIdAndHighlightId(bookmarkId, highlightId)
                 .map(entity -> Memo.Builder.with(entity).build())
                 .subscribeOn(Schedulers.io());

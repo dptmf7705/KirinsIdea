@@ -41,14 +41,14 @@ public class HighlightTextView extends SpannableTextView {
         if (span instanceof HighlightSpan) {
             HighlightSpan highlightSpan = (HighlightSpan) span;
             spannable.setSpan(span,
-                    highlightSpan.getHighlight().getSelection().first,
-                    highlightSpan.getHighlight().getSelection().second,
+                    Integer.parseInt(highlightSpan.getHighlight().getSelection().first),
+                    Integer.parseInt(highlightSpan.getHighlight().getSelection().second),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else if (span instanceof MemoSpan) {
             MemoSpan memoSpan = (MemoSpan) span;
             spannable.setSpan(span,
-                    memoSpan.getMemo().getEndIndex(),
-                    memoSpan.getMemo().getEndIndex() + 1,
+                    Integer.parseInt(memoSpan.getMemo().getEndIndex()),
+                    Integer.parseInt(memoSpan.getMemo().getEndIndex() + 1),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }

@@ -3,6 +3,7 @@ package com.kirinsidea.widget;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.renderscript.Sampler;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.util.Pair;
@@ -19,12 +20,12 @@ import io.reactivex.subjects.PublishSubject;
 
 public class SelectableTextView extends HtmlTextView implements ActionMode.Callback {
     @Nullable
-    protected Pair<Integer, Integer> selection;  // 선택된 index
+    protected Pair<String, String> selection;  // 선택된 index
     @Nullable
     protected String selectedText;  // 선택된 text
 
     @NonNull
-    protected final PublishSubject<Pair<Integer, Integer>> selectionChangeStream = PublishSubject.create();
+    protected final PublishSubject<Pair<String, String>> selectionChangeStream = PublishSubject.create();
     @NonNull
     protected final PublishSubject<String> selectedTextChangeStream = PublishSubject.create();
 
@@ -59,31 +60,31 @@ public class SelectableTextView extends HtmlTextView implements ActionMode.Callb
      * @param selStart 시작 인덱스
      * @param selEnd   끝 인덱스
      */
-    @Override
-    protected void onSelectionChanged(int selStart, int selEnd) {
-        final int startIndex = Math.min(selStart, selEnd);
-        final int endIndex = Math.max(selStart, selEnd);
-        if (startIndex < 0) {
+//    @Override
+    protected void onSelectionChanged(String selStart, String selEnd) {
+        final  String startIndex = String.valueOf(Math.min(Integer.parseInt(selStart) , Integer.parseInt(selEnd)));
+        final String endIndex =String.valueOf(Math.max(Integer.parseInt(selStart), Integer.parseInt(selEnd)));
+        if (Integer.parseInt(startIndex) < 0) {
             return;
         }
         setSelection(startIndex, endIndex);
         setSelectedText(startIndex, endIndex);
     }
 
-    protected void setSelection(int startIndex, int endIndex) {
+    protected void setSelection(String startIndex, String endIndex) {
         setSelection(new Pair<>(startIndex, endIndex));
     }
 
-    protected void setSelectedText(int startIndex, int endIndex) {
-        setSelectedText(getText().subSequence(startIndex, endIndex).toString());
+    protected void setSelectedText(String startIndex, String endIndex) {
+        setSelectedText(getText().subSequence(Integer.parseInt(startIndex), Integer.parseInt(endIndex)).toString());
     }
 
     /**
      * selection 값이 변경되면 Stream 발행
      */
-    public void setSelection(@Nullable final Pair<Integer, Integer> selection) {
+    public void setSelection(@Nullable final Pair<String, String> selection) {
         this.selection = selection;
-        this.selectionChangeStream.onNext(selection == null ? new Pair<>(0, 0) : selection);
+        this.selectionChangeStream.onNext(selection == null ? new Pair<>("0", "0") : selection);
     }
 
     /**
@@ -95,7 +96,7 @@ public class SelectableTextView extends HtmlTextView implements ActionMode.Callb
     }
 
     @Nullable
-    public Pair<Integer, Integer> getSelection() {
+    public Pair<String, String> getSelection() {
         return selection;
     }
 
@@ -159,7 +160,7 @@ public class SelectableTextView extends HtmlTextView implements ActionMode.Callb
      * selection 값이 변경되었을 때만 데이터를 발행한다. (distinctUntilChanged)
      */
     @NonNull
-    public Observable<Pair<Integer, Integer>> getSelectionChangeStream() {
+    public Observable<Pair<String, String>> getSelectionChangeStream() {
         return selectionChangeStream.distinctUntilChanged().serialize();
     }
 }

@@ -152,10 +152,10 @@ public class MemoViewModel extends BaseViewModel {
      * 하이라이트에 기존 메모가 있는지 찾기
      */
     @Nullable
-    private Memo findMemoByHighlightId(final int highlightId) {
+    private Memo findMemoByHighlightId(final String highlightId) {
         for (Memo memo : LiveDataCompat.getListValue(this.memoList)) {
             // 기존 메모 있음
-            if (memo.getHighlightId() == highlightId) {
+            if (memo.getHighlightId().equals(highlightId)) {
                 return memo;
             }
         }

@@ -85,7 +85,7 @@ public class HighlightRepositoryImpl implements HighlightRepository {
 
     @NonNull
     @Override
-    public Single<Highlight> observeHighlight(final String bookmarkId, final int start, final int end) {
+    public Single<Highlight> observeHighlight(final String bookmarkId, final String start, final String end) {
         return highlightLocalDataSource
                 .selectByBookmarkId(bookmarkId, start, end)
                 .map(highlight -> new Highlight.Builder(highlight).build())

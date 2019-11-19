@@ -26,5 +26,5 @@ public interface HighlightRepository extends BaseRepository {
 
     // TODO 서버 완료될 때까지 임시
     @NonNull
-    Single<Highlight> observeHighlight(final String bookmarkId, final int start, final int end);
+    Single<Highlight> observeHighlight(final String bookmarkId, final String start, final String end);
 }

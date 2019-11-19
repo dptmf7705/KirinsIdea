@@ -9,18 +9,18 @@ import com.kirinsidea.data.source.entity.HighlightEntity;
 import java.util.Objects;
 
 public class Highlight {
-    private static final int NEW_HIGHLIGHT_ID = 0;
-    private final int highlightId;
+    private static final String NEW_HIGHLIGHT_ID = "0";
+    private final String highlightId;
     private final String bookmarkId;
     @NonNull
-    private Pair<Integer, Integer> selection;
+    private Pair<String, String> selection;
     @NonNull
     private String highlightText;
     @NonNull
     private HighlightColor highlightColor;
 
     public Highlight(final String bookmarkId,
-                     @NonNull final Pair<Integer, Integer> selection,
+                     @NonNull final Pair<String, String> selection,
                      @NonNull final String highlightText,
                      @NonNull final HighlightColor highlightColor) {
         this.highlightId = NEW_HIGHLIGHT_ID;
@@ -38,7 +38,7 @@ public class Highlight {
         this.highlightColor = builder.highlightColor;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
@@ -47,11 +47,11 @@ public class Highlight {
     }
 
     @NonNull
-    public Pair<Integer, Integer> getSelection() {
+    public Pair<String, String> getSelection() {
         return selection;
     }
 
-    public void setSelection(@NonNull Pair<Integer, Integer> selection) {
+    public void setSelection(@NonNull Pair<String, String> selection) {
         this.selection = selection;
     }
 
@@ -102,10 +102,10 @@ public class Highlight {
     }
 
     public static class Builder {
-        private final int highlightId;
+        private final String highlightId;
         private final String bookmarkId;
         @NonNull
-        private final Pair<Integer, Integer> selection;
+        private final Pair<String, String> selection;
         @NonNull
         private final String selectedText;
         @NonNull

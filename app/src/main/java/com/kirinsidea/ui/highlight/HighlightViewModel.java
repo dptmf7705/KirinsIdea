@@ -24,7 +24,7 @@ public class HighlightViewModel extends BaseViewModel {
     @NonNull
     private final MutableLiveData<List<Highlight>> highlightList = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Pair<Integer, Integer>> selection = new MutableLiveData<>();
+    private final MutableLiveData<Pair<String, String>> selection = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<String> selectedText = new MutableLiveData<>();
     @NonNull
@@ -139,7 +139,7 @@ public class HighlightViewModel extends BaseViewModel {
      */
     public void setHighlightColor(@NonNull final HighlightColor color) {
         setHighlightProperty(
-                LiveDataCompat.getValue(this.selection, new Pair<>(0, 0)),
+                LiveDataCompat.getValue(this.selection, new Pair<>("0", "0")),
                 LiveDataCompat.getValue(this.selectedText, ""),
                 color);
     }
@@ -147,7 +147,7 @@ public class HighlightViewModel extends BaseViewModel {
     /**
      * 새 하이라이트 초기화 또는 속성(selection, selectedText, color) 변경
      */
-    private void setHighlightProperty(@NonNull final Pair<Integer, Integer> selection,
+    private void setHighlightProperty(@NonNull final Pair<String, String> selection,
                                       @NonNull final String selectedText,
                                       @NonNull final HighlightColor color) {
         Highlight highlight = this.selectedItem.getValue();
@@ -164,7 +164,7 @@ public class HighlightViewModel extends BaseViewModel {
     /**
      * 새 하이라이트 객체 생성
      */
-    private Highlight createNewHighlight(@NonNull final Pair<Integer, Integer> selection,
+    private Highlight createNewHighlight(@NonNull final Pair<String, String> selection,
                                          @NonNull final String selectedText,
                                          @NonNull final HighlightColor color) {
         final String bookmarkId = this.bookmarkId.getValue();
@@ -185,7 +185,7 @@ public class HighlightViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public MutableLiveData<Pair<Integer, Integer>> getSelection() {
+    public MutableLiveData<Pair<String, String>> getSelection() {
         return selection;
     }
 
