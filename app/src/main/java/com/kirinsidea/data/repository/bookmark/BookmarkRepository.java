@@ -25,6 +25,6 @@ public interface BookmarkRepository extends BaseRepository {
     @NonNull
     Completable observeAddNewBookmark(@NonNull NewBookmarkRequest request);
 
-    int ALL_BOOKMARK = -1;
+    String ALL_BOOKMARK = "-1";
 
 }

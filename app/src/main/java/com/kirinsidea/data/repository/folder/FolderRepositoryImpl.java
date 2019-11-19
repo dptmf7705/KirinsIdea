@@ -9,9 +9,8 @@ import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitException;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
 import com.kirinsidea.data.source.remote.kirin.mock.FolderMockApi;
-import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
-import com.kirinsidea.data.source.remote.kirin.response.SingleResponse;
+import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.ui.folderlist.Folder;
 
 import java.util.ArrayList;

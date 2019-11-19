@@ -21,6 +21,8 @@ import com.kirinsidea.ui.bookmark.Bookmark;
 import com.kirinsidea.ui.bookmarklist.BookmarkItem;
 import com.kirinsidea.utils.FileUtil;
 
+import java.util.Objects;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -68,7 +70,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkList(final String id) {
-        if (id.equals(ALL_BOOKMARK)) {
+        if (Objects.equals(id, ALL_BOOKMARK)) {
             return bookmarkLocalDataSource.selectAll().map(entity ->
                     new BookmarkItem.Builder().fromEntity(entity).build());
         } else {

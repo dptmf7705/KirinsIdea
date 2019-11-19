@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.databinding.FragmentBookmarkListBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.base.BaseFragment;
