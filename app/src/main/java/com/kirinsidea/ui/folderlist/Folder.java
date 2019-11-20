@@ -9,6 +9,8 @@ import com.kirinsidea.data.source.entity.FolderEntity;
 import java.util.Objects;
 
 public class Folder {
+    private static final String ALL_BOOKMARK = "-1";
+
     @NonNull
     private String id;
     @NonNull
@@ -20,6 +22,7 @@ public class Folder {
 
     @Ignore
     public Folder(@NonNull String name){
+        this.id = ALL_BOOKMARK;
         this.name = name;
     }
 

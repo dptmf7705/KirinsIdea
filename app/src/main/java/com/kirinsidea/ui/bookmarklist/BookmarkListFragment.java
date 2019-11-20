@@ -16,7 +16,6 @@ import com.kirinsidea.ui.folderlist.FolderListDrawerAdapter;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
 
 public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBinding> {
-    private static final String ALL_BOOKMARK = "-1";
 
     public static BookmarkListFragment newInstance() {
         return new BookmarkListFragment();
@@ -77,7 +76,6 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
             binding.getFolderlistvm().toggleDrawer(false);
             Folder allBookmark = new Folder("전체");
             binding.getFolderlistvm().setSelectedItem(allBookmark);
-            binding.getVm().loadBookmarkListSelected(ALL_BOOKMARK);
         });
     }
 
