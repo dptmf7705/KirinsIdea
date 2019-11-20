@@ -70,7 +70,7 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                 }
         ));
         binding.getFolderlistvm().getSelectedItem().observe(this
-                , item -> binding.getVm().loadBookmarkListSelected(item.getId()));
+                , item -> binding.getVm().selectFolderById(item.getId()));
         //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);

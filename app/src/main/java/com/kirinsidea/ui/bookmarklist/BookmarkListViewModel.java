@@ -31,7 +31,7 @@ public class BookmarkListViewModel extends BaseViewModel {
         this.bookmarkRepository = (BookmarkRepository) repositories[0];
         this.folderRepository = (FolderRepository) repositories[1];
 
-        SelectBookmarkList();
+        loadBookmarkList();
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
                 new LivePagedListBuilder<>(bookmarkRepository.observeBookmarkListById(folderId), PAGE_SIZE).build());
@@ -41,16 +41,16 @@ public class BookmarkListViewModel extends BaseViewModel {
     /**
     * 어플 실행시 핀 폴더 조회 후 북마크 리스트 선택 (핀 있으면 핀 폴더, 없으면 전체)
     */
-    public void SelectBookmarkList() {
+    public void loadBookmarkList() {
         addDisposable(folderRepository.observeBookmarkByFavorite()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadBookmarkListSelected));
+                .subscribe(this::selectFolderById));
     }
 
     /**
      * 선택된 북마크 리스트 출력
      */
-    public void loadBookmarkListSelected(String id) {
+    public void selectFolderById(String id) {
         filterFolderId.setValue(id);
     }
 
