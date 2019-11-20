@@ -16,7 +16,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BookmarkListViewModel extends BaseViewModel {
     private static final int PAGE_SIZE = 10;
-    private static final String ALL_BOOKMARK = "-1";
 
     private LiveData<PagedList<BookmarkItem>> bookmarkList;
 
@@ -32,24 +31,25 @@ public class BookmarkListViewModel extends BaseViewModel {
         this.bookmarkRepository = (BookmarkRepository) repositories[0];
         this.folderRepository = (FolderRepository) repositories[1];
 
-//        SelectBookmarkList();
-        loadBookmarkListSelected(ALL_BOOKMARK);
+        SelectBookmarkList();
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
                 new LivePagedListBuilder<>(bookmarkRepository.observeBookmarkList(folderId), PAGE_SIZE).build());
         return this;
     }
 
+    /**
+    * 어플 실행시 핀 폴더 조회 후 북마크 리스트 선택 (핀 있으면 핀 폴더, 없으면 전체)
+    */
     public void SelectBookmarkList() {
-        if (folderRepository.observeBookmarkByFavorite() == null) {
-            loadBookmarkListSelected(ALL_BOOKMARK);
-        } else {
-            addDisposable(folderRepository.observeBookmarkByFavorite()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::loadBookmarkListSelected));
-        }
+        addDisposable(folderRepository.observeBookmarkByFavorite()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::loadBookmarkListSelected));
     }
 
+    /**
+     * 선택된 북마크 리스트 출력
+     */
     public void loadBookmarkListSelected(String id) {
         filterFolderId.setValue(id);
     }

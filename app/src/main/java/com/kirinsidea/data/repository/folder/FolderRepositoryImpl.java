@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
+import com.kirinsidea.data.source.local.room.error.RoomException;
+import com.kirinsidea.data.source.local.room.error.RoomResult;
 import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitException;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
@@ -46,6 +48,7 @@ public class FolderRepositoryImpl implements FolderRepository {
         return this;
     }
 
+    //TODO 아직까지는 사용 안함
     @NonNull
     @Override
     public Maybe<Folder> observeFolderById(String folderId) {
@@ -53,7 +56,8 @@ public class FolderRepositoryImpl implements FolderRepository {
                 .map(entity -> {
                     Folder folder = new Folder.Builder().fromEntity(entity).build();
                     return folder;
-                });
+                })
+                .switchIfEmpty(Maybe.error(new RoomException(RoomResult.NULL))); //없는 경우 NULL 에러
     }
 
     @NonNull
@@ -85,6 +89,9 @@ public class FolderRepositoryImpl implements FolderRepository {
                 );
     }
 
+    /**
+     * 핀 폴더 변경 시 folderEntity 업데이트
+     */
     @NonNull
     @Override
     public Completable observeChangeFavorite(@NonNull Folder folder) {
@@ -93,6 +100,9 @@ public class FolderRepositoryImpl implements FolderRepository {
 
 
     // TODO 수정 변경 시간 받는지 / 에러처리
+    /**
+     * 폴더 이름 수정
+     */
     @NonNull
     @Override
     public Single<String> observeChangeFolderName(@NonNull ChangeFolderRequest request
@@ -103,8 +113,11 @@ public class FolderRepositoryImpl implements FolderRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    /**
+     * 핀 폴더 조회 후 없으면 defaultValue 전체
+     */
     @Override
-    public Maybe<String> observeBookmarkByFavorite() {
-        return folderLocalDataSource.selectedByFavorite().subscribeOn(Schedulers.io());
+    public Single<String> observeBookmarkByFavorite() {
+        return folderLocalDataSource.selectedByFavorite().subscribeOn(Schedulers.io()).toSingle(ALL_BOOKMARK);
     }
 }

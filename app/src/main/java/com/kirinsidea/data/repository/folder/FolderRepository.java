@@ -1,6 +1,7 @@
 package com.kirinsidea.data.repository.folder;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.entity.FolderEntity;
@@ -30,5 +31,8 @@ public interface FolderRepository extends BaseRepository {
     @NonNull
     Single<String> observeChangeFolderName(@NonNull ChangeFolderRequest request, @NonNull Folder folder);
 
-    Maybe<String> observeBookmarkByFavorite();
+    @NonNull
+    Single<String> observeBookmarkByFavorite();
+
+    String ALL_BOOKMARK = "-1";
 }
