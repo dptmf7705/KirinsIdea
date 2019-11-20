@@ -70,7 +70,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkListById(final String id) {
-        if (Objects.equals(id, ALL_BOOKMARK)) {
+        if (ALL_BOOKMARK.equals(id)) {
             return bookmarkLocalDataSource.selectAll().map(entity ->
                     new BookmarkItem.Builder().fromEntity(entity).build());
         } else {
