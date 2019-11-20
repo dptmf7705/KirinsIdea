@@ -14,7 +14,7 @@ import io.reactivex.Single;
 public interface MemoRepository extends BaseRepository {
 
     @NonNull
-    Single<List<Memo>> observeMemoListByBookmarkId(final int bookmarkId);
+    Single<List<Memo>> observeMemoListByBookmarkId(final String bookmarkId);
 
     @NonNull
     Single<Memo> observeUpdateMemo(@NonNull final Memo memo);
@@ -24,7 +24,7 @@ public interface MemoRepository extends BaseRepository {
 
     // TODO 서버 완료될 때까지 임시
     @NonNull
-    Single<Memo> observeMemo(final int bookmarkId, final int highlightId);
+    Single<Memo> observeMemo(final String bookmarkId, final String highlightId);
 
     @NonNull
     Single<Memo> observeAddNewMemo(@NonNull final NewMemo memo);

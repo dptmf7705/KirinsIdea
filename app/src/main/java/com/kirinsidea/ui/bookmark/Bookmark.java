@@ -6,7 +6,8 @@ import androidx.annotation.Nullable;
 import com.kirinsidea.data.source.entity.BookmarkEntity;
 
 public class Bookmark {
-    private final int id;
+    @NonNull
+    private final String id;
     @NonNull
     private final String originalWebUrl;
     @NonNull
@@ -20,7 +21,7 @@ public class Bookmark {
     @Nullable
     private final CharSequence contents;
 
-    public Bookmark(final int id,
+    public Bookmark(@NonNull final String id,
                     @NonNull final String originalWebUrl,
                     @NonNull final String simpleWebUrl,
                     @NonNull final String title,
@@ -36,7 +37,8 @@ public class Bookmark {
         this.contents = contents;
     }
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
@@ -71,7 +73,7 @@ public class Bookmark {
     }
 
     public static class Builder {
-        private int id;
+        private String id;
         private String originalWebUrl;
         private String simpleWebUrl;
         private String title;

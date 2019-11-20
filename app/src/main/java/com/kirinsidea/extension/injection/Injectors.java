@@ -39,7 +39,8 @@ abstract class Injectors {
         } else if (viewModel instanceof BookmarkListViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(
-                    initRepository(Providers.getBookmarkRepository()));
+                    initRepository(Providers.getBookmarkRepository()),
+                    initRepository(Providers.getFolderRepository()));
         } else if (viewModel instanceof FolderListViewModel) {
             //noinspection unchecked
             return (VM) viewModel.init(

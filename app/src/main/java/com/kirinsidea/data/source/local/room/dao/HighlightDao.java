@@ -13,9 +13,9 @@ import io.reactivex.Single;
 public interface HighlightDao extends BaseDao<HighlightEntity> {
 
     @Query("SELECT * FROM highlight WHERE bookmarkId = :bookmarkId")
-    Single<List<HighlightEntity>> selectAllByBookmarkId(int bookmarkId);
+    Single<List<HighlightEntity>> selectAllByBookmarkId(String bookmarkId);
 
     // TODO 서버 완료될 때까지 임시
     @Query("SELECT * FROM highlight WHERE bookmarkId = :bookmarkId AND startIndex = :startIndex AND endIndex = :endIndex")
-    Single<HighlightEntity> selectByBookmarkId(int bookmarkId, int startIndex, int endIndex);
+    Single<HighlightEntity> selectByBookmarkId(String bookmarkId, String startIndex, String endIndex);
 }

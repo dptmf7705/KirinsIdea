@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.databinding.FragmentBookmarkListBinding;
 import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.base.BaseFragment;
 import com.kirinsidea.ui.bookmark.BookmarkActivity;
+import com.kirinsidea.ui.folderlist.Folder;
 import com.kirinsidea.ui.folderlist.FolderListDrawerAdapter;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
 
@@ -59,7 +59,7 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                 },
                 item -> {
                     binding.getFolderlistvm().clickFavorite(item);
-                    //이거 아님
+                    //TODO 핀 클릭시 폴더 리스트 맨 위로 스크롤 에니메이션
 //                    binding.recyclerFolderList.scrollToPosition(0);
                 },
                 item -> {
@@ -70,17 +70,15 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
                 }
         ));
         binding.getFolderlistvm().getSelectedItem().observe(this
-                , item -> binding.getVm().loadBookmarkListSelected(item.getId()));
+                , item -> binding.getVm().selectFolderById(item.getId()));
         //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);
-            FolderEntity allBookmark = new FolderEntity("전체");
-            binding.getFolderlistvm().setSelectedItem(allBookmark);
-            binding.getVm().loadBookmarkListSelected(-1);
+            binding.getFolderlistvm().setSelectedItem(Folder.ALL_BOOKMARK);
         });
     }
 
-    private void startBookmarkActivity(int id) {
+    private void startBookmarkActivity(String id) {
         startActivity(BookmarkActivity.getLaunchIntent(getContext(), id));
     }
 }

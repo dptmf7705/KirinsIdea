@@ -4,17 +4,18 @@
     <data>
         <variable
             name="item"
-            type="com.kirinsidea.data.source.entity.FolderEntity" />
+            type="com.kirinsidea.ui.folderlist.Folder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/list_item_height_48dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_folder"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/button_size_24dp"
+            android:layout_height="@dimen/button_size_24dp"
+            android:layout_marginStart="@dimen/space_16dp"
             android:src="@{item.favorite ? @drawable/ic_icon_pin_selected : @drawable/ic_icon_folder}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,11 +23,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_folder"
+            style="@style/SingleLineText.16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:text="@{item.name}"
             android:textColor="@color/black"
+            android:layout_marginStart="@dimen/space_12dp"
+            android:layout_marginEnd="@dimen/space_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_folder"
             app:layout_constraintTop_toTopOf="parent" />

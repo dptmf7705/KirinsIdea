@@ -19,12 +19,12 @@ public interface HighlightRepository extends BaseRepository {
     Single<Highlight> observeUpdateHighlight(@NonNull final Highlight highlight);
 
     @NonNull
-    Single<List<Highlight>> observeHighlightListByBookmarkId(final int bookmarkId);
+    Single<List<Highlight>> observeHighlightListByBookmarkId(final String bookmarkId);
 
     @NonNull
     Completable observeDeleteHighlight(@NonNull final Highlight highlight);
 
     // TODO 서버 완료될 때까지 임시
     @NonNull
-    Single<Highlight> observeHighlight(final int bookmarkId, final int start, final int end);
+    Single<Highlight> observeHighlight(final String bookmarkId, final String start, final String end);
 }

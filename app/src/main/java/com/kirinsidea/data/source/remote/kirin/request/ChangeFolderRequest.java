@@ -5,15 +5,15 @@ import androidx.annotation.NonNull;
 public class ChangeFolderRequest {
 
     @NonNull
-    private final int folderId;
+    private final String folderId;
     @NonNull
     private final String folderName;
 
-    public ChangeFolderRequest(int folderId, @NonNull String folderName) {
+    public ChangeFolderRequest(String folderId, @NonNull String folderName) {
         this.folderId = folderId;
         this.folderName = folderName;
     }
-    public int getFolderId() {
+    public String getFolderId() {
         return folderId;
     }
 

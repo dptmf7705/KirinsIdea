@@ -14,53 +14,53 @@ package com.kirinsidea.data.source.entity;
  * @member isPrivate        true: 나만보기 / false: 전체공개
  */
 public class MemoDetailEntity {
-    private int memoId;
-    private int bookmarkId;
-    private int highlightId;
-    private int startIndex;
-    private int endIndex;
+    private String memoId;
+    private String bookmarkId;
+    private String highlightId;
+    private String startIndex;
+    private String endIndex;
     private String highlightText;
     private String highlightColor;
     private String memoContent;
     private boolean isPrivate;
 
-    public int getMemoId() {
+    public String getMemoId() {
         return memoId;
     }
 
-    public void setMemoId(int memoId) {
+    public void setMemoId(String memoId) {
         this.memoId = memoId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
-    public void setBookmarkId(int bookmarkId) {
+    public void setBookmarkId(String bookmarkId) {
         this.bookmarkId = bookmarkId;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
-    public void setHighlightId(int highlightId) {
+    public void setHighlightId(String highlightId) {
         this.highlightId = highlightId;
     }
 
-    public int getStartIndex() {
+    public String getStartIndex() {
         return startIndex;
     }
 
-    public void setStartIndex(int startIndex) {
+    public void setStartIndex(String startIndex) {
         this.startIndex = startIndex;
     }
 
-    public int getEndIndex() {
+    public String getEndIndex() {
         return endIndex;
     }
 
-    public void setEndIndex(int endIndex) {
+    public void setEndIndex(String endIndex) {
         this.endIndex = endIndex;
     }
 

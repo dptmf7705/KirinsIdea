@@ -1,78 +1,66 @@
 package com.kirinsidea.ui.folderlist;
 
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.data.source.entity.FolderEntity;
+import com.kirinsidea.databinding.ItemFolderListBinding;
+import com.kirinsidea.ui.base.BaseListAdapter;
+import com.kirinsidea.ui.base.BaseViewHolder;
 import com.kirinsidea.ui.listener.ItemClickListener;
 import com.kirinsidea.ui.listener.ItemLongClickListener;
 
-public class FolderListDrawerAdapter extends ListAdapter<FolderEntity, FolderItemDrawerViewHolder> {
+public class FolderListDrawerAdapter extends BaseListAdapter<Folder, FolderListDrawerAdapter.ViewHolder> {
 
-    private ItemClickListener<FolderEntity> itemClickListener;
-    private ItemClickListener<FolderEntity> favoriteClickListener;
-    private ItemLongClickListener<FolderEntity> itemLongClickListener;
+    @Nullable
+    private ItemClickListener<Folder> favoriteClickListener;
+    @Nullable
+    private ItemLongClickListener<Folder> itemLongClickListener;
 
-    public FolderListDrawerAdapter(ItemClickListener<FolderEntity> itemClickListener,
-                                   ItemClickListener<FolderEntity> favoriteClickListener,
-                                   ItemLongClickListener<FolderEntity> itemLongClickListener) {
-        super(DIFF_CALLBACK);
-        this.itemClickListener = itemClickListener;
+    public FolderListDrawerAdapter(ItemClickListener<Folder> itemClickListener,
+                                   @Nullable ItemClickListener<Folder> favoriteClickListener,
+                                   @Nullable ItemLongClickListener<Folder> itemLongClickListener) {
+        super(Folder.DIFF_CALLBACK, itemClickListener);
         this.favoriteClickListener = favoriteClickListener;
         this.itemLongClickListener = itemLongClickListener;
     }
 
-    @NonNull
     @Override
-    public FolderItemDrawerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FolderItemDrawerViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_folder_list, parent, false));
+    protected int getLayoutId() {
+        return R.layout.item_folder_list;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FolderItemDrawerViewHolder holder, int position) {
-        final FolderEntity item = getItem(holder.getAdapterPosition());
-        holder.bindTo(item);
+    protected ViewHolder onCreateViewHolder(@NonNull View itemView, int viewType) {
+        return new ViewHolder(itemView);
+    }
 
-        if (itemClickListener != null) {
-            holder.itemView.setOnClickListener(__ ->
-                    itemClickListener.onItemClick(item));
-        }
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Folder item, int position) {
+        holder.getBinding().setItem(item);
 
+        //핀
         if (favoriteClickListener != null) {
             holder.getBinding().ivFolderPin.setOnClickListener(__ ->
                     favoriteClickListener.onItemClick(item));
         }
-
-        if (itemLongClickListener != null){
+        //롱클릭
+        if (itemLongClickListener != null) {
             holder.itemView.setOnLongClickListener(v -> {
                 itemLongClickListener.onItemLongClick(item);
                 item.setSelected(!item.isSelected());
                 holder.itemView.setBackgroundResource(item.isSelected() ? R.color.silver : R.color.white);
                 return true;
             });
-            //test
-            holder.itemView.setOnClickListener(__ ->
-                    itemClickListener.onItemClick(item));
         }
     }
 
+    static final class ViewHolder extends BaseViewHolder<ItemFolderListBinding> {
 
-    private static final DiffUtil.ItemCallback<FolderEntity> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<FolderEntity>() {
-                @Override
-                public boolean areItemsTheSame(@NonNull FolderEntity oldItem, @NonNull FolderEntity newItem) {
-                    return oldItem.getId() == newItem.getId();
-                }
-
-                @Override
-                public boolean areContentsTheSame(@NonNull FolderEntity oldItem, @NonNull FolderEntity newItem) {
-                    return oldItem.equals(newItem);
-                }
-            };
+        private ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
 }

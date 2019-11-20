@@ -8,7 +8,8 @@ import com.kirinsidea.data.source.entity.BookmarkEntity;
 import java.util.Objects;
 
 public class BookmarkItem {
-    private final int id;
+    @NonNull
+    private final String id;
     @NonNull
     private final String simpleWebUrl;
     @NonNull
@@ -17,14 +18,15 @@ public class BookmarkItem {
     private final String title;
     @NonNull
     private final String storageTime;
-    private final int folderId;
+    @NonNull
+    private final String folderId;
 
-    public BookmarkItem(final int id,
+    public BookmarkItem(@NonNull final String id,
                         @NonNull final String simpleWebUrl,
                         @NonNull final String mainImageUrl,
                         @NonNull final String title,
                         @NonNull final String storageTime,
-                        final int folderId) {
+                        @NonNull final String folderId) {
         this.id = id;
         this.simpleWebUrl = simpleWebUrl;
         this.mainImageUrl = mainImageUrl;
@@ -33,7 +35,8 @@ public class BookmarkItem {
         this.folderId = folderId;
     }
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
@@ -57,7 +60,8 @@ public class BookmarkItem {
         return storageTime;
     }
 
-    public int getFolderId() {
+    @NonNull
+    public String getFolderId() {
         return folderId;
     }
 
@@ -66,26 +70,26 @@ public class BookmarkItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookmarkItem that = (BookmarkItem) o;
-        return id == that.id &&
-                folderId == that.folderId &&
+        return id.equals(that.id) &&
                 simpleWebUrl.equals(that.simpleWebUrl) &&
                 mainImageUrl.equals(that.mainImageUrl) &&
                 title.equals(that.title) &&
-                storageTime.equals(that.storageTime);
+                storageTime.equals(that.storageTime) &&
+                folderId.equals(that.folderId);
     }
 
     @Override
-    public int hashCode() {
+    public int  hashCode() {
         return Objects.hash(id, simpleWebUrl, mainImageUrl, title, storageTime, folderId);
     }
 
     public static class Builder {
-        private int id;
+        private String id;
         private String simpleWebUrl;
         private String mainImageUrl;
         private String title;
         private String storageTime;
-        private int folderId;
+        private String folderId;
 
         @NonNull
         public Builder fromEntity(@NonNull final BookmarkEntity entity) {

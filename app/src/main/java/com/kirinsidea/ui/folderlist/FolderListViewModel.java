@@ -1,15 +1,19 @@
 package com.kirinsidea.ui.folderlist;
 
 import android.text.TextUtils;
-import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.kirinsidea.App;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.folder.FolderRepository;
-import com.kirinsidea.data.source.entity.FolderEntity;
+import com.kirinsidea.data.source.local.room.error.RoomException;
+import com.kirinsidea.data.source.local.room.error.RoomResult;
+import com.kirinsidea.data.source.remote.kirin.error.RetrofitException;
+import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
 import com.kirinsidea.data.source.remote.kirin.request.ChangeFolderRequest;
 import com.kirinsidea.data.source.remote.kirin.request.NewFolderRequest;
 import com.kirinsidea.extension.livedata.SingleLiveEvent;
@@ -22,24 +26,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class FolderListViewModel extends BaseViewModel {
     @NonNull
-    private final MutableLiveData<List<FolderEntity>> folderList = new MutableLiveData<>();
+    private final MutableLiveData<List<Folder>> folderList = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<FolderEntity> selectedItem = new MutableLiveData<>();
+    private final MutableLiveData<Folder> selectedItem = new MutableLiveData<>(); //현재 선택한 폴더
     @NonNull
-    private final SingleLiveEvent<Boolean> isClick = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Boolean> isClick = new SingleLiveEvent<>(); //드로어 클릭 여부
     @NonNull
     private final MutableLiveData<String> folderName = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Integer> folderId = new MutableLiveData<>();
+    private final MutableLiveData<String> folderId = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Boolean> isLongClick = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLongClick = new MutableLiveData<>(); //롱클릭 여부
     @NonNull
     private MutableLiveData<Boolean> isEdit = new MutableLiveData<>(); //폴더 이름 수정
 
     @NonNull
-    private final MutableLiveData<List<FolderEntity>> longSelectedItem = new MutableLiveData<>(); //폴더 삭제 아이템들
+    private final MutableLiveData<List<Folder>> longSelectedItem = new MutableLiveData<>(); //폴더 삭제 아이템들
 
     private FolderRepository folderRepository;
+
+    @NonNull
+    private final SingleLiveEvent<String> message = new SingleLiveEvent<>(); //에러 메세지
 
     @NonNull
     @Override
@@ -62,12 +69,11 @@ public class FolderListViewModel extends BaseViewModel {
     }
 
     // 롱클릭 후 선택된 폴더들 TODO 선택 취소시
-    public void setIsLongClick(FolderEntity item){
-        List<FolderEntity> items = null;
+    public void setIsLongClick(Folder item){
+        List<Folder> items = null;
         //error!!
 //        items.add(item);
         this.longSelectedItem.setValue(items);
-        Log.d("EditTest","longSelectedItem: "+ longSelectedItem);
     }
 
     public void loadFolderList() {
@@ -76,22 +82,30 @@ public class FolderListViewModel extends BaseViewModel {
                 .subscribe(folderList::setValue, error::setValue));
     }
 
-    public void clickFavorite(final FolderEntity item) {
+    /**
+     * 핀 폴더 변경
+     */
+    public void clickFavorite(final Folder item) {
         // true
-        FolderEntity trueItem = new FolderEntity(item.getId(), item.getName(), item.getStoreTime(), true, false);
+        Folder trueItem = new Folder(item.getId(), item.getName(), true, false);
         // false
-        FolderEntity firstItem = folderList.getValue().get(0);
+        Folder firstItem = folderList.getValue().get(0);
         if (firstItem.isFavorite()) {
-            FolderEntity falseItem = new FolderEntity(firstItem.getId(), firstItem.getName(), firstItem.getStoreTime(), false, false);
+            Folder falseItem = new Folder(firstItem.getId(), firstItem.getName(), false, false);
             addDisposable(folderRepository.observeChangeFavorite(trueItem)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .mergeWith(folderRepository.observeChangeFavorite(falseItem))
                     .subscribe(this::loadFolderList));
         } else {
             addDisposable(folderRepository.observeChangeFavorite(trueItem)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::loadFolderList));
         }
     }
 
+    /**
+     * 폴더 추가
+     */
     public void addNewFolder() {
         final String newFolderName = folderName.getValue();
         final String storageTime = DateUtil.getCurrentDateTime();
@@ -102,10 +116,23 @@ public class FolderListViewModel extends BaseViewModel {
         addDisposable(folderRepository.observeAddNewFolder(new NewFolderRequest(newFolderName,
                 storageTime))
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(error ->{
+                    if(error instanceof RetrofitException){ // 서버 통신 에러
+                        RetrofitResultCode code = ((RetrofitException) error).getRetrofitResultCode();
+                        if(code == RetrofitResultCode.FOLDER_ERROR_501){ // 예기치 못한 에러발생
+                            this.message.setValue(code.getMessage());
+                        }
+                    } else if(error instanceof RoomException){ // 룸 에러
+                        RoomResult result = ((RoomException) error).getRoomResult();
+                        if(result == RoomResult.FOLDER_ALREADY_EXIST){ // 이미 존재
+                            Toast.makeText(App.instance().getContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
                 .subscribe(id -> {
                     folderId.setValue(id);
                     folderName.setValue(null);
-                }, error::setValue));
+                }));
     }
 
     /**
@@ -114,29 +141,27 @@ public class FolderListViewModel extends BaseViewModel {
      */
     public void changeFolderName() {
         final String changeFolderName = folderName.getValue();
-        final FolderEntity originalFolder = this.selectedItem.getValue();
-
-        Log.d("EditTest","changeFolderName: "+ changeFolderName);
+        final Folder originalFolder = this.selectedItem.getValue();
 
         addDisposable(folderRepository.observeChangeFolderName(new ChangeFolderRequest(
-                originalFolder.getId(), changeFolderName), new FolderEntity(originalFolder.getId(),
-                changeFolderName, originalFolder.getStoreTime(), originalFolder.isFavorite(), originalFolder.isSelected()))
+                originalFolder.getId(), changeFolderName), new Folder(originalFolder.getId(),
+                changeFolderName,originalFolder.isFavorite(), originalFolder.isSelected()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(folderId::setValue, error::setValue));
         toggleDrawer(false);
     }
 
     @NonNull
-    public LiveData<List<FolderEntity>> getFolderList() {
+    public LiveData<List<Folder>> getFolderList() {
         return folderList;
     }
 
     @NonNull
-    public LiveData<FolderEntity> getSelectedItem() {
+    public LiveData<Folder> getSelectedItem() {
         return selectedItem;
     }
 
-    public void setSelectedItem(FolderEntity item) {
+    public void setSelectedItem(Folder item) {
         selectedItem.setValue(item);
     }
 
@@ -151,7 +176,7 @@ public class FolderListViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<Integer> getFolderId() {
+    public LiveData<String> getFolderId() {
         return folderId;
     }
 
@@ -166,7 +191,7 @@ public class FolderListViewModel extends BaseViewModel {
     }
 
     @NonNull
-    public LiveData<List<FolderEntity>> getLongSelectedItem() {
+    public LiveData<List<Folder>> getLongSelectedItem() {
         return longSelectedItem;
     }
 }

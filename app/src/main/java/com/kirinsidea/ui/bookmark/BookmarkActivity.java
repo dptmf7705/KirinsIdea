@@ -24,17 +24,21 @@ import com.kirinsidea.ui.memo.MemoViewModel;
 public class BookmarkActivity extends BaseActivity<ActivityBookmarkBinding> {
     private static final String EXTRA_BOOKMARK_ID = "EXTRA_BOOKMARK_ID";
     private static final String TAG_MEMO_BOTTOM_SHEET = "TAG_MEMO_BOTTOM_SHEET";
-    private int bookmarkId;
+    private String bookmarkId;
 
     public static Intent getLaunchIntent(@NonNull final Context context,
-                                         final int bookmarkId) {
+                                         final String bookmarkId) {
         Intent intent = new Intent(context, BookmarkActivity.class);
         intent.putExtra(EXTRA_BOOKMARK_ID, bookmarkId);
         return intent;
     }
 
     private void getLaunchIntentData() {
-        bookmarkId = getIntent().getIntExtra(EXTRA_BOOKMARK_ID, 0);
+        bookmarkId = getIntent().getStringExtra(EXTRA_BOOKMARK_ID);
+
+        if(bookmarkId == null){
+            bookmarkId ="0"; //default string
+        }
     }
 
     @Override

@@ -6,19 +6,21 @@ import androidx.annotation.NonNull;
 
 import com.kirinsidea.data.source.entity.HighlightEntity;
 
+import java.util.Objects;
+
 public class Highlight {
-    private static final int NEW_HIGHLIGHT_ID = 0;
-    private final int highlightId;
-    private final int bookmarkId;
+    private static final String NEW_HIGHLIGHT_ID = "0";
+    private final String highlightId;
+    private final String bookmarkId;
     @NonNull
-    private Pair<Integer, Integer> selection;
+    private Pair<String, String> selection;
     @NonNull
     private String highlightText;
     @NonNull
     private HighlightColor highlightColor;
 
-    public Highlight(final int bookmarkId,
-                     @NonNull final Pair<Integer, Integer> selection,
+    public Highlight(final String bookmarkId,
+                     @NonNull final Pair<String, String> selection,
                      @NonNull final String highlightText,
                      @NonNull final HighlightColor highlightColor) {
         this.highlightId = NEW_HIGHLIGHT_ID;
@@ -36,20 +38,20 @@ public class Highlight {
         this.highlightColor = builder.highlightColor;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
     @NonNull
-    public Pair<Integer, Integer> getSelection() {
+    public Pair<String, String> getSelection() {
         return selection;
     }
 
-    public void setSelection(@NonNull Pair<Integer, Integer> selection) {
+    public void setSelection(@NonNull Pair<String, String> selection) {
         this.selection = selection;
     }
 
@@ -77,17 +79,22 @@ public class Highlight {
         if (o == null || getClass() != o.getClass()) return false;
         Highlight highlight = (Highlight) o;
         return highlightId == highlight.highlightId &&
-                bookmarkId == highlight.bookmarkId &&
+                Objects.equals(bookmarkId, highlight.bookmarkId) &&
                 selection.equals(highlight.selection) &&
                 highlightText.equals(highlight.highlightText) &&
                 highlightColor == highlight.highlightColor;
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(highlightId, bookmarkId, selection, highlightText, highlightColor);
+    }
+
+    @Override
     public String toString() {
         return "Highlight{" +
                 "highlightId=" + highlightId +
-                ", bookmarkId=" + bookmarkId +
+                ", bookmarkId='" + bookmarkId + '\'' +
                 ", selection=" + selection +
                 ", highlightText='" + highlightText + '\'' +
                 ", highlightColor=" + highlightColor +
@@ -95,10 +102,10 @@ public class Highlight {
     }
 
     public static class Builder {
-        private final int highlightId;
-        private final int bookmarkId;
+        private final String highlightId;
+        private final String bookmarkId;
         @NonNull
-        private final Pair<Integer, Integer> selection;
+        private final Pair<String, String> selection;
         @NonNull
         private final String selectedText;
         @NonNull

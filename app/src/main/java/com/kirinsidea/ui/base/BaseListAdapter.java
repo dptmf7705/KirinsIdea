@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kirinsidea.ui.listener.ItemClickListener;
+import com.kirinsidea.ui.listener.ItemLongClickListener;
 
 public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> extends ListAdapter<T, VH> {
 
@@ -46,11 +47,10 @@ public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> ext
             holder.itemView.setOnClickListener(__ ->
                     itemClickListener.onItemClick(item));
         }
-
         onBindViewHolder(holder, item, position);
     }
 
-    public void setItemClickListener(@Nullable ItemClickListener<T> itemClickListener) {
+    public void setItemClickListener(@Nullable ItemClickListener<T> itemClickListener){
         this.itemClickListener = itemClickListener;
     }
 

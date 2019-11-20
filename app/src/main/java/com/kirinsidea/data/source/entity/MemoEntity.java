@@ -18,9 +18,10 @@ import com.kirinsidea.ui.memo.NewMemo;
  */
 @Entity(tableName = "memo")
 public class MemoEntity {
-    @PrimaryKey(autoGenerate = true)
-    private int memoId;
-    private int highlightId;
+    @PrimaryKey
+    @NonNull
+    private String memoId;
+    private String highlightId;
     private String memoContent;
     private boolean isPrivate;
 
@@ -34,19 +35,19 @@ public class MemoEntity {
         this.isPrivate = builder.isPrivate;
     }
 
-    public int getMemoId() {
+    public String getMemoId() {
         return memoId;
     }
 
-    public void setMemoId(int memoId) {
+    public void setMemoId(String memoId) {
         this.memoId = memoId;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
-    public void setHighlightId(int highlightId) {
+    public void setHighlightId(String highlightId) {
         this.highlightId = highlightId;
     }
 
@@ -67,8 +68,8 @@ public class MemoEntity {
     }
 
     public static class Builder {
-        private final int memoId;
-        private final int highlightId;
+        private final String memoId;
+        private final String highlightId;
         private final String memoContent;
         private final boolean isPrivate;
 

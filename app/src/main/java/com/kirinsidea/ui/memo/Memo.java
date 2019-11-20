@@ -5,20 +5,20 @@ import androidx.annotation.NonNull;
 import com.kirinsidea.data.source.entity.MemoDetailEntity;
 
 public class Memo {
-    private static final int NEW_MEMO_ID = 0;
-    private int memoId;
-    private final int bookmarkId;
-    private final int highlightId;
-    private final int startIndex;
-    private final int endIndex;
+    private static final String NEW_MEMO_ID = "0";
+    private String memoId;
+    private final String bookmarkId;
+    private final String highlightId;
+    private final String startIndex;
+    private final String endIndex;
     private final String highlightText;
     private String memoContent;
     private boolean isPrivate;
 
-    public Memo(final int bookmarkId,
-                final int highlightId,
-                final int startIndex,
-                final int endIndex,
+    public Memo(final String bookmarkId,
+                final String highlightId,
+                final String startIndex,
+                final String endIndex,
                 @NonNull final String highlightText,
                 @NonNull final String memoContent) {
         this.memoId = NEW_MEMO_ID;
@@ -42,23 +42,23 @@ public class Memo {
         this.isPrivate = builder.isPrivate;
     }
 
-    public int getMemoId() {
+    public String getMemoId() {
         return memoId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
-    public int getStartIndex() {
+    public String getStartIndex() {
         return startIndex;
     }
 
-    public int getEndIndex() {
+    public String getEndIndex() {
         return endIndex;
     }
 
@@ -97,11 +97,11 @@ public class Memo {
     }
 
     public static class Builder {
-        private final int memoId;
-        private final int bookmarkId;
-        private final int highlightId;
-        private final int startIndex;
-        private final int endIndex;
+        private final String memoId;
+        private final String bookmarkId;
+        private final String highlightId;
+        private final String startIndex;
+        private final String endIndex;
         private final String highlightText;
         private final String memoContent;
         private final boolean isPrivate;

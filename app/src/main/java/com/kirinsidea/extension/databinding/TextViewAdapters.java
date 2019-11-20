@@ -77,12 +77,12 @@ public class TextViewAdapters {
      */
     @BindingAdapter({"selection"})
     public static void setSelection(@NonNull final SelectableTextView textView,
-                                    @NonNull final Pair<Integer, Integer> selection) {
+                                    @NonNull final Pair<String, String> selection) {
         textView.setSelection(selection);
     }
 
     @InverseBindingAdapter(attribute = "selection", event = "selectionChanged")
-    public static Pair<Integer, Integer> getSelection(@NonNull final SelectableTextView textView) {
+    public static Pair<String, String> getSelection(@NonNull final SelectableTextView textView) {
         return textView.getSelection();
     }
 

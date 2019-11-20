@@ -18,11 +18,12 @@ import com.kirinsidea.ui.highlight.Highlight;
  */
 @Entity(tableName = "highlight")
 public class HighlightEntity {
-    @PrimaryKey(autoGenerate = true)
-    private int highlightId;
-    private int bookmarkId;
-    private int startIndex;
-    private int endIndex;
+    @PrimaryKey
+    @NonNull
+    private String highlightId;
+    private String bookmarkId;
+    private String startIndex;
+    private String endIndex;
     private String highlightText;
     private String highlightColor;
 
@@ -38,35 +39,35 @@ public class HighlightEntity {
         this.highlightColor = builder.highlightColor;
     }
 
-    public int getHighlightId() {
+    public String getHighlightId() {
         return highlightId;
     }
 
-    public void setHighlightId(int highlightId) {
+    public void setHighlightId(String highlightId) {
         this.highlightId = highlightId;
     }
 
-    public int getBookmarkId() {
+    public String getBookmarkId() {
         return bookmarkId;
     }
 
-    public void setBookmarkId(int bookmarkId) {
+    public void setBookmarkId(String bookmarkId) {
         this.bookmarkId = bookmarkId;
     }
 
-    public int getStartIndex() {
+    public String getStartIndex() {
         return startIndex;
     }
 
-    public void setStartIndex(int startIndex) {
+    public void setStartIndex(String startIndex) {
         this.startIndex = startIndex;
     }
 
-    public int getEndIndex() {
+    public String getEndIndex() {
         return endIndex;
     }
 
-    public void setEndIndex(int endIndex) {
+    public void setEndIndex(String endIndex) {
         this.endIndex = endIndex;
     }
 
@@ -87,10 +88,10 @@ public class HighlightEntity {
     }
 
     public static class Builder {
-        private final int highlightId;
-        private final int bookmarkId;
-        private final int startIndex;
-        private final int endIndex;
+        private final String highlightId;
+        private final String bookmarkId;
+        private final String startIndex;
+        private final String endIndex;
         private final String highlightText;
         private final String highlightColor;
 

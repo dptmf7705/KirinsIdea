@@ -6,19 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
+import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
 import com.kirinsidea.data.source.entity.BookmarkEntity;
-import com.kirinsidea.data.source.entity.FolderEntity;
 import com.kirinsidea.data.source.entity.HighlightEntity;
 import com.kirinsidea.data.source.entity.MemoEntity;
-import com.kirinsidea.extension.room.Converters;
 
-@TypeConverters({Converters.class})
 @Database(entities = {
         BookmarkEntity.class,
         FolderEntity.class,
