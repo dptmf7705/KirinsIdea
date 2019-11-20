@@ -54,7 +54,7 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Maybe<Folder> observeFolderById(String folderId) {
         return folderLocalDataSource.selectById(folderId).subscribeOn(Schedulers.io())
                 .map(entity -> {
-                    Folder folder = new Folder.Builder().fromEntity(entity).build();
+                    Folder folder = new Folder.Builder(entity).build();
                     return folder;
                 })
                 .switchIfEmpty(Maybe.error(new RoomException(RoomResult.NULL))); //없는 경우 NULL 에러
@@ -67,7 +67,7 @@ public class FolderRepositoryImpl implements FolderRepository {
                 .map(list -> {
                     List<Folder> folderList = new ArrayList<>();
                     for (FolderEntity entity : list) {
-                        folderList.add(new Folder.Builder().fromEntity(entity).build());
+                        folderList.add(new Folder.Builder(entity).build());
                     }
                     return folderList;
                 });

@@ -33,6 +33,13 @@ public class Folder {
         this.isSelected = isSelected;
     }
 
+    private Folder(@NonNull final Builder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.isFavorite = builder.isFavorite;
+        this.isSelected = builder.isSelected;
+    }
+
     @NonNull
     public String getId() {
         return id;
@@ -89,12 +96,10 @@ public class Folder {
         private boolean isFavorite ;
         private boolean isSelected =false;
 
-        @NonNull
-        public Builder fromEntity(@NonNull final FolderEntity entity) {
+        public Builder(@NonNull final FolderEntity entity) {
             this.id = entity.getId();
             this.name = entity.getName();
             this.isFavorite = entity.isFavorite();
-            return this;
         }
 
         @NonNull
@@ -105,7 +110,7 @@ public class Folder {
 
         @NonNull
         public Folder build(){
-            return new Folder(id, name, isFavorite, isSelected);
+            return new Folder(this);
         }
 
     }
