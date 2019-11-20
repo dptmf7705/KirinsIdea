@@ -9,7 +9,7 @@ import com.kirinsidea.data.source.entity.FolderEntity;
 import java.util.Objects;
 
 public class Folder {
-    private static final String ALL_BOOKMARK = "-1";
+    public static final Folder ALL_BOOKMARK = new Folder("-1", "전체");
 
     @NonNull
     private String id;
@@ -21,9 +21,11 @@ public class Folder {
     private boolean isSelected;
 
     @Ignore
-    public Folder(@NonNull String name){
-        this.id = ALL_BOOKMARK;
+    public Folder(@NonNull String id, @NonNull String name) {
+        this.id = id;
         this.name = name;
+        this.isFavorite = false;
+        this.isSelected = false;
     }
 
     public Folder(@NonNull String id, @NonNull String name, boolean isFavorite, boolean isSelected) {
@@ -33,7 +35,7 @@ public class Folder {
         this.isSelected = isSelected;
     }
 
-    private Folder(@NonNull final Builder builder){
+    private Folder(@NonNull final Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.isFavorite = builder.isFavorite;
@@ -93,8 +95,8 @@ public class Folder {
     public static class Builder {
         private String id;
         private String name;
-        private boolean isFavorite ;
-        private boolean isSelected =false;
+        private boolean isFavorite;
+        private boolean isSelected = false;
 
         public Builder(@NonNull final FolderEntity entity) {
             this.id = entity.getId();
@@ -103,13 +105,13 @@ public class Folder {
         }
 
         @NonNull
-        public Builder setSelected(@NonNull final boolean isSelected){
+        public Builder setSelected(@NonNull final boolean isSelected) {
             this.isSelected = isSelected;
             return this;
         }
 
         @NonNull
-        public Folder build(){
+        public Folder build() {
             return new Folder(this);
         }
 

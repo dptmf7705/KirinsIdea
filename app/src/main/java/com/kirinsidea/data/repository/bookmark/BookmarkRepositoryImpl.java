@@ -6,7 +6,6 @@ import androidx.paging.DataSource;
 import com.kirinsidea.App;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
-import com.kirinsidea.data.source.entity.BookmarkEntity;
 import com.kirinsidea.data.source.local.room.error.RoomException;
 import com.kirinsidea.data.source.local.room.error.RoomResult;
 import com.kirinsidea.data.source.remote.kirin.api.BookmarkApi;
@@ -19,9 +18,7 @@ import com.kirinsidea.data.source.remote.kirin.mock.FileMockApi;
 import com.kirinsidea.data.source.remote.kirin.request.NewBookmarkRequest;
 import com.kirinsidea.ui.bookmark.Bookmark;
 import com.kirinsidea.ui.bookmarklist.BookmarkItem;
-import com.kirinsidea.utils.FileUtil;
-
-import java.util.Objects;
+import com.kirinsidea.ui.folderlist.Folder;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -70,14 +67,13 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     @NonNull
     @Override
     public DataSource.Factory<Integer, BookmarkItem> observeBookmarkListById(final String id) {
-        if (ALL_BOOKMARK.equals(id)) {
+        if (Folder.ALL_BOOKMARK.getId().equals(id)) {
             return bookmarkLocalDataSource.selectAll().map(entity ->
                     new BookmarkItem.Builder().fromEntity(entity).build());
         } else {
             return bookmarkLocalDataSource.selectByFolderId(id)
                     .map(entity -> new BookmarkItem.Builder().fromEntity(entity).build());
         }
-
     }
 
     /**

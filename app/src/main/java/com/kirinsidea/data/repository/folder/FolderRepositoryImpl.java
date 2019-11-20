@@ -82,7 +82,7 @@ public class FolderRepositoryImpl implements FolderRepository {
                             if (response.getRetrofitResultCode() == RetrofitResultCode.SUCCESS) {
                                 return folderLocalDataSource.insert(response.getResult()).
                                         toSingleDefault(response.getResult().getId()).subscribeOn(Schedulers.io());
-                            }else{
+                            } else {
                                 return Single.error(new RetrofitException(response.getRetrofitResultCode()));
                             }
                         }
@@ -100,6 +100,7 @@ public class FolderRepositoryImpl implements FolderRepository {
 
 
     // TODO 수정 변경 시간 받는지 / 에러처리
+
     /**
      * 폴더 이름 수정
      */
@@ -118,6 +119,6 @@ public class FolderRepositoryImpl implements FolderRepository {
      */
     @Override
     public Single<String> observeBookmarkByFavorite() {
-        return folderLocalDataSource.selectedByFavorite().subscribeOn(Schedulers.io()).toSingle(ALL_BOOKMARK);
+        return folderLocalDataSource.selectedByFavorite().subscribeOn(Schedulers.io()).toSingle(Folder.ALL_BOOKMARK.getId());
     }
 }

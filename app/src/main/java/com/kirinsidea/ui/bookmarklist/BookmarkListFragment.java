@@ -74,8 +74,7 @@ public class BookmarkListFragment extends BaseFragment<FragmentBookmarkListBindi
         //전체
         binding.folderDefault.tvFolder.setOnClickListener(v -> {
             binding.getFolderlistvm().toggleDrawer(false);
-            Folder allBookmark = new Folder("전체");
-            binding.getFolderlistvm().setSelectedItem(allBookmark);
+            binding.getFolderlistvm().setSelectedItem(Folder.ALL_BOOKMARK);
         });
     }
 
