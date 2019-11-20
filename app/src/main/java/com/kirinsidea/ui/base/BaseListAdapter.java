@@ -17,10 +17,6 @@ public abstract class BaseListAdapter<T, VH extends RecyclerView.ViewHolder> ext
 
     @Nullable
     protected ItemClickListener<T> itemClickListener;
-//    @Nullable
-//    protected ItemClickListener<T> favoriteClickListener;
-//    @Nullable
-//    protected ItemLongClickListener<T> itemLongClickListener;
 
     public BaseListAdapter(@NonNull DiffUtil.ItemCallback<T> diffCallback) {
         this(diffCallback, null);
