@@ -78,12 +78,12 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Single<String> observeAddNewFolder(@NonNull NewFolderRequest request) {
         return folderRemoteDataSource.addNewFolder(request)
                 .subscribeOn(Schedulers.io())
-                .flatMap(entity -> {
-                            if (entity.getRetrofitResultCode() == RetrofitResultCode.SUCCESS) {
-                                return folderLocalDataSource.insert(entity.getResult()).
-                                        toSingleDefault(entity.getResult().getId()).subscribeOn(Schedulers.io());
+                .flatMap(response -> {
+                            if (response.getRetrofitResultCode() == RetrofitResultCode.SUCCESS) {
+                                return folderLocalDataSource.insert(response.getResult()).
+                                        toSingleDefault(response.getResult().getId()).subscribeOn(Schedulers.io());
                             }else{
-                                return Single.error(new RetrofitException(entity.getRetrofitResultCode()));
+                                return Single.error(new RetrofitException(response.getRetrofitResultCode()));
                             }
                         }
                 );
