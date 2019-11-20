@@ -18,7 +18,7 @@ import com.kirinsidea.ui.folderlist.Folder;
  * @member storeTime    폴더 생성시간
  * @member isFavorite   즐겨찾기(핀) 여부
  */
-@Entity(tableName = "FolderEntity")
+@Entity(tableName = "Folder")
 public class FolderEntity {
     @PrimaryKey
     @SerializedName("folderId")
