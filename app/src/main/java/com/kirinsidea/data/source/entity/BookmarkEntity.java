@@ -81,7 +81,7 @@ public class BookmarkEntity {
     public BookmarkEntity() {
     }
 
-    public BookmarkEntity(Builder builder) {
+    private BookmarkEntity(Builder builder) {
         this.id = builder.id;
         this.originalWebUrl = builder.originalWebUrl;
         this.simpleWebUrl = builder.simpleWebUrl;
