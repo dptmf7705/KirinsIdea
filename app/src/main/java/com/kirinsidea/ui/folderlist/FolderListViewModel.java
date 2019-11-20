@@ -1,7 +1,6 @@
 package com.kirinsidea.ui.folderlist;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,15 +28,15 @@ public class FolderListViewModel extends BaseViewModel {
     @NonNull
     private final MutableLiveData<List<Folder>> folderList = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Folder> selectedItem = new MutableLiveData<>();
+    private final MutableLiveData<Folder> selectedItem = new MutableLiveData<>(); //현재 선택한 폴더
     @NonNull
-    private final SingleLiveEvent<Boolean> isClick = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Boolean> isClick = new SingleLiveEvent<>(); //드로어 클릭 여부
     @NonNull
     private final MutableLiveData<String> folderName = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<String> folderId = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Boolean> isLongClick = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLongClick = new MutableLiveData<>(); //롱클릭 여부
     @NonNull
     private MutableLiveData<Boolean> isEdit = new MutableLiveData<>(); //폴더 이름 수정
 
@@ -47,7 +46,7 @@ public class FolderListViewModel extends BaseViewModel {
     private FolderRepository folderRepository;
 
     @NonNull
-    private final SingleLiveEvent<String> message = new SingleLiveEvent<>();
+    private final SingleLiveEvent<String> message = new SingleLiveEvent<>(); //에러 메세지
 
     @NonNull
     @Override
@@ -75,7 +74,6 @@ public class FolderListViewModel extends BaseViewModel {
         //error!!
 //        items.add(item);
         this.longSelectedItem.setValue(items);
-        Log.d("EditTest","longSelectedItem: "+ longSelectedItem);
     }
 
     public void loadFolderList() {
@@ -84,6 +82,9 @@ public class FolderListViewModel extends BaseViewModel {
                 .subscribe(folderList::setValue, error::setValue));
     }
 
+    /**
+     * 핀 폴더 변경
+     */
     public void clickFavorite(final Folder item) {
         // true
         Folder trueItem = new Folder(item.getId(), item.getName(), true, false);
@@ -102,6 +103,9 @@ public class FolderListViewModel extends BaseViewModel {
         }
     }
 
+    /**
+     * 폴더 추가
+     */
     public void addNewFolder() {
         final String newFolderName = folderName.getValue();
         final String storageTime = DateUtil.getCurrentDateTime();
@@ -138,8 +142,6 @@ public class FolderListViewModel extends BaseViewModel {
     public void changeFolderName() {
         final String changeFolderName = folderName.getValue();
         final Folder originalFolder = this.selectedItem.getValue();
-
-        Log.d("EditTest","changeFolderName: "+ changeFolderName);
 
         addDisposable(folderRepository.observeChangeFolderName(new ChangeFolderRequest(
                 originalFolder.getId(), changeFolderName), new Folder(originalFolder.getId(),

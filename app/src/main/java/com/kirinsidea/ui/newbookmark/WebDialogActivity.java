@@ -35,6 +35,9 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         checkPermission();
     }
 
+    /**
+     * 접근 권한 체크
+     */
     public void checkPermission(){
         disposable = TedRx2Permission.with(WebDialogActivity.this)
                 .setRationaleTitle("저장소 접근 권한 허용")
@@ -42,7 +45,7 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
                 .setDeniedMessage("저장소 권한이 거부되었습니다.\n[설정] > [권한] 에서 권한을 허용하셔야합니다.")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.SYSTEM_ALERT_WINDOW)
+                        Manifest.permission.SYSTEM_ALERT_WINDOW) //다른 앱 위에 그리기 권한
                 .request()
                 .subscribe(tedPermissionResult -> {
                     if (tedPermissionResult.isGranted()) {
@@ -71,12 +74,6 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
         binding.getVm().setNavigator(this);
         binding.getFolderlistvm().getFolderId().observe(this
                 , id -> binding.getVm().checkExistUrl(id));
-//        binding.getVm().getStatus().observe(this, status -> {
-//            if(status.equals("ERROR")){
-//                Toast.makeText(this, "이미 존재하는 북마크 입니다.", Toast.LENGTH_SHORT)
-//                        .show();
-//            }
-//        });
         //에러 메세지 출력
         binding.getVm().getMessage().observe(this, message ->
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show());
@@ -87,7 +84,10 @@ public class WebDialogActivity extends BaseActivity<ActivityWebDialogBinding> im
                 .checkExistUrl(item.getId())));
     }
 
-      @Override
+    /**
+     * 북마크 추가시 해당 페이지 url 받아오기
+     */
+    @Override
     public String getWebUrl(){
         final Intent intent = getIntent();
         final String action = intent.getAction();

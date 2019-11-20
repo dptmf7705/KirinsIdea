@@ -2,7 +2,6 @@ package com.kirinsidea.ui.newbookmark;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
@@ -19,8 +18,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class NewBookmarkViewModel extends BaseViewModel<WebNavigator> {
 
-    private MutableLiveData<String> status = new MutableLiveData<>();
-
     private BookmarkRepository bookmarkRepository;
 
     @NonNull
@@ -34,15 +31,13 @@ public class NewBookmarkViewModel extends BaseViewModel<WebNavigator> {
     }
 
     @NonNull
-    public LiveData<String> getStatus() {
-        return status;
-    }
-
-    @NonNull
     public LiveData<String> getMessage() {
         return message;
     }
 
+    /**
+     * 북마크 추가시 url 중복 검사
+     */
     public void checkExistUrl(String fId) {
         String url = navigator.get().getWebUrl();
 
@@ -59,14 +54,6 @@ public class NewBookmarkViewModel extends BaseViewModel<WebNavigator> {
                     if(integer == 0)
                         addNewBookmark(url, fId);
                 }));
-
-//                    .subscribe(integer -> {
-//                    if (integer == 0) {
-//                        addNewBookmark(url, fId);
-//                    } else {
-//                        status.setValue("ERROR");
-//                    }
-//                }));
     }
 
     public void addNewBookmark(String url, String fId) {

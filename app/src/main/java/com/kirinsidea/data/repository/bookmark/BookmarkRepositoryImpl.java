@@ -80,6 +80,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     }
 
+    /**
+     * 북마크 추가시 url 중복 검사
+     */
     @NonNull
     @Override
     public Single<Integer> checkIfExistUrl(String Url) {

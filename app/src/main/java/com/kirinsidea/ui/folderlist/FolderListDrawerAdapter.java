@@ -41,10 +41,12 @@ public class FolderListDrawerAdapter extends BaseListAdapter<Folder, FolderListD
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Folder item, int position) {
         holder.getBinding().setItem(item);
 
+        //핀
         if (favoriteClickListener != null) {
             holder.getBinding().ivFolderPin.setOnClickListener(__ ->
                     favoriteClickListener.onItemClick(item));
         }
+        //롱클릭
         if (itemLongClickListener != null) {
             holder.itemView.setOnLongClickListener(v -> {
                 itemLongClickListener.onItemLongClick(item);
