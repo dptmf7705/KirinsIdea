@@ -34,7 +34,7 @@ public class BookmarkListViewModel extends BaseViewModel {
         SelectBookmarkList();
 
         bookmarkList = Transformations.switchMap(filterFolderId, folderId ->
-                new LivePagedListBuilder<>(bookmarkRepository.observeBookmarkList(folderId), PAGE_SIZE).build());
+                new LivePagedListBuilder<>(bookmarkRepository.observeBookmarkListById(folderId), PAGE_SIZE).build());
         return this;
     }
 

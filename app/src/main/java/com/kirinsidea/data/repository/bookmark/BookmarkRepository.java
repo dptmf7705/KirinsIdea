@@ -17,7 +17,7 @@ public interface BookmarkRepository extends BaseRepository {
     Single<Bookmark> observeBookmarkById(final String id);
 
     @NonNull
-    DataSource.Factory<Integer, BookmarkItem> observeBookmarkList(final String id);
+    DataSource.Factory<Integer, BookmarkItem> observeBookmarkListById(final String id);
 
     @NonNull
     Single<Integer> checkIfExistUrl(String Url);
