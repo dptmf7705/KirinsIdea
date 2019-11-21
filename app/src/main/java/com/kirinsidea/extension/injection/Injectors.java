@@ -2,13 +2,16 @@ package com.kirinsidea.extension.injection;
 
 import androidx.annotation.NonNull;
 
+import com.kirinsidea.App;
 import com.kirinsidea.data.repository.BaseRepository;
 import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
+import com.kirinsidea.data.repository.config.ConfigRepository;
 import com.kirinsidea.data.repository.folder.FolderRepository;
 import com.kirinsidea.data.repository.highlight.HighlightRepository;
 import com.kirinsidea.data.repository.login.LoginRepository;
 import com.kirinsidea.data.repository.memo.MemoRepository;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
+import com.kirinsidea.data.source.local.room.dao.ConfigDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
@@ -18,11 +21,12 @@ import com.kirinsidea.data.source.remote.kirin.api.FolderApi;
 import com.kirinsidea.ui.base.BaseViewModel;
 import com.kirinsidea.ui.bookmark.BookmarkViewModel;
 import com.kirinsidea.ui.bookmarklist.BookmarkListViewModel;
-import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.ui.folderlist.FolderListViewModel;
+import com.kirinsidea.ui.highlight.HighlightViewModel;
 import com.kirinsidea.ui.login.LoginViewModel;
 import com.kirinsidea.ui.memo.MemoViewModel;
 import com.kirinsidea.ui.newbookmark.NewBookmarkViewModel;
+import com.kirinsidea.ui.splash.SplashViewModel;
 
 abstract class Injectors {
 
@@ -57,6 +61,10 @@ abstract class Injectors {
             //noinspection unchecked
             return (VM) viewModel.init(
                     initRepository(Providers.getMemoRepository()));
+        } else if (viewModel instanceof SplashViewModel) {
+            //noinspection unchecked
+            return (VM) viewModel.init(
+                    initRepository(Providers.getConfigRepository()));
         }
 
         throw new IllegalArgumentException(
@@ -68,8 +76,7 @@ abstract class Injectors {
         if (repository instanceof LoginRepository) {
             //noinspection unchecked
             return (R) repository.init(
-                    Providers.getFirebaseAuthApi(),
-                    Providers.getGoogleLoginApi());
+                    Providers.getFirebaseAuthApi());
         } else if (repository instanceof BookmarkRepository) {
             //noinspection unchecked
             return (R) repository.init(
@@ -89,6 +96,10 @@ abstract class Injectors {
             //noinspection unchecked
             return (R) repository.init(
                     Providers.getRoomDao(MemoDao.class));
+        } else if (repository instanceof ConfigRepository) {
+            //noinspection unchecked
+            return (R) repository.init(
+                    Providers.getRoomDao(ConfigDao.class));
         }
 
         throw new IllegalArgumentException(

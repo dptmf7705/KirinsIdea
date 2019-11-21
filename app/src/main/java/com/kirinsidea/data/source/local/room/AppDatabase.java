@@ -7,16 +7,19 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.kirinsidea.data.source.entity.BookmarkEntity;
+import com.kirinsidea.data.source.entity.ConfigEntity;
 import com.kirinsidea.data.source.entity.FolderEntity;
+import com.kirinsidea.data.source.entity.HighlightEntity;
+import com.kirinsidea.data.source.entity.MemoEntity;
 import com.kirinsidea.data.source.local.room.dao.BookmarkDao;
+import com.kirinsidea.data.source.local.room.dao.ConfigDao;
 import com.kirinsidea.data.source.local.room.dao.FolderDao;
 import com.kirinsidea.data.source.local.room.dao.HighlightDao;
 import com.kirinsidea.data.source.local.room.dao.MemoDao;
-import com.kirinsidea.data.source.entity.BookmarkEntity;
-import com.kirinsidea.data.source.entity.HighlightEntity;
-import com.kirinsidea.data.source.entity.MemoEntity;
 
 @Database(entities = {
+        ConfigEntity.class,
         BookmarkEntity.class,
         FolderEntity.class,
         HighlightEntity.class,
@@ -37,7 +40,10 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public <T> T create(@NonNull final Class<T> daoClass) {
-        if (daoClass.isAssignableFrom(BookmarkDao.class)) {
+        if (daoClass.isAssignableFrom(ConfigDao.class)) {
+            //noinspection unchecked
+            return (T) configDao();
+        } else if (daoClass.isAssignableFrom(BookmarkDao.class)) {
             //noinspection unchecked
             return (T) bookmarkDao();
         } else if (daoClass.isAssignableFrom(FolderDao.class)) {
@@ -53,6 +59,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
         throw new IllegalArgumentException("Unknown Dao class" + daoClass.getSimpleName());
     }
+
+    abstract ConfigDao configDao();
 
     abstract BookmarkDao bookmarkDao();
 

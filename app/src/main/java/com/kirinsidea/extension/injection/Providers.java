@@ -1,17 +1,15 @@
 package com.kirinsidea.extension.injection;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.kirinsidea.App;
 import com.kirinsidea.data.repository.bookmark.BookmarkRepository;
 import com.kirinsidea.data.repository.bookmark.BookmarkRepositoryImpl;
+import com.kirinsidea.data.repository.config.ConfigRepository;
+import com.kirinsidea.data.repository.config.ConfigRepositoryImpl;
 import com.kirinsidea.data.repository.folder.FolderRepository;
 import com.kirinsidea.data.repository.folder.FolderRepositoryImpl;
 import com.kirinsidea.data.repository.highlight.HighlightRepository;
@@ -23,7 +21,6 @@ import com.kirinsidea.data.repository.memo.MemoRepositoryImpl;
 import com.kirinsidea.data.source.local.room.AppDatabase;
 import com.kirinsidea.data.source.remote.kirin.RetrofitClient;
 import com.kirinsidea.data.source.remote.thirdparty.firebase.FirebaseAuthApi;
-import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginApi;
 import com.kirinsidea.ui.base.BaseViewModel;
 
 public abstract class Providers {
@@ -72,6 +69,11 @@ public abstract class Providers {
     }
 
     @NonNull
+    static ConfigRepository getConfigRepository() {
+        return ConfigRepositoryImpl.getInstance();
+    }
+
+    @NonNull
     static <T> T getRoomDao(@NonNull final Class<T> daoClass) {
         return AppDatabase.getInstance(App.instance().getContext()).create(daoClass);
     }
@@ -84,21 +86,5 @@ public abstract class Providers {
     @NonNull
     static FirebaseAuthApi getFirebaseAuthApi() {
         return FirebaseAuthApi.getInstance();
-    }
-
-    @NonNull
-    static GoogleLoginApi getGoogleLoginApi() {
-
-        final Context context = App.instance().getContext();
-
-        final GoogleSignInOptions options = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(com.kirinsidea.R.string.default_web_client_id))
-                .requestEmail()
-                .requestProfile()
-                .build();
-
-        return GoogleLoginApi.getInstance(
-                GoogleSignIn.getClient(context, options));
     }
 }
