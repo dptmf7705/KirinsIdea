@@ -25,13 +25,16 @@ public class UserEntity {
     private String gender;
     @SerializedName("age")
     @Expose
-    private Integer age;
+    private String age;
     @SerializedName("login_type")
     @Expose
     private String loginType;
     @SerializedName("fb_uid")
     @Expose
-    private Object firebaseUid;
+    private String firebaseUid;
+    @SerializedName("profile_img")
+    @Expose
+    private String ProfileImageUrl;
     @SerializedName("created_date")
     @Expose
     private String createdDate;
@@ -77,11 +80,11 @@ public class UserEntity {
         this.gender = gender;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -97,7 +100,7 @@ public class UserEntity {
         return firebaseUid;
     }
 
-    public void setFirebaseUid(Object firebaseUid) {
+    public void setFirebaseUid(String firebaseUid) {
         this.firebaseUid = firebaseUid;
     }
 

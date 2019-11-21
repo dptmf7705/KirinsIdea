@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">책가방</string>
+    <string name="facebook_app_id">499142987361459</string>
+    <string name="fb_login_protocol_scheme">fb499142987361459</string>
 
     <!-- 스플래시 -->
     <string name="splash_loading">들어가는 중…</string>

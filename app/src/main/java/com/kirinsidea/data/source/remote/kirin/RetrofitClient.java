@@ -14,6 +14,7 @@ import com.google.gson.JsonSerializer;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kirinsidea.BuildConfig;
 import com.kirinsidea.data.source.remote.kirin.error.RetrofitResultCode;
+import com.kirinsidea.ui.user.LoginMethod;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static final String BASE_URL = "http://133.186.146.239:5000/";
+    private static final String DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
 
     private static class LazyHolder {
         private static final RetrofitClient INSTANCE = new RetrofitClient();
@@ -50,8 +52,9 @@ public class RetrofitClient {
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(Boolean.class, new BooleanTypeAdapter())
                 .registerTypeAdapter(RetrofitResultCode.class, new RetrofitResultCodeAdapter())
+                .registerTypeAdapter(LoginMethod.class, new LoginMethodAdapter())
                 .setPrettyPrinting()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .setDateFormat(DATE_FORMAT_STRING)
                 .serializeNulls()
                 .create();
 
@@ -78,12 +81,27 @@ public class RetrofitClient {
     }
 
     /**
-     * Boolean type Adapter
+     * RetrofitResultCode type Adapter
      */
     private static class RetrofitResultCodeAdapter implements JsonDeserializer<RetrofitResultCode> {
         @Override
         public RetrofitResultCode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             return RetrofitResultCode.get(json.getAsInt());
+        }
+    }
+
+    /**
+     * LoginMethod type Adapter
+     */
+    private static class LoginMethodAdapter implements JsonSerializer<LoginMethod>, JsonDeserializer<LoginMethod> {
+        @Override
+        public JsonElement serialize(LoginMethod src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.getLoginMethod());
+        }
+
+        @Override
+        public LoginMethod deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return LoginMethod.get(json.getAsString());
         }
     }
 

@@ -24,9 +24,7 @@ public class FirebaseAuthApi {
     }
 
     @NonNull
-    public Completable LoginWithCredential(
-            @NonNull final AuthCredential credential) {
-
+    public Completable LoginWithCredential(@NonNull final AuthCredential credential) {
         return Completable.create(emitter ->
                 firebase.signInWithCredential(credential)
                         .addOnSuccessListener(__ -> emitter.onComplete())
