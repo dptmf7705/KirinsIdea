@@ -36,7 +36,7 @@
             android:windowSoftInputMode="adjustNothing"
             android:taskAffinity="com.task.A"/>
         <activity
-            android:name=".ui.main.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme"
             android:taskAffinity="com.task.A">
             <intent-filter>

@@ -1,24 +1,29 @@
 package com.kirinsidea.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.gun0912.tedonactivityresult.model.ActivityResult;
 import com.kirinsidea.R;
-import com.kirinsidea.databinding.ActivityLoginBinding;
 import com.kirinsidea.extension.injection.Providers;
+import com.kirinsidea.data.source.remote.thirdparty.facebook.FacebookLoginHelper;
+import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginHelper;
+import com.kirinsidea.databinding.ActivityLoginBinding;
 import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.main.MainActivity;
-import com.tedpark.tedonactivityresult.rx2.TedRxOnActivityResult;
 
-import io.reactivex.Single;
+public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
+    private static final String TAG = "LoginActivity";
 
-public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements LoginNavigator {
+    private GoogleLoginHelper googleLoginHelper;
+    private FacebookLoginHelper facebookLoginHelper;
+
+    public static Intent getLaunchIntent(@NonNull Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -28,33 +33,35 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initLoginHelpers();
         initViewModel();
         initViews();
     }
 
+    private void initLoginHelpers() {
+        googleLoginHelper = GoogleLoginHelper.with(this);
+        facebookLoginHelper = FacebookLoginHelper.with(binding.btnFacebookGone);
+    }
+
     private void initViewModel() {
         binding.setVm(Providers.getViewModel(this, LoginViewModel.class));
-        binding.getVm().setNavigator(this);
+        binding.getVm().setGoogleLoginHelper(googleLoginHelper);
+        binding.getVm().setFacebookLoginHelper(facebookLoginHelper);
+        binding.getVm().getLoginSuccess().observe(this, success -> {
+            if (success) navigateLoginSuccess();
+        });
     }
 
     private void initViews() {
-        binding.layoutPassword.btnNext.setOnClickListener(__ -> navigateLoginSuccess());
+        binding.btnFacebook.setOnClickListener(__ -> binding.btnFacebookGone.performClick());
     }
 
     @Override
-    public Single<Intent> navigateLoginWithGoogle(@NonNull final Intent intent) {
-        return TedRxOnActivityResult.with(this)
-                .startActivityForResult(intent)
-                .map(ActivityResult::getData);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        binding.getVm().onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void navigateLoginWithEmail() {
-        binding.layoutLogin.getRoot().setVisibility(View.GONE);
-        binding.layoutPassword.getRoot().setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void navigateLoginSuccess() {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();

@@ -1,5 +1,7 @@
 package com.kirinsidea.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,6 +20,10 @@ import com.kirinsidea.ui.bookmarklist.BookmarkListFragment;
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements
         ViewPager.OnPageChangeListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public static Intent getLaunchIntent(@NonNull Context context){
+        return new Intent(context, MainActivity.class);
+    }
 
     @Override
     protected int getLayoutId() {

@@ -2,16 +2,19 @@ package com.kirinsidea.extension.databinding;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
 
 import com.kirinsidea.ui.highlight.Highlight;
 import com.kirinsidea.ui.highlight.HighlightViewModel;
+import com.kirinsidea.ui.login.LinkText;
 import com.kirinsidea.ui.memo.Memo;
 import com.kirinsidea.utils.CollectionUtil;
 import com.kirinsidea.widget.HighlightTextView;
@@ -20,6 +23,7 @@ import com.kirinsidea.widget.MemoEditText;
 import com.kirinsidea.widget.SelectableTextView;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -33,6 +37,22 @@ public class TextViewAdapters {
         }
 
         textView.setTextFromHtml(html);
+    }
+
+    @BindingAdapter({"linkItems"})
+    public static void setTextFromHtml(@NonNull final AppCompatTextView textView,
+                                       @Nullable final LinkText[] linkItems) {
+        if (linkItems == null){
+            return;
+        }
+
+        for (LinkText item : linkItems) {
+            Linkify.addLinks(textView,
+                    Pattern.compile(item.getString()),
+                    item.getUrl(),
+                    null,
+                    (match, url) -> "");
+        }
     }
 
     /**
