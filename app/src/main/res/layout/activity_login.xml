@@ -11,90 +11,123 @@
             type="com.kirinsidea.ui.login.LoginViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_brown"
-        android:padding="@dimen/space_24dp">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            style="@style/ImageButton.Splash"
-            android:src="@drawable/ic_backpack"
-            app:layout_constraintBottom_toTopOf="@id/guide_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_icon"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.45" />
+            android:layout_height="@dimen/toolbar_height_56dp">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_google"
-            style="@style/ImageButton.Login"
-            android:layout_width="@dimen/button_size_64dp"
-            android:layout_height="@dimen/button_size_64dp"
-            android:layout_margin="@dimen/space_16dp"
-            android:onClick="@{__ -> vm.signInWithGoogle()}"
-            android:src="@drawable/btn_google"
-            app:layout_constraintBottom_toTopOf="@id/tv_terms"
-            app:layout_constraintEnd_toStartOf="@id/btn_kakao"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guide_icon" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height_56dp" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_kakao"
-            style="@style/ImageButton.Login"
-            android:layout_width="@dimen/button_size_64dp"
-            android:layout_height="@dimen/button_size_64dp"
-            android:layout_margin="@dimen/space_16dp"
-            android:src="@drawable/btn_kakao"
-            app:layout_constraintBottom_toTopOf="@id/tv_terms"
-            app:layout_constraintEnd_toStartOf="@id/btn_facebook"
-            app:layout_constraintStart_toEndOf="@id/btn_google"
-            app:layout_constraintTop_toBottomOf="@id/guide_icon" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_facebook"
-            style="@style/ImageButton.Login"
-            android:layout_width="@dimen/button_size_64dp"
-            android:layout_height="@dimen/button_size_64dp"
-            android:layout_margin="@dimen/space_16dp"
-            android:src="@drawable/btn_facebook"
-            app:layout_constraintBottom_toTopOf="@id/tv_terms"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_kakao"
-            app:layout_constraintTop_toBottomOf="@id/guide_icon" />
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/btn_facebook_gone"
-            android:layout_width="@dimen/button_size_64dp"
-            android:layout_height="@dimen/button_size_64dp"
-            android:layout_margin="@dimen/space_16dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/tv_terms"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_kakao"
-            app:layout_constraintTop_toBottomOf="@id/guide_icon" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_terms"
-            style="@style/MultiLineText.10dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:gravity="center"
-            android:text="@string/login_terms_html"
-            android:textColor="@color/yellow_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:linkItems="@{vm.links}" />
+            android:layout_height="match_parent"
+            android:background="@color/bg_brown"
+            android:padding="@dimen/space_24dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_splash"
+                style="@style/ImageButton.Splash"
+                android:src="@drawable/img_splash"
+                app:layout_constraintBottom_toTopOf="@id/tv_main"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_main"
+                style="@style/SingleLineText.20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_24dp"
+                android:text="@string/app_name"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/text_title_24dp"
+                app:layout_constraintBottom_toTopOf="@id/btn_kakao"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_splash" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_google"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/button_size_64dp"
+                android:layout_height="@dimen/button_size_64dp"
+                android:layout_margin="@dimen/space_16dp"
+                android:onClick="@{__ -> vm.signInWithGoogle()}"
+                android:src="@drawable/btn_google"
+                app:layout_constraintBottom_toTopOf="@id/tv_terms"
+                app:layout_constraintEnd_toStartOf="@id/btn_kakao"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guide_icon" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_kakao"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/button_size_64dp"
+                android:layout_height="@dimen/button_size_64dp"
+                android:layout_margin="@dimen/space_16dp"
+                android:src="@drawable/btn_kakao"
+                app:layout_constraintBottom_toTopOf="@id/tv_terms"
+                app:layout_constraintEnd_toStartOf="@id/btn_facebook"
+                app:layout_constraintStart_toEndOf="@id/btn_google"
+                app:layout_constraintTop_toBottomOf="@id/guide_icon" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_facebook"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/button_size_64dp"
+                android:layout_height="@dimen/button_size_64dp"
+                android:layout_margin="@dimen/space_16dp"
+                android:src="@drawable/btn_facebook"
+                app:layout_constraintBottom_toTopOf="@id/tv_terms"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_kakao"
+                app:layout_constraintTop_toBottomOf="@id/guide_icon" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btn_facebook_gone"
+                style="@style/ImageButton.Login"
+                android:layout_width="@dimen/button_size_64dp"
+                android:layout_height="@dimen/button_size_64dp"
+                android:layout_margin="@dimen/space_16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_facebook"
+                app:layout_constraintEnd_toEndOf="@id/btn_facebook"
+                app:layout_constraintStart_toStartOf="@id/btn_facebook"
+                app:layout_constraintTop_toTopOf="@id/btn_facebook" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_terms"
+                style="@style/MultiLineText.12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                android:gravity="center"
+                android:text="@string/login_terms_html"
+                android:textColor="@color/yellow_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:linkItems="@{vm.links}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

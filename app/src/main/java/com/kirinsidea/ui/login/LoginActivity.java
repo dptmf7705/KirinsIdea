@@ -8,15 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.data.source.remote.thirdparty.facebook.FacebookLoginHelper;
 import com.kirinsidea.data.source.remote.thirdparty.google.GoogleLoginHelper;
 import com.kirinsidea.databinding.ActivityLoginBinding;
+import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.main.MainActivity;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
-    private static final String TAG = "LoginActivity";
 
     private GoogleLoginHelper googleLoginHelper;
     private FacebookLoginHelper facebookLoginHelper;
@@ -33,6 +32,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setTitle("로그인");
         initLoginHelpers();
         initViewModel();
         initViews();

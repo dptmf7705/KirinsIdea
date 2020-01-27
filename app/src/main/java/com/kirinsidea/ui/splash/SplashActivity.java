@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.kirinsidea.R;
-import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.databinding.ActivitySplashBinding;
+import com.kirinsidea.extension.injection.Providers;
 import com.kirinsidea.ui.base.BaseActivity;
 import com.kirinsidea.ui.login.LoginActivity;
 import com.kirinsidea.ui.main.MainActivity;

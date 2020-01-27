@@ -6,9 +6,21 @@
     <!-- 스플래시 -->
     <string name="splash_loading">들어가는 중…</string>
 
+    <string name="login_start">책가방 시작하기</string>
+
+    <!-- 회원가입 -->
+    <string name="sign_up_title">회원가입</string>
+    <string name="sign_up_email">이메일</string>
+    <string name="sign_up_nickname">닉네임</string>
+    <string name="sign_up_gender">성별</string>
+    <string name="sign_up_male">남성</string>
+    <string name="sign_up_female">여성</string>
+    <string name="sign_up_birthday">생년월일</string>
+    <string name="sign_up_done">확인</string>
+
     <!-- 이용약관 -->
     <string name="login_terms_html">
-        계정을 만들면 책가방의 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.
+        계정을 만들면 책가방의 서비스 약관 및 개인정보 보호 정책에\n동의하는 것으로 간주합니다.
     </string>
     <string name="login_terms_of_use_string">서비스 약관</string>
     <string name="login_terms_of_use_url">https://naver.com</string>

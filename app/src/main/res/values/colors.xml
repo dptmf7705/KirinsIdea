@@ -15,6 +15,7 @@
     <color name="text_black">#1a1818</color>
     <color name="text_grey">#6d6f72</color>
     <color name="text_grey_light">#aeb0b3</color>
+    <color name="text_grey_trans">#79F3F3F3</color>
 
     <!-- 스플래시 배경 -->
     <color name="bg_brown_light">#622F15</color>
